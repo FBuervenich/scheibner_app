@@ -1,0 +1,22 @@
+Scheibner App
+	- Android Handy
+	- Nur Portrait-Mode (To be discussed)
+	- TabView
+		○ Metadaten der Messung
+			§ Daten (aus API oder eingegeben)
+			§ Optionale Daten wie Name, Fahrzeugtyp etc
+		○ Ergebnisse (Zahlen + Bilder)
+		○ Kommentare
+			§ Lokal speichern
+			§ Upload zum Scheibner-Server
+	- Menüleiste links oben
+		○ Anleitung
+		○ Übersicht über alle Fahrzeugprofile
+		○ About-Page
+		○ Anzeigen des aktuellen Profils
+	- Fahrzeugprofildaten in Assets speichern?!
+	- Zum Appstart: Immer in den Tab wechseln, wo App verlassen wurde
+	- AppIcon
+	- LaunchScreen
+	- Barcodescanner statt Eingabe der Eingabe-ID
+	- Deutsch/Englisch
