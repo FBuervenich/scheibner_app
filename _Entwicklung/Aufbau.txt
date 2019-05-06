@@ -20,3 +20,7 @@ Scheibner App
 	- LaunchScreen
 	- Barcodescanner statt Eingabe der Eingabe-ID
 	- Deutsch/Englisch
+
+	- Datenspeicherung:
+		- Profile in SQLite Datenbank mit SQFlite (s. https://pusher.com/tutorials/local-data-flutter)
+		- Einstellungen entweder in Sharedpreferences oder auch in Datenbank
