@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scheibner_app/Localizations.dart';
 
 class metadataPage extends StatelessWidget {
   @override
@@ -6,7 +7,7 @@ class metadataPage extends StatelessWidget {
     return Container(
       child: Center(
         //TODO add metadataPage
-        child: Text('metadataPage'),
+        child: Text(DemoLocalizations.of(context).getValue("title2"))
       ),
     );
   }
