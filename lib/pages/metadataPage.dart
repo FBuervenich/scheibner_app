@@ -7,7 +7,7 @@ class metadataPage extends StatelessWidget {
     return Container(
       child: Center(
         //TODO add metadataPage
-        child: Text(DemoLocalizations.of(context).getValue("title2"))
+        child: Text(ScheibnerLocalizations.of(context).getValue("title2"))
       ),
     );
   }

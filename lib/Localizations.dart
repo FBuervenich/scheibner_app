@@ -3,13 +3,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show SynchronousFuture;
 
-class DemoLocalizations {
-  DemoLocalizations(this.locale);
+class ScheibnerLocalizations {
+  ScheibnerLocalizations(this.locale);
 
   final Locale locale;
 
-  static DemoLocalizations of(BuildContext context) {
-    return Localizations.of<DemoLocalizations>(context, DemoLocalizations);
+  static ScheibnerLocalizations of(BuildContext context) {
+    return Localizations.of<ScheibnerLocalizations>(context, ScheibnerLocalizations);
   }
 
   static Map<String, Map<String, String>> _localizedValues = {
@@ -28,17 +28,17 @@ class DemoLocalizations {
   }
 }
 
-class DemoLocalizationsDelegate extends LocalizationsDelegate<DemoLocalizations> {
+class DemoLocalizationsDelegate extends LocalizationsDelegate<ScheibnerLocalizations> {
   const DemoLocalizationsDelegate();
 
   @override
   bool isSupported(Locale locale) => ['en', 'de'].contains(locale.languageCode);
 
   @override
-  Future<DemoLocalizations> load(Locale locale) {
+  Future<ScheibnerLocalizations> load(Locale locale) {
     // Returning a SynchronousFuture here because an async "load" operation
     // isn't needed to produce an instance of DemoLocalizations.
-    return SynchronousFuture<DemoLocalizations>(DemoLocalizations(locale));
+    return SynchronousFuture<ScheibnerLocalizations>(ScheibnerLocalizations(locale));
   }
 
   @override

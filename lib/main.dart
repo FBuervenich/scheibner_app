@@ -30,7 +30,7 @@ class DemoApp extends StatelessWidget {
               ),
               //title: Text("tmp")),
               //internationalization, nullpointer, ask cardinaels
-              title: Text(DemoLocalizations.of(context).getValue("title"))),
+              title: Text(ScheibnerLocalizations.of(context).getValue("title"))),
           body: TabBarView(
             children: [metadataPage(), ergebnissePage(), saveCommentsPage()],
           ),
@@ -43,7 +43,7 @@ class Demo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      onGenerateTitle: (BuildContext context) => DemoLocalizations.of(context).getValue("title"),
+      onGenerateTitle: (BuildContext context) => ScheibnerLocalizations.of(context).getValue("title"),
       localizationsDelegates: [
         const DemoLocalizationsDelegate(),
         GlobalMaterialLocalizations.delegate,
