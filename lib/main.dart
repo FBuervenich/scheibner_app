@@ -8,42 +8,52 @@ import 'package:scheibner_app/pages/ergebnissePage.dart';
 import 'package:scheibner_app/pages/metadataPage.dart';
 import 'package:scheibner_app/pages/saveCommentsPage.dart';
 
-class DemoApp extends StatelessWidget {
+class ScheibnerApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-        length: 3,
-        child: Scaffold(
-          appBar: AppBar(
-              leading: IconButton(
-                icon: Icon(Icons.menu),
-                onPressed: () {
-                  //TODO add menu actions
-                },
-              ),
-              bottom: TabBar(
-                tabs: [
-                  Tab(text: "metadata input", icon: Icon(Icons.input)),
-                  Tab(text: "ergebnisse", icon: Icon(Icons.laptop_chromebook)),
-                  Tab(text: "kommentare + save", icon: Icon(Icons.save)),
-                ],
-              ),
-              //title: Text("tmp")),
-              //internationalization, nullpointer, ask cardinaels
-              title: Text(ScheibnerLocalizations.of(context).getValue("title"))),
-          body: TabBarView(
-            children: [metadataPage(), ergebnissePage(), saveCommentsPage()],
-          ),
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+            leading: IconButton(
+              icon: Icon(Icons.menu),
+              onPressed: () {
+                //TODO add menu actions
+              },
+            ),
+            bottom: TabBar(
+              tabs: [
+                Tab(
+                    text:
+                        ScheibnerLocalizations.of(context).getValue("metadata"),
+                    icon: Icon(Icons.input)),
+                Tab(
+                    text:
+                        ScheibnerLocalizations.of(context).getValue("results"),
+                    icon: Icon(Icons.laptop_chromebook)),
+                Tab(
+                    text:
+                        ScheibnerLocalizations.of(context).getValue("comments"),
+                    icon: Icon(Icons.save)),
+              ],
+            ),
+            //title: Text("tmp")),
+            //internationalization, nullpointer, ask cardinaels
+            title: Text(ScheibnerLocalizations.of(context).getValue("title"))),
+        body: TabBarView(
+          children: [metadataPage(), ergebnissePage(), saveCommentsPage()],
         ),
-      );
+      ),
+    );
   }
 }
 
-class Demo extends StatelessWidget {
+class Scheibner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      onGenerateTitle: (BuildContext context) => ScheibnerLocalizations.of(context).getValue("title"),
+      onGenerateTitle: (BuildContext context) =>
+          ScheibnerLocalizations.of(context).getValue("title"),
       localizationsDelegates: [
         const DemoLocalizationsDelegate(),
         GlobalMaterialLocalizations.delegate,
@@ -57,11 +67,11 @@ class Demo extends StatelessWidget {
       // with the specified delegates. DemoLocalizations.of()
       // will only find the app's Localizations widget if its
       // context is a child of the app.
-      home: DemoApp(),
+      home: ScheibnerApp(),
     );
   }
 }
 
 void main() {
-  runApp(Demo());
+  runApp(Scheibner());
 }

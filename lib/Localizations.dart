@@ -9,17 +9,24 @@ class ScheibnerLocalizations {
   final Locale locale;
 
   static ScheibnerLocalizations of(BuildContext context) {
-    return Localizations.of<ScheibnerLocalizations>(context, ScheibnerLocalizations);
+    return Localizations.of<ScheibnerLocalizations>(
+        context, ScheibnerLocalizations);
   }
 
   static Map<String, Map<String, String>> _localizedValues = {
     'en': {
-      'title': 'Hello World',
-      'title2': 'titll2'
+      'title': 'Scheibner App',
+      'title2': 'titll2',
+      "metadata": "Metadata",
+      "results": "Results",
+      "comments": "Comments",
     },
     'de': {
-      'title': 'Hallo Welt',
-      'title2': 'titel2'
+      'title': 'Scheibner App',
+      'title2': 'titll2',
+      "metadata": "Metadaten",
+      "results": "Ergebnisse",
+      "comments": "Kommentare",
     },
   };
 
@@ -28,7 +35,8 @@ class ScheibnerLocalizations {
   }
 }
 
-class DemoLocalizationsDelegate extends LocalizationsDelegate<ScheibnerLocalizations> {
+class DemoLocalizationsDelegate
+    extends LocalizationsDelegate<ScheibnerLocalizations> {
   const DemoLocalizationsDelegate();
 
   @override
@@ -38,7 +46,8 @@ class DemoLocalizationsDelegate extends LocalizationsDelegate<ScheibnerLocalizat
   Future<ScheibnerLocalizations> load(Locale locale) {
     // Returning a SynchronousFuture here because an async "load" operation
     // isn't needed to produce an instance of DemoLocalizations.
-    return SynchronousFuture<ScheibnerLocalizations>(ScheibnerLocalizations(locale));
+    return SynchronousFuture<ScheibnerLocalizations>(
+        ScheibnerLocalizations(locale));
   }
 
   @override
