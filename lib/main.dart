@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show SynchronousFuture;
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:scheibner_app/Localizations.dart';
-import 'package:scheibner_app/helpers/appmodel.dart';
+import 'package:scheibner_app/data/appmodel.dart';
 import 'package:scheibner_app/pages/simulationPage.dart';
 import 'package:scheibner_app/pages/dataInputPage.dart';
 import 'package:scheibner_app/pages/saveResultsPage.dart';
