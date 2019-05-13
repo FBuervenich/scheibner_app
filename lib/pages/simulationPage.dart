@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:scheibner_app/helpers/appmodel.dart';
 import 'package:scoped_model/scoped_model.dart';
 
-class ergebnissePage extends StatelessWidget {
+class SimulationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(

@@ -5,9 +5,9 @@ import 'package:flutter/foundation.dart' show SynchronousFuture;
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:scheibner_app/Localizations.dart';
 import 'package:scheibner_app/helpers/appmodel.dart';
-import 'package:scheibner_app/pages/ergebnissePage.dart';
-import 'package:scheibner_app/pages/metadataPage.dart';
-import 'package:scheibner_app/pages/saveCommentsPage.dart';
+import 'package:scheibner_app/pages/simulationPage.dart';
+import 'package:scheibner_app/pages/dataInputPage.dart';
+import 'package:scheibner_app/pages/saveResultsPage.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class ScheibnerApp extends StatelessWidget {
@@ -43,7 +43,7 @@ class ScheibnerApp extends StatelessWidget {
             //internationalization, nullpointer, ask cardinaels
             title: Text(ScheibnerLocalizations.of(context).getValue("title"))),
         body: TabBarView(
-          children: [metadataPage(), ergebnissePage(), saveCommentsPage()],
+          children: [DataInputPage(), SimulationPage(), SaveResultsPage()],
         ),
       ),
     );
