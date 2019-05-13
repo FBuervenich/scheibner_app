@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show SynchronousFuture;
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:scheibner_app/Localizations.dart';
+import 'package:scheibner_app/helpers/appmodel.dart';
 import 'package:scheibner_app/pages/ergebnissePage.dart';
 import 'package:scheibner_app/pages/metadataPage.dart';
 import 'package:scheibner_app/pages/saveCommentsPage.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 class ScheibnerApp extends StatelessWidget {
   @override
@@ -67,7 +69,10 @@ class Scheibner extends StatelessWidget {
       // with the specified delegates. DemoLocalizations.of()
       // will only find the app's Localizations widget if its
       // context is a child of the app.
-      home: ScheibnerApp(),
+      home: ScopedModel<AppModel>(
+        model: AppModel(), // TODO: is this ok? or use static field instead?
+        child: ScheibnerApp(),
+      )
     );
   }
 }
