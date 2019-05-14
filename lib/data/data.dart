@@ -72,22 +72,22 @@ class Data {
     schwingenachshoehe = data.schwingenachshoehe;
   }
 
-  List<double> getValuesToShow() {
+  List<NameValuePair> getShowableValues() {
     return [
-      radumfangVorn,
-      radumfangHinten,
-      gabellaenge,
-      heckhoehe,
-      schwingenlaenge,
-      lkwGrad,
-      nachlauf,
-      offset,
-      schwingenwinkelGrad,
-      radstand,
-      vorderbauhoehe,
-      vorderachshoehe,
-      schwingenachshoehe,
-      hinterachshoehe,
+      NameValuePair("radumfangVorn", radumfangVorn),
+      NameValuePair("radumfangHinten", radumfangHinten),
+      NameValuePair("gabellaenge", gabellaenge),
+      NameValuePair("heckhoehe", heckhoehe),
+      NameValuePair("schwingenlaenge", schwingenlaenge),
+      NameValuePair("lkwgrad", lkwGrad),
+      NameValuePair("nachlauf", nachlauf),
+      NameValuePair("offset", offset),
+      NameValuePair("schwingenwinkelGrad", schwingenwinkelGrad),
+      NameValuePair("radstand", radstand),
+      // NameValuePair("vorderbauhoehe", vorderbauhoehe), //TODO is not calculated yet
+      NameValuePair("vorderachshoehe", vorderachshoehe),
+      // NameValuePair("schwingenachshoehe", schwingenachshoehe), //TODO is not calculated yet
+      NameValuePair("hinterachshoehe", hinterachshoehe),
 
       // abstandVorn,
       // abstandHinten,
@@ -95,4 +95,15 @@ class Data {
       // nachlaufReal,
     ];
   }
+
+  List<NameValuePair> getModifiableValues() {
+    return getShowableValues().sublist(0, 6);
+  }
+}
+
+class NameValuePair {
+  final String name;
+  final double value;
+
+  NameValuePair(this.name, this.value);
 }
