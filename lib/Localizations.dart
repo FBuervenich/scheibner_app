@@ -20,6 +20,9 @@ class ScheibnerLocalizations {
       "metadata": "Metadata",
       "results": "Results",
       "comments": "Comments",
+      "measurementID": "Measurement ID:",
+      "loadFromServer": "Load from server",
+      "loadFromQRCode": "Load from QR code",
     },
     'de': {
       'title': 'Scheibner App',
@@ -27,6 +30,9 @@ class ScheibnerLocalizations {
       "metadata": "Metadaten",
       "results": "Ergebnisse",
       "comments": "Kommentare",
+      "measurementID": "ID der Messung:",
+      "loadFromServer": "Vom Server laden",
+      "loadFromQRCode": "Aus QR-Code laden",
     },
   };
 

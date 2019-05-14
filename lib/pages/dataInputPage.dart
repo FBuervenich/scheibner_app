@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:scheibner_app/Localizations.dart';
 import 'package:scheibner_app/data/data.dart';
+import 'package:scheibner_app/helpers/measurementService.dart';
 
 class DataInputScreen extends StatefulWidget {
   @override
@@ -15,6 +16,8 @@ class DataInputScreen extends StatefulWidget {
 
 class DataInputPage extends State<DataInputScreen> {
   String barcode = "";
+  Data measurementData;
+  ApiService apiService = new ApiService();
 
   @override
   initState() {
@@ -26,24 +29,52 @@ class DataInputPage extends State<DataInputScreen> {
     return Container(
       child: Center(
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        RaisedButton(
-          onPressed: () {
-            //TODO implement
-          },
-          child: Text("Load from server"),
+        Padding(
+          padding: EdgeInsets.all(20.0),
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                child: TextField(
+                  decoration: new InputDecoration(
+                      labelText: ScheibnerLocalizations.of(context)
+                          .getValue("measurementID")),
+                  keyboardType: TextInputType.number,
+                ),
+              ),
+              Expanded(
+                child: RaisedButton(
+                  onPressed: () async {
+                    measurementData = await apiService.getMeasurementFromId(0);
+                    processMeasurement();
+                  },
+                  child: Text(ScheibnerLocalizations.of(context)
+                      .getValue("loadFromServer")),
+                ),
+              ),
+            ],
+          ),
         ),
+        Divider(),
         RaisedButton(
           onPressed: () async {
+            barcode = "";
             await scan();
-            Scaffold.of(context).showSnackBar(new SnackBar(
-              content: new Text(barcode),
-            ));
+            measurementData = apiService.getMeasurementFromJson(barcode);
           },
-          child: Text("Load from QR-code"),
+          child: Text(
+              ScheibnerLocalizations.of(context).getValue("loadFromQRCode")),
         ),
       ])),
     );
   }
+
+  void processMeasurement() {
+    Scaffold.of(context).showSnackBar(new SnackBar(
+      content: new Text(barcode),
+    ));
+  }
+
+  String loadDataFromServer() {}
 
   Future scan() async {
     try {
