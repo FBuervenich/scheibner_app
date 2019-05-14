@@ -35,6 +35,7 @@ class Word {
 }
 
 /**
+ * Profile class representing one bike profile
  */
 class Profile {
   int id;

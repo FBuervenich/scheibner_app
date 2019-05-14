@@ -43,7 +43,7 @@ class ScheibnerApp extends StatelessWidget {
             //internationalization, nullpointer, ask cardinaels
             title: Text(ScheibnerLocalizations.of(context).getValue("title"))),
         body: TabBarView(
-          children: [DataInputPage(), SimulationPage(), SaveResultsPage()],
+          children: [DataInputScreen(), SimulationPage(), SaveResultsPage()],
         ),
       ),
     );
