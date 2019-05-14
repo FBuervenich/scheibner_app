@@ -20,8 +20,9 @@ class ApiService {
   }
 
   Data _createMeasurementFromJson(Map<String, double> json) {
-    if(this._checkIfObjIsValid(json)){
-      throw new Exception(); //TODO specify error
+    String error = this._checkIfObjIsValid(json);
+    if (error != null) {
+      throw new Exception(); //TODO specify error (pass error)
     }
     Data d = new Data();
 
@@ -50,8 +51,36 @@ class ApiService {
     return d;
   }
 
-  bool _checkIfObjIsValid(Map<String, double> json){
-    //TODO check for all members
-    return true;
+  String _checkIfObjIsValid(Map<String, double> json) {
+    var keys = ["radumfangVorn", 
+      "radumfangHinten",
+      "abstandVorn",
+      "vorderachshoehe",
+      "abstandHinten",
+      "hinterachshoehe",
+      "heckhoehe",
+      "offset",
+      "gSt",
+      "gRw",
+      "gRl",
+      "cmdWinkel",
+      "gLv",
+      "c1",
+      "c2",
+      "c3",
+      "c4",
+      "c5",
+      "c6",
+      "c7",
+      "c8",
+    ];
+
+    for(String key in keys){
+      if(!json.containsKey(key)){
+        	return key;
+      }
+    }
+
+    return null;
   }
 }
