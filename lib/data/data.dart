@@ -71,4 +71,28 @@ class Data {
     vorderbauhoehe = data.vorderbauhoehe;
     schwingenachshoehe = data.schwingenachshoehe;
   }
+
+  List<double> getValuesToShow() {
+    return [
+      radumfangVorn,
+      radumfangHinten,
+      gabellaenge,
+      heckhoehe,
+      schwingenlaenge,
+      lkwGrad,
+      nachlauf,
+      offset,
+      schwingenwinkelGrad,
+      radstand,
+      vorderbauhoehe,
+      vorderachshoehe,
+      schwingenachshoehe,
+      hinterachshoehe,
+
+      // abstandVorn,
+      // abstandHinten,
+      // cmdWinkel,
+      // nachlaufReal,
+    ];
+  }
 }
