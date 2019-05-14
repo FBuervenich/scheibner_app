@@ -69,6 +69,16 @@ class Scheibner extends StatelessWidget {
       // with the specified delegates. DemoLocalizations.of()
       // will only find the app's Localizations widget if its
       // context is a child of the app.
+      theme: ThemeData(
+        textTheme: TextTheme(
+          display4: TextStyle(
+            // fontFamily: 'Corben',
+            // fontWeight: FontWeight.w700,
+            fontSize: 24,
+            // color: Colors.black,
+          ),
+        ),
+      ),
       home: ScopedModel<AppModel>(
         model: AppModel(), // TODO: is this ok? or use static field instead?
         child: ScheibnerApp(),
