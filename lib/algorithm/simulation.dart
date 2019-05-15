@@ -167,14 +167,19 @@ class Simulation {
 //Zeile 105: hinterachshoehe_cmd existiert nur 1 Mal und wird in einer rechnung verwendet
 //Anmerkungen
 
-  simulate(Data d) {
+  simulate(Data d,
+      {double radumfangVorn,
+      double radumfangHinten,
+      double gabellaenge,
+      double heckhoehe,
+      double schwingenlaenge}) {
     Data ret = new Data.clone(d);
 // Simulation values
-    double radumfangvornKor = d.radumfangVorn;
-    double radumfangHintenKor = d.radumfangHinten;
+    double radumfangvornKor = radumfangVorn;
+    double radumfangHintenKor = radumfangHinten;
     double schwingenwinkelFbGrad = d.schwingenwinkelGrad;
-    double schwingenlaengeFbKor = d.schwingenlaenge;
-    double gabellaengeFbKor = d.gabellaenge;
+    double schwingenlaengeFbKor = schwingenlaenge;
+    double gabellaengeFbKor = gabellaenge;
     double lkwFbGrad = d.lkwGrad;
 
 // Berechnung der neuen Werte nach Änderung von  radumfangvorn_kor
@@ -216,13 +221,10 @@ class Simulation {
 // Berechnung nach Änderung der Schwingenlänge
     double schwingenlaengeFbDiff = schwingenlaengeFbKor - d.schwingenlaenge;
     double v15 = v09 +
-        0.99 *
-            schwingenlaengeFbDiff *
-            cos(schwingenwinkelFbGrad3 * pi / 180);
+        0.99 * schwingenlaengeFbDiff * cos(schwingenwinkelFbGrad3 * pi / 180);
     double w11 = atan((hinterachshoeheFbKor - vorderachshoeheFbKor) / v15);
     double radstand_fb4 = v15 * cos(w11);
-    double v14 =
-        schwingenlaengeFbDiff * sin(schwingenwinkelFbGrad3 * pi / 180);
+    double v14 = schwingenlaengeFbDiff * sin(schwingenwinkelFbGrad3 * pi / 180);
     vh1 = v14 / v15;
     vh2 = vh1 / sqrt(-1 * vh1 * vh1 + 1);
     double w12 = atan(vh2);
@@ -235,12 +237,12 @@ class Simulation {
         schwingenachshoeheFb4 + d.gRl * cos((d.gRw - lkwFbGrad4) * pi / 180);
     double nachlaufFb4 = tan(lkwFbGrad4 * pi / 180) *
         (vorderachshoeheFbKor - d.offset / sin(lkwFbGrad4 * pi / 180));
-    double heckhoeheKor4 = d.heckhoehe;
+    double heckhoeheKor4 = heckhoehe;
 
 // Berechnung nach Änderung der Heckhöhe
     double vh3 = double.parse(schwingenlaengeFbDiff.toStringAsFixed(1));
-    double vh4 = vh3 != 0 ? heckhoeheKor4 : d.heckhoehe;
-    double heckhoeheDiff = d.heckhoehe - vh4;
+    double vh4 = vh3 != 0 ? heckhoeheKor4 : heckhoehe;
+    double heckhoeheDiff = heckhoehe - vh4;
     double v18 = radstand_fb4 -
         schwingenlaengeFbKor * cos(schwingenwinkelFbGrad4 * pi / 180);
     double v17 = sqrt(
@@ -323,7 +325,7 @@ class Simulation {
     return ret;
   }
 
-  simulateTest(Data d){
+  simulateTest(Data d) {
     Data ret = simulate(d);
     assert(25.103436943933 == ret.lkwGrad);
     assert(103.49745455836 == ret.nachlauf);
