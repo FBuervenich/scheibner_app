@@ -25,17 +25,17 @@ class Data {
   double c8 = 0.0;
 
   //X-Data berechnet aus Messungphp
-  double lkwGrad;
-  double nachlauf;
-  double nachlaufReal;
-  double schwingenwinkelGrad;
-  double gabellaenge;
-  double schwingenlaenge;
-  double radstand;
+  double lkwGrad= 0.0;
+  double nachlauf= 0.0;
+  double nachlaufReal= 0.0;
+  double schwingenwinkelGrad= 0.0;
+  double gabellaenge= 0.0;
+  double schwingenlaenge= 0.0;
+  double radstand= 0.0;
 
   //ResultData
-  double vorderbauhoehe;
-  double schwingenachshoehe;
+  double vorderbauhoehe= 0.0;
+  double schwingenachshoehe= 0.0;
 
   Data() {}
 

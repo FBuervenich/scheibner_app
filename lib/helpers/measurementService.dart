@@ -16,6 +16,7 @@ class ApiService {
   }
 
   Data getMeasurementFromJson(String jsonString) {
+    //TODO Return Button akzeptieren
     return this._createMeasurementFromJson(json.decode(jsonString));
   }
 
