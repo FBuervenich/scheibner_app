@@ -1,15 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:scheibner_app/data/appmodel.dart';
-import 'package:scoped_model/scoped_model.dart';
+import 'package:scheibner_app/Localizations.dart';
+import 'package:scheibner_app/commonWidgets/menuButton.dart';
 
 class SimulationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-          //TODO add ergebnissePage
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.center, children: [])),
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text(
+          ScheibnerLocalizations.of(context).getValue("simulationTitle"),
+        ),
+        leading: new MenuButton(),
+        actions: <Widget>[
+          new BackButton(),
+        ],
+      ),
+      body: new Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          new Center(
+            child: new Text("Change data for simulation here"),
+          ),
+          new RaisedButton(
+            child: new Text("Simulate values"),
+            onPressed: () {
+              Navigator.pushNamed(context, '/results');
+            },
+          ),
+        ],
+      ),
     );
   }
 }

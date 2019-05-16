@@ -16,9 +16,9 @@ class ScheibnerLocalizations {
   static Map<String, Map<String, String>> _localizedValues = {
     'en': {
       'title': 'Scheibner App',
-      'title2': 'titll2',
-      "metadata": "Metadata",
-      "results": "Results",
+      'dataInputTitle': 'Read Data',
+      "simulationTitle": "Simulation",
+      "resultsTitle": "Results",
       "comments": "Comments",
       "modifyValues": "Modify values for simulation",
       "measurementID": "Measurement ID:",
@@ -39,9 +39,9 @@ class ScheibnerLocalizations {
     },
     'de': {
       'title': 'Scheibner App',
-      'title2': 'titll2',
-      "metadata": "Metadaten",
-      "results": "Ergebnisse",
+      'dataInputTitle': 'Daten einlesen',
+      "simulationTitle": "Simulation",
+      "resultsTitle": "Ergebnisse",
       "comments": "Kommentare",
       "modifyValues": "Messwerte für Simulation anpassen",
       "measurementID": "ID der Messung:",
