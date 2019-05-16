@@ -1,9 +1,8 @@
-import 'package:scheibner_app/algorithm/simulation.dart';
 import 'package:scheibner_app/data/data.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class AppModel extends Model {
-  Data _meas = new Simulation().calcAdditionalData(Data()); //TODO for testing
+  Data _meas;
   Data _sim;
 
   Data getMeasurementData() {
