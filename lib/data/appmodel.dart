@@ -1,6 +1,5 @@
 import 'package:scheibner_app/algorithm/simulation.dart';
 import 'package:scheibner_app/data/data.dart';
-import 'package:scheibner_app/pages/simulationPage.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class AppModel extends Model {

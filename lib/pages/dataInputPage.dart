@@ -4,17 +4,19 @@ import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:flutter/material.dart';
 import 'package:scheibner_app/Localizations.dart';
+import 'package:scheibner_app/commonWidgets/menuButton.dart';
+import 'package:scheibner_app/data/appmodel.dart';
 import 'package:scheibner_app/data/data.dart';
 import 'package:scheibner_app/helpers/measurementService.dart';
+import 'package:scoped_model/scoped_model.dart';
 
-class DataInputScreen extends StatefulWidget {
+class DataInputPage extends StatefulWidget {
   @override
-  DataInputPage createState() => new DataInputPage();
+  _DataInputState createState() => new _DataInputState();
 }
 
-class DataInputPage extends State<DataInputScreen> {
+class _DataInputState extends State<DataInputPage> {
   String barcode = "";
   Data measurementData;
   ApiService apiService = new ApiService();
@@ -26,55 +28,65 @@ class DataInputPage extends State<DataInputScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        Padding(
-          padding: EdgeInsets.all(20.0),
-          child: Row(
-            children: <Widget>[
-              Expanded(
-                child: TextField(
-                  decoration: new InputDecoration(
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text(
+            ScheibnerLocalizations.of(context).getValue("dataInputTitle")),
+        leading: new MenuButton(),
+      ),
+      body: new Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          new Padding(
+            padding: EdgeInsets.all(20.0),
+            child: new Row(
+              children: <Widget>[
+                Expanded(
+                  child: new TextField(
+                    decoration: new InputDecoration(
                       labelText: ScheibnerLocalizations.of(context)
-                          .getValue("measurementID")),
-                  keyboardType: TextInputType.number,
+                          .getValue("measurementID"),
+                    ),
+                    keyboardType: TextInputType.number,
+                  ),
                 ),
-              ),
-              Expanded(
-                child: RaisedButton(
-                  onPressed: () async {
-                    measurementData = await apiService.getMeasurementFromId(0);
-                    processMeasurement();
-                  },
-                  child: Text(ScheibnerLocalizations.of(context)
-                      .getValue("loadFromServer")),
+                new Expanded(
+                  child: new RaisedButton(
+                    onPressed: () async {
+                      Data measurementData;// =
+                          // await apiService.getMeasurementFromId(0);
+                      processMeasurement(measurementData);
+                    },
+                    child: new Text(ScheibnerLocalizations.of(context)
+                        .getValue("loadFromServer")),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-        Divider(),
-        RaisedButton(
-          onPressed: () async {
-            barcode = "";
-            await scan();
-            measurementData = apiService.getMeasurementFromJson(barcode);
-          },
-          child: Text(
-              ScheibnerLocalizations.of(context).getValue("loadFromQRCode")),
-        ),
-      ])),
+          new Divider(),
+          new RaisedButton(
+            onPressed: () async {
+              barcode = "";
+              await scan();
+              measurementData = apiService.getMeasurementFromJson(barcode);
+              processMeasurement(measurementData);
+            },
+            child: Text(
+                ScheibnerLocalizations.of(context).getValue("loadFromQRCode")),
+          ),
+        ],
+      ),
     );
   }
 
-  void processMeasurement() {
-    Scaffold.of(context).showSnackBar(new SnackBar(
-      content: new Text(barcode),
-    ));
+  void processMeasurement(Data measurementData) {
+    // Scaffold.of(context).showSnackBar(new SnackBar(
+    //   content: new Text(barcode),
+    // ));
+    ScopedModel.of<AppModel>(context).setMeasurementData(measurementData);
+    Navigator.pushNamed(context, '/simulation');
   }
-
-  String loadDataFromServer() {}
 
   Future scan() async {
     try {
