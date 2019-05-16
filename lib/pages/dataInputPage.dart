@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:scheibner_app/Localizations.dart';
+import 'package:scheibner_app/algorithm/simulation.dart';
 import 'package:scheibner_app/commonWidgets/menuButton.dart';
 import 'package:scheibner_app/data/appmodel.dart';
 import 'package:scheibner_app/data/data.dart';
@@ -53,8 +54,8 @@ class _DataInputState extends State<DataInputPage> {
                 new Expanded(
                   child: new RaisedButton(
                     onPressed: () async {
-                      Data measurementData;// =
-                          // await apiService.getMeasurementFromId(0);
+                      Data measurementData; // =
+                      // await apiService.getMeasurementFromId(0);
                       processMeasurement(measurementData);
                     },
                     child: new Text(ScheibnerLocalizations.of(context)
@@ -84,6 +85,8 @@ class _DataInputState extends State<DataInputPage> {
     // Scaffold.of(context).showSnackBar(new SnackBar(
     //   content: new Text(barcode),
     // ));
+    measurementData = new Data(); // TODO for debugging
+    new ScheibnerSimulation().calcAdditionalData(measurementData);
     ScopedModel.of<AppModel>(context).setMeasurementData(measurementData);
     Navigator.pushNamed(context, '/simulation');
   }

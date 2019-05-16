@@ -1,7 +1,7 @@
 import 'package:scheibner_app/data/data.dart';
 import 'dart:math';
 
-class Simulation {
+class ScheibnerSimulation {
   calcAdditionalData(Data d) {
     double r1 = 0;
     double posHor = 0.0;
