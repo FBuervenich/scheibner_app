@@ -11,6 +11,7 @@ import 'package:scheibner_app/data/appmodel.dart';
 import 'package:scheibner_app/data/data.dart';
 import 'package:scheibner_app/helpers/measurementService.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'package:scheibner_app/helpers/scheibnerException.dart';
 
 class DataInputPage extends StatefulWidget {
   @override
@@ -35,48 +36,68 @@ class _DataInputState extends State<DataInputPage> {
             ScheibnerLocalizations.of(context).getValue("dataInputTitle")),
         leading: new MenuButton(),
       ),
-      body: new Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          new Padding(
-            padding: EdgeInsets.all(20.0),
-            child: new Row(
-              children: <Widget>[
-                Expanded(
-                  child: new TextField(
-                    decoration: new InputDecoration(
-                      labelText: ScheibnerLocalizations.of(context)
-                          .getValue("measurementID"),
+      body: Builder(
+        // Create an inner BuildContext so that the onPressed methods
+        // can refer to the Scaffold with Scaffold.of().
+        builder: (BuildContext context) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              new Padding(
+                padding: EdgeInsets.all(20.0),
+                child: new Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: new TextField(
+                        decoration: new InputDecoration(
+                          labelText: ScheibnerLocalizations.of(context)
+                              .getValue("measurementID"),
+                        ),
+                        keyboardType: TextInputType.number,
+                      ),
                     ),
-                    keyboardType: TextInputType.number,
-                  ),
+                    new Expanded(
+                      child: new RaisedButton(
+                        onPressed: () async {
+                          try {
+                            Data measurementData; // =
+                            // await apiService.getMeasurementFromId(0);
+                            processMeasurement(measurementData);
+                          } on ScheibnerException catch (e) {
+                            this._showToast(context, ScheibnerLocalizations.of(context)
+                              .getValue(e.toString()));
+                          }
+                        },
+                        child: new Text(ScheibnerLocalizations.of(context)
+                            .getValue("loadFromServer")),
+                      ),
+                    ),
+                  ],
                 ),
-                new Expanded(
-                  child: new RaisedButton(
-                    onPressed: () async {
-                      Data measurementData; // =
-                      // await apiService.getMeasurementFromId(0);
+              ),
+              new Divider(),
+              new RaisedButton(
+                onPressed: () async {
+                  try {
+                    setState(() => this.barcode = "");
+                    await scan(context);
+
+                    if (this.barcode != "") {
+                      measurementData =
+                          apiService.getMeasurementFromJson(barcode);
                       processMeasurement(measurementData);
-                    },
-                    child: new Text(ScheibnerLocalizations.of(context)
-                        .getValue("loadFromServer")),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          new Divider(),
-          new RaisedButton(
-            onPressed: () async {
-              barcode = "";
-              await scan();
-              measurementData = apiService.getMeasurementFromJson(barcode);
-              processMeasurement(measurementData);
-            },
-            child: Text(
-                ScheibnerLocalizations.of(context).getValue("loadFromQRCode")),
-          ),
-        ],
+                    }
+                  } on ScheibnerException catch (e) {
+                    this._showToast(context, ScheibnerLocalizations.of(context)
+                              .getValue(e.toString()));
+                  }
+                },
+                child: Text(ScheibnerLocalizations.of(context)
+                    .getValue("loadFromQRCode")),
+              ),
+            ],
+          );
+        },
       ),
     );
   }
@@ -91,23 +112,38 @@ class _DataInputState extends State<DataInputPage> {
     Navigator.pushNamed(context, '/simulation');
   }
 
-  Future scan() async {
+  Future scan(BuildContext context) async {
     try {
       String barcode = await BarcodeScanner.scan();
       setState(() => this.barcode = barcode);
     } on PlatformException catch (e) {
       if (e.code == BarcodeScanner.CameraAccessDenied) {
-        setState(() {
-          this.barcode = 'The user did not grant the camera permission!';
-        });
+        this._showToast(context,
+            ScheibnerLocalizations.of(context).getValue("cameraPermissions"));
       } else {
-        setState(() => this.barcode = 'Unknown error: $e');
+        this._showToast(
+            context,
+            ScheibnerLocalizations.of(context).getValue("unknownError") +
+                e.toString());
       }
     } on FormatException {
-      setState(() => this.barcode =
-          'null (User returned using the "back"-button before scanning anything. Result)');
+      //do nothing, user pressed back button
     } catch (e) {
-      setState(() => this.barcode = 'Unknown error: $e');
+      this._showToast(
+          context,
+          ScheibnerLocalizations.of(context).getValue("unknownError") +
+              e.toString());
     }
+  }
+
+  void _showToast(BuildContext context, String str) {
+    final scaffold = Scaffold.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        content: Text(str),
+        action: SnackBarAction(
+            label: ScheibnerLocalizations.of(context).getValue("close"), onPressed: scaffold.hideCurrentSnackBar),
+      ),
+    );
   }
 }

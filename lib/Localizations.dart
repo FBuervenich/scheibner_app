@@ -36,6 +36,11 @@ class ScheibnerLocalizations {
       "radstand": "TODO",
       "vorderachshoehe": "TODO",
       "hinterachshoehe": "TODO",
+      "cameraPermissions": "No camera permission granted. Please go to settings and grand it!",
+      "unknownError": "Unknown error: ",
+      "errorDataLoading": "Error while calling Scheibner API",
+      "errorJsonParsing": "Error while parsing JSON",
+      "close": "Close",
     },
     'de': {
       'title': 'Scheibner App',
@@ -59,6 +64,11 @@ class ScheibnerLocalizations {
       "radstand": "Radstand",
       "vorderachshoehe": "Vorderachshöhe",
       "hinterachshoehe": "Hinterachshöhe",
+      "cameraPermissions": "Keine Kamera-Berechtigung erteilt. Bitte erteilen Sie sie in den Einstellungen.",
+      "unknownError": "Unbekannter Fehler: ",
+      "errorDataLoading": "Fehler beim Aufrufen der Scheibner API",
+      "errorJsonParsing": "Fehler beim Parsen des JSON",
+      "close": "Schließen",
     },
   };
 

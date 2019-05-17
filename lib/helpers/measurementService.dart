@@ -3,69 +3,70 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:scheibner_app/data/data.dart';
+import 'package:scheibner_app/helpers/scheibnerException.dart';
 
 class ApiService {
   Future<Data> getMeasurementFromId(int id) async {
     final response = await http.get(
         'http://krisc.luca-student.be/scheibner/cms.php?id=' + id.toString());
     if (response.statusCode != 200) {
-      throw new Exception(); //TODO specify error
+      throw new ScheibnerException("errorDataLoading");
     }
     final jsonResponse = json.decode(response.body);
     return this._createMeasurementFromJson(jsonResponse);
   }
 
   Data getMeasurementFromJson(String jsonString) {
-    //TODO Return Button akzeptieren
     return this._createMeasurementFromJson(json.decode(jsonString));
   }
 
-  Data _createMeasurementFromJson(Map<String, double> json) {
+  Data _createMeasurementFromJson(Map<String, dynamic> json) {
     String error = this._checkIfObjIsValid(json);
     if (error != null) {
-      throw new Exception(); //TODO specify error (pass error)
+      throw new ScheibnerException("errorJsonParsing");
     }
     Data d = new Data();
 
-    d.radumfangVorn = json['radumfangVorn'];
-    d.radumfangHinten = json['radumfangHinten'];
-    d.abstandVorn = json['abstandVorn'];
-    d.vorderachshoehe = json['vorderachshoehe'];
-    d.abstandHinten = json['abstandHinten'];
-    d.hinterachshoehe = json['hinterachshoehe'];
-    d.heckhoehe = json['heckhoehe'];
-    d.offset = json['offset'];
-    d.gSt = json['gSt'];
-    d.gRw = json['gRw'];
-    d.gRl = json['gRl'];
-    d.cmdWinkel = json['cmdWinkel'];
-    d.gLv = json['gLv'];
-    d.c1 = json['c1'];
-    d.c2 = json['c2'];
-    d.c3 = json['c3'];
-    d.c4 = json['c4'];
-    d.c5 = json['c5'];
-    d.c6 = json['c6'];
-    d.c7 = json['c7'];
-    d.c8 = json['c8'];
+    d.radumfangVorn = (json['radumfang_vorn']  as int).toDouble();
+    d.radumfangHinten = (json['radumfang_hinten'] as int).toDouble();
+    d.abstandVorn = (json['abstand_vorn_read'] as int).toDouble();
+    d.vorderachshoehe = (json['vorderachshoehe_read'] as int).toDouble();
+    d.abstandHinten = (json['abstand_hinten_read'] as int).toDouble();
+    d.hinterachshoehe = (json['hinterachshoehe_read'] as int).toDouble();
+    d.heckhoehe = (json['heckhoehe'] as int).toDouble();
+    d.offset = json['offset'] as double;
+    d.gSt = json['gSt'] as double;
+    d.gRw = json['gRw'] as double;
+    d.gRl = json['gRl'] as double;
+    d.cmdWinkel = json['cmdWinkel'] as double;
+    d.gLv = json['gLv'] as double;
+    d.c1 = (json['c1'] as int).toDouble();
+    d.c2 = (json['c2'] as int).toDouble();
+    d.c3 = (json['c3'] as int).toDouble();
+    d.c4 = (json['c4'] as int).toDouble();
+    d.c5 = (json['c5'] as int).toDouble();
+    d.c6 = (json['c6'] as int).toDouble();
+    d.c7 = (json['c7'] as int).toDouble();
+    d.c8 = (json['c8'] as int).toDouble();
 
     return d;
   }
 
-  String _checkIfObjIsValid(Map<String, double> json) {
-    var keys = ["radumfangVorn", 
-      "radumfangHinten",
-      "abstandVorn",
-      "vorderachshoehe",
-      "abstandHinten",
-      "hinterachshoehe",
+  String _checkIfObjIsValid(Map<String, dynamic> json) {
+    var keys = [
+      "radumfang_vorn",
+      "radumfang_hinten",
+      "abstand_vorn_read",
+      "vorderachshoehe_read",
+      "abstand_hinten_read",
+      "hinterachshoehe_read",
       "heckhoehe",
       "offset",
-      "gSt",
-      "gRw",
-      "gRl",
-      "cmdWinkel",
-      "gLv",
+      "g_st",
+      "g_rw",
+      "g_rl",
+      "cmd_winkel",
+      "g_Lv",
       "c1",
       "c2",
       "c3",
@@ -73,12 +74,12 @@ class ApiService {
       "c5",
       "c6",
       "c7",
-      "c8",
+      "c8"
     ];
 
-    for(String key in keys){
-      if(!json.containsKey(key)){
-        	return key;
+    for (String key in keys) {
+      if (!json.containsKey(key)) {
+        return key;
       }
     }
 
