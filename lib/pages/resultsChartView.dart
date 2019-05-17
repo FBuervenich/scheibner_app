@@ -1,4 +1,6 @@
 import 'package:flutter/widgets.dart';
+import 'package:scheibner_app/commonWidgets/charts/simpleBarChart.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
 
 class ChartView extends StatelessWidget {
   @override
@@ -13,29 +15,15 @@ class ChartView extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.all(8.0),
           children: <Widget>[
-            GridView.count(
-              primary: false,
-              shrinkWrap: true,
-              padding: const EdgeInsets.all(8.0),
-              childAspectRatio: (itemWidth / itemHeight),
-              crossAxisSpacing: 10.0,
-              crossAxisCount: 2,
-              children: <Widget>[
-                const Text('Chart 1'),
-                const Text('Chart 2'),
+            Table(
+              defaultColumnWidth: FlexColumnWidth(1.0),
+              children: [
+                TableRow(children: [
+                  new Container(child: new SimpleBarChart.withSampleData()),
+                  new Container(child: new SimpleBarChart.withSampleData()),
+                ])
               ],
-            ),
-            GridView.count(
-              primary: false,
-              shrinkWrap: true,
-              padding: const EdgeInsets.all(8.0),
-              childAspectRatio: (size.width / (itemHeight / 2)),
-              crossAxisSpacing: 10.0,
-              crossAxisCount: 1,
-              children: <Widget>[
-                const Text('Chart 3'),
-              ],
-            ),
+            )
           ],
         ),
       ),
