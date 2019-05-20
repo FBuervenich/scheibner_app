@@ -19,12 +19,12 @@ class SimpleBarChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Container(
-      new charts.BarChart(
+    // return new Container(
+      return new charts.BarChart(
         seriesList,
         animate: animate,
-      ),
-    );
+      );
+    // );
   }
 
   /// Create one series with sample hard coded data.
