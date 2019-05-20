@@ -12,7 +12,7 @@ class SimulationPage extends StatelessWidget {
         ),
         leading: new MenuButton(),
         actions: <Widget>[
-          new BackButton(),
+        
         ],
       ),
       body: new Column(
