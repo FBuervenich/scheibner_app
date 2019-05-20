@@ -1,3 +1,6 @@
 import 'package:flutter/material.dart';
 
-const TextStyle DEFAULT_TEXT_STYLE = const TextStyle(fontSize: 24);
+final TextStyle DEFAULT_TEXT_STYLE = TextStyle(
+  fontSize: 20,
+  color: Colors.grey[500],
+);
