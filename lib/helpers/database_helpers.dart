@@ -40,7 +40,6 @@ class Word {
 class Profile {
   int id;
   String name;
-  
 }
 
 // singleton class to manage the database

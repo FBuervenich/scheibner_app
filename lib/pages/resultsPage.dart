@@ -16,10 +16,10 @@ class ResultsPage extends StatelessWidget {
           title: new Text(
             ScheibnerLocalizations.of(context).getValue("resultsTitle"),
           ),
-          leading: new MenuButton(),
-          actions: <Widget>[
-            new BackButton(),
-          ],
+          // leading: new MenuButton(),
+          // actions: <Widget>[
+          //   new BackButton(),
+          // ],
           bottom: new TabBar(
             tabs: [
               new Tab(icon: Icon(Icons.data_usage)),
