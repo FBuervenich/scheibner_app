@@ -108,6 +108,7 @@ class _DataInputState extends State<DataInputPage> {
     measurementData = new Data(); // TODO for debugging
     new ScheibnerSimulation().calcAdditionalData(measurementData);
     ScopedModel.of<AppModel>(context).setMeasurementData(measurementData);
+    ScopedModel.of<AppModel>(context).setSimulationData(Data.clone(measurementData));
     Navigator.pushNamed(context, '/simulation');
   }
 
