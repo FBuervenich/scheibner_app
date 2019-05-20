@@ -60,8 +60,7 @@ class _DataInputState extends State<DataInputPage> {
                       child: new RaisedButton(
                         onPressed: () async {
                           try {
-                            Data measurementData; // =
-                            // await apiService.getMeasurementFromId(0);
+                            Data measurementData = await apiService.getMeasurementFromId(0); // TODO use id from textfield
                             processMeasurement(measurementData);
                           } on ScheibnerException catch (e) {
                             this._showToast(context, ScheibnerLocalizations.of(context)

@@ -8,7 +8,7 @@ import 'package:scheibner_app/helpers/scheibnerException.dart';
 class ApiService {
   Future<Data> getMeasurementFromId(int id) async {
     final response = await http.get(
-        'http://krisc.luca-student.be/scheibner/cms.php?id=' + id.toString());
+        'http://krisc.luca-student.be/scheibner/messung.php?id=' + id.toString());
     if (response.statusCode != 200) {
       throw new ScheibnerException("errorDataLoading");
     }
