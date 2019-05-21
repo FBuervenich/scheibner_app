@@ -1,27 +1,21 @@
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:flutter/widgets.dart';
 
-class ChartData {
-  List<charts.Series> seriesList;
-  String chartType;
+class ChartViewRow {
+  List<Chart> chartList;
+  ChartViewRow(this.chartList);
+}
+
+class Chart {
+  List<charts.Series<ChartData, String>> data;
+  ChartType chartType;
   bool animate;
+  List<charts.ChartTitle> barChartBehaviors;
+  List<charts.ChartBehavior> pieChartBehaviors;
 
-  ChartData(this.seriesList,this.chartType, this.animate);
+  Chart(this.chartType, {@required this.data, this.animate, this.barChartBehaviors, this.pieChartBehaviors});
 }
 
-class ChartDataRow {
-  List<ChartData> chartList =new List();
+abstract class ChartData {}
 
-  ChartDataRow(){
-    this.chartList =new List();
-  }
-
-  int addChartData(ChartData d) {
-    if (chartList.length < 2) {
-      chartList.add(d);
-    }
-  }
-
-  int length() {
-    return chartList.length;
-  }
-}
+enum ChartType { simpleBarChart, pieChart }
