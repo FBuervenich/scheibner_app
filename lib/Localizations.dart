@@ -36,11 +36,21 @@ class ScheibnerLocalizations {
       "radstand": "TODO",
       "vorderachshoehe": "TODO",
       "hinterachshoehe": "TODO",
-      "cameraPermissions": "No camera permission granted. Please go to settings and grand it!",
+      "cameraPermissions":
+          "No camera permission granted. Please go to settings and grand it!",
       "unknownError": "Unknown error: ",
       "errorDataLoading": "Error while calling Scheibner API",
       "errorJsonParsing": "Error while parsing JSON",
       "close": "Close",
+      "inputModeTextFields": "Textfields",
+      "inputModeSliders": "Sliders",
+      "languageGerman": "German",
+      "languageEnglish": "English",
+      "preferences": "Preferences",
+      "general": "General",
+      "inputAppereance": "Input appereance",
+      "countrySettings": "Country Settings",
+      "language": "Language",
     },
     'de': {
       'title': 'Scheibner App',
@@ -64,11 +74,21 @@ class ScheibnerLocalizations {
       "radstand": "Radstand",
       "vorderachshoehe": "Vorderachshöhe",
       "hinterachshoehe": "Hinterachshöhe",
-      "cameraPermissions": "Keine Kamera-Berechtigung erteilt. Bitte erteilen Sie sie in den Einstellungen.",
+      "cameraPermissions":
+          "Keine Kamera-Berechtigung erteilt. Bitte erteilen Sie sie in den Einstellungen.",
       "unknownError": "Unbekannter Fehler: ",
       "errorDataLoading": "Fehler beim Aufrufen der Scheibner API",
       "errorJsonParsing": "Fehler beim Parsen des JSON",
       "close": "Schließen",
+      "inputModeTextFields": "Textfelder",
+      "inputModeSliders": "Slider",
+      "languageGerman": "Deutsch",
+      "languageEnglish": "Englisch",
+      "preferences": "Einstellungen",
+      "general": "Allgemein",
+      "inputAppereance": "Darstellung Eingabe",
+      "countrySettings": "Landeseinstellungen",
+      "language": "Language",
     },
   };
 
@@ -79,6 +99,7 @@ class ScheibnerLocalizations {
 
 class DemoLocalizationsDelegate
     extends LocalizationsDelegate<ScheibnerLocalizations> {
+
   const DemoLocalizationsDelegate();
 
   @override
@@ -93,5 +114,5 @@ class DemoLocalizationsDelegate
   }
 
   @override
-  bool shouldReload(DemoLocalizationsDelegate old) => false;
+  bool shouldReload(DemoLocalizationsDelegate old) => true;
 }

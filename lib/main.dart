@@ -5,13 +5,16 @@ import 'package:flutter/foundation.dart' show SynchronousFuture;
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:scheibner_app/Localizations.dart';
 import 'package:scheibner_app/data/appmodel.dart';
+import 'package:scheibner_app/pages/preferencesPage.dart';
 import 'package:scheibner_app/pages/profilePage.dart';
 import 'package:scheibner_app/pages/simulationPage.dart';
 import 'package:scheibner_app/pages/dataInputPage.dart';
 import 'package:scheibner_app/pages/resultsPage.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'package:preferences/preferences.dart';
 
-void main() {
+void main() async {
+  await PrefService.init(prefix: 'pref_');
   final model = new AppModel();
 
   runApp(
@@ -54,6 +57,7 @@ class ScheibnerApp extends StatelessWidget {
         '/inputdata': (BuildContext context) => new DataInputPage(),
         '/simulation': (BuildContext context) => new SimulationPage(),
         '/results': (BuildContext context) => new ResultsPage(),
+        '/preferences': (BuildContext context) => new PreferencesPage(),
       },
     );
   }

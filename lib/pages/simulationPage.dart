@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:preferences/preference_service.dart';
 import 'package:scheibner_app/Localizations.dart';
 import 'package:scheibner_app/commonWidgets/menuButton.dart';
 import 'package:scheibner_app/data/appmodel.dart';
@@ -9,6 +10,14 @@ import 'package:scoped_model/scoped_model.dart';
 class SimulationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    String mode = PrefService.getString("input_mode");
+    //@DNeuroth: check mode and decide whether to show sliders or numer input boxes
+    if(mode == ScheibnerLocalizations.of(context).getValue("inputModeTextFields")){
+      //show textfields
+    }
+    else if (mode == ScheibnerLocalizations.of(context).getValue("inputModeSliders")){
+      //show sliders
+    }
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(

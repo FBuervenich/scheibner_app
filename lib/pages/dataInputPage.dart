@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:preferences/preference_service.dart';
 
 import 'package:scheibner_app/Localizations.dart';
 import 'package:scheibner_app/algorithm/simulation.dart';
@@ -60,11 +61,15 @@ class _DataInputState extends State<DataInputPage> {
                       child: new RaisedButton(
                         onPressed: () async {
                           try {
-                            Data measurementData = await apiService.getMeasurementFromId(0); // TODO use id from textfield
+                            Data measurementData =
+                                await apiService.getMeasurementFromId(
+                                    0); // TODO use id from textfield
                             processMeasurement(measurementData);
                           } on ScheibnerException catch (e) {
-                            this._showToast(context, ScheibnerLocalizations.of(context)
-                              .getValue(e.toString()));
+                            this._showToast(
+                                context,
+                                ScheibnerLocalizations.of(context)
+                                    .getValue(e.toString()));
                           }
                         },
                         child: new Text(ScheibnerLocalizations.of(context)
@@ -87,12 +92,20 @@ class _DataInputState extends State<DataInputPage> {
                       processMeasurement(measurementData);
                     }
                   } on ScheibnerException catch (e) {
-                    this._showToast(context, ScheibnerLocalizations.of(context)
-                              .getValue(e.toString()));
+                    this._showToast(
+                        context,
+                        ScheibnerLocalizations.of(context)
+                            .getValue(e.toString()));
                   }
                 },
                 child: Text(ScheibnerLocalizations.of(context)
                     .getValue("loadFromQRCode")),
+              ),
+              new RaisedButton(
+                child: const Text('Preferences Page'),
+                onPressed: () {
+                  Navigator.pushNamed(context, './preferences');
+                },
               ),
             ],
           );
@@ -108,7 +121,8 @@ class _DataInputState extends State<DataInputPage> {
     measurementData = new Data(); // TODO for debugging
     new ScheibnerSimulation().calcAdditionalData(measurementData);
     ScopedModel.of<AppModel>(context).setMeasurementData(measurementData);
-    ScopedModel.of<AppModel>(context).setSimulationData(Data.clone(measurementData));
+    ScopedModel.of<AppModel>(context)
+        .setSimulationData(Data.clone(measurementData));
     Navigator.pushNamed(context, '/simulation');
   }
 
@@ -142,7 +156,8 @@ class _DataInputState extends State<DataInputPage> {
       SnackBar(
         content: Text(str),
         action: SnackBarAction(
-            label: ScheibnerLocalizations.of(context).getValue("close"), onPressed: scaffold.hideCurrentSnackBar),
+            label: ScheibnerLocalizations.of(context).getValue("close"),
+            onPressed: scaffold.hideCurrentSnackBar),
       ),
     );
   }
