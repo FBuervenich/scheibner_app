@@ -61,9 +61,9 @@ class _DataInputState extends State<DataInputPage> {
                       child: new RaisedButton(
                         onPressed: () async {
                           try {
-                            Data measurementData =
-                                await apiService.getMeasurementFromId(
-                                    0); // TODO use id from textfield
+                            Data measurementData = null; //TODO
+                                // await apiService.getMeasurementFromId(
+                                //     0); // TODO use id from textfield
                             processMeasurement(measurementData);
                           } on ScheibnerException catch (e) {
                             this._showToast(
@@ -118,8 +118,10 @@ class _DataInputState extends State<DataInputPage> {
     // Scaffold.of(context).showSnackBar(new SnackBar(
     //   content: new Text(barcode),
     // ));
-    measurementData = new Data(); // TODO for debugging
-    new ScheibnerSimulation().calcAdditionalData(measurementData);
+    measurementData = new Data.testData(); // TODO for debugging
+    debugPrint(">>>> " + measurementData.getValue("schwingenlaenge").toString());
+    // new ScheibnerSimulation().calcAdditionalData(measurementData);
+    // debugPrint(">>>calcaddit");
     ScopedModel.of<AppModel>(context).setMeasurementData(measurementData);
     ScopedModel.of<AppModel>(context)
         .setSimulationData(Data.clone(measurementData));

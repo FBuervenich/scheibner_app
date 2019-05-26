@@ -1,25 +1,47 @@
 import 'package:scheibner_app/data/data.dart';
+import 'package:scheibner_app/data/profile.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class AppModel extends Model {
-  Data _meas;
-  Data _sim;
+  Profile _profile = new Profile(); //TODO for testing
 
   Data getMeasurementData() {
-    return Data.clone(_meas);
+    return Data.clone(_profile.meas);
   }
 
   void setMeasurementData(Data d) {
-    _meas = d;
+    _profile.meas = d;
     notifyListeners();
   }
 
   Data getSimulationData() {
-    return Data.clone(_sim);
+    return Data.clone(_profile.sim);
+  }
+
+  double getMeasValue(String name) {
+    return _profile.meas.getValue(name);
+  }
+
+  double getSimValue(String name) {
+    return _profile.sim.getValue(name);
+  }
+
+  void setSimValue(String name, double value) {
+    _profile.sim.setValue(name, value);
+    notifyListeners();
   }
 
   void setSimulationData(Data d) {
-    _sim = d;
+    _profile.sim = d;
+    notifyListeners();
+  }
+
+  Profile getProfile() {
+    return _profile;
+  }
+
+  void setProfile(Profile profile) {
+    _profile = profile;
     notifyListeners();
   }
 }
