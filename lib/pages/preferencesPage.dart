@@ -1,38 +1,68 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:preferences/preferences.dart';
-import 'package:scheibner_app/Localizations.dart';
+import 'package:scheibner_app/localization/app_translations.dart';
+import 'package:scheibner_app/localization/application.dart';
 
-class PreferencesPage extends StatelessWidget {
+class PreferencesPage extends StatefulWidget {
+  @override
+  PreferencesPageState createState() => new PreferencesPageState();
+}
+
+class PreferencesPageState extends State<PreferencesPage> {
+  static final List<String> languagesList = application.supportedLanguages;
+  static final List<String> languageCodesList =
+      application.supportedLanguagesCodes;
+
+  final Map<dynamic, dynamic> languagesMap = {
+    languagesList[0]: languageCodesList[0],
+    languagesList[1]: languageCodesList[1],
+  };
+
+  String label = languagesList[0];
+
+  @override
+  void initState() {
+    super.initState();
+    application.onLocaleChanged = onLocaleChange;
+    onLocaleChange(Locale(languagesMap["English"]));
+  }
+
+  void onLocaleChange(Locale locale) async {
+    setState(() {
+      AppTranslations.load(locale);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(ScheibnerLocalizations.of(context).getValue("preferences")),
+        title: Text(AppTranslations.of(context).text("preferences")),
       ),
       body: PreferencePage([
-        PreferenceTitle(ScheibnerLocalizations.of(context).getValue("general")),
+        PreferenceTitle(AppTranslations.of(context).text("general")),
         DropdownPreference(
-          ScheibnerLocalizations.of(context).getValue("inputAppereance"),
+          AppTranslations.of(context).text("inputAppereance"),
           'input_mode',
-          defaultVal:
-              ScheibnerLocalizations.of(context).getValue("inputModeSliders"),
           values: [
-            ScheibnerLocalizations.of(context).getValue("inputModeTextFields"),
-            ScheibnerLocalizations.of(context).getValue("inputModeSliders"),
+            AppTranslations.of(context).text("inputModeTextFields"),
+            AppTranslations.of(context).text("inputModeSliders"),
           ],
         ),
-        PreferenceTitle(
-            ScheibnerLocalizations.of(context).getValue("countrySettings")),
+        PreferenceTitle(AppTranslations.of(context).text("countrySettings")),
         DropdownPreference(
-          ScheibnerLocalizations.of(context).getValue("language"),
+          AppTranslations.of(context).text("language"),
           'language',
-          defaultVal:
-              ScheibnerLocalizations.of(context).getValue("languageGerman"),
           values: [
-            ScheibnerLocalizations.of(context).getValue("languageGerman"),
-            ScheibnerLocalizations.of(context).getValue("languageEnglish"),
+            AppTranslations.of(context).text("languageGerman"),
+            AppTranslations.of(context).text("languageEnglish"),
           ],
+          onChange: (String lang) {
+            setState(() {
+              AppTranslations.load(Locale(lang.toLowerCase()));
+            });            
+          },
         ),
       ]),
     );
