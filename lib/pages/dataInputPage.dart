@@ -31,6 +31,13 @@ class _DataInputState extends State<DataInputPage> {
 
   @override
   Widget build(BuildContext context) {
+    /*
+    IMPORTANT
+    This initialization must be executed on first page of app.
+    Cannot initialize in main.dart, as context is missing...
+    */
+    this._initalizePreferencesValues(context);
+
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(
@@ -104,7 +111,7 @@ class _DataInputState extends State<DataInputPage> {
               new RaisedButton(
                 child: const Text('Preferences Page'),
                 onPressed: () {
-                  Navigator.pushNamed(context, './preferences');
+                  Navigator.pushNamed(context, '/preferences');
                 },
               ),
             ],
@@ -160,5 +167,19 @@ class _DataInputState extends State<DataInputPage> {
             onPressed: scaffold.hideCurrentSnackBar),
       ),
     );
+  }
+
+  void _initalizePreferencesValues(BuildContext context) {
+    String inputMode = PrefService.getString("input_mode");
+    if (inputMode == null) {
+      PrefService.setString('input_mode',
+          ScheibnerLocalizations.of(context).getValue("inputModeSliders"));
+    }
+
+    String language = PrefService.getString("language");
+    if (language == null) {
+      PrefService.setString('language',
+          ScheibnerLocalizations.of(context).getValue("languageGerman"));
+    }
   }
 }

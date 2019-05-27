@@ -15,8 +15,6 @@ import 'package:preferences/preferences.dart';
 
 void main() async {
   await PrefService.init(prefix: 'pref_');
-  //TODO bengsch: check if values are null --> initalize them
-
   final model = new AppModel();
 
   runApp(
