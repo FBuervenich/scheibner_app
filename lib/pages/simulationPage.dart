@@ -1,21 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:preferences/preference_service.dart';
+import 'package:flutter/widgets.dart';
 import 'package:scheibner_app/Localizations.dart';
-import 'package:scheibner_app/commonWidgets/menuButton.dart';
 import 'package:scheibner_app/data/appmodel.dart';
 import 'package:scheibner_app/data/data.dart';
 import 'package:scheibner_app/styles.dart';
 import 'package:scoped_model/scoped_model.dart';
 
-class SimulationPage extends StatelessWidget {
+class SimulationPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => new _SimulationState();
+}
+
+class _SimulationState extends State<SimulationPage> {
+  final Map<String, TextEditingController> _controllers = Map.fromIterable(
+      Data.names,
+      key: (name) => name,
+      value: (name) => new TextEditingController());
+
   @override
   Widget build(BuildContext context) {
     String mode = PrefService.getString("input_mode");
     //@DNeuroth: check mode and decide whether to show sliders or numer input boxes
-    if(mode == ScheibnerLocalizations.of(context).getValue("inputModeTextFields")){
+    if (mode ==
+        ScheibnerLocalizations.of(context).getValue("inputModeTextFields")) {
       //show textfields
-    }
-    else if (mode == ScheibnerLocalizations.of(context).getValue("inputModeSliders")){
+    } else if (mode ==
+        ScheibnerLocalizations.of(context).getValue("inputModeSliders")) {
       //show sliders
     }
     return new Scaffold(
@@ -23,10 +34,7 @@ class SimulationPage extends StatelessWidget {
         title: new Text(
           ScheibnerLocalizations.of(context).getValue("simulationTitle"),
         ),
-        leading: new MenuButton(),
-        actions: <Widget>[
-        
-        ],
+        actions: <Widget>[],
       ),
       backgroundColor: Colors.grey[200],
       body: new Column(
@@ -56,12 +64,7 @@ class SimulationPage extends StatelessWidget {
             child: new ScopedModelDescendant<AppModel>(
               builder: (context, child, model) => new ListView(
                     // physics: new NeverScrollableScrollPhysics(),
-                    children: _createWidgetList(context, model),
-
-                    // builder: (context, child, model) => new GridView.count(
-                    //       crossAxisCount: 2,
-                    //       childAspectRatio: 1.5,
-                    //       children: _createWidgetList2(context, model),
+                    children: _createTextBoxList(context, model),
                   ),
             ),
           ),
@@ -70,62 +73,18 @@ class SimulationPage extends StatelessWidget {
     );
   }
 
-  Widget getValueWidget(BuildContext context, AppModel model, int i) {
-    NameValuePair p = model.getMeasurementData().getShowableValues()[i];
-    return new Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        new Text("Test_A " + i.toString()),
-        new Text("Test_B " + i.toString())
-      ],
-    );
+  List<Widget> _createSliderList(BuildContext context, AppModel model) {
+    return null; //TODO
   }
 
-  List<Widget> _createWidgetList2(BuildContext context, AppModel model) {
-    return model.getMeasurementData().getModifiableValues().map(
-      (NameValuePair p) {
-        return new Padding(
-          padding: EdgeInsets.all(10),
-          child: new Container(
-            color: Colors.white,
-            height: 100,
-            child: new Column(
-              children: <Widget>[
-                new Expanded(
-                  child: new Center(
-                    child: new Text(
-                      ScheibnerLocalizations.of(context).getValue(p.name),
-                      style: DEFAULT_TEXT_STYLE,
-                    ),
-                  ),
-                ),
-                new Expanded(
-                  child: new Center(
-                    child: new Text(
-                      p.value.toStringAsFixed(1),
-                      style: DEFAULT_TEXT_STYLE,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    ).toList();
-  }
+  List<Widget> _createTextBoxList(BuildContext context, AppModel model) {
+    return Data.modifiable.map(
+      (String name) {
+        double measValue = model.getMeasValue(name);
+        double simValue = model.getSimValue(name);
+        TextEditingController controller = _controllers[name];
+        controller.text = simValue.toStringAsFixed(1);
 
-  List<Widget> _createWidgetList(BuildContext context, AppModel model) {
-    List<NameValuePair> modMeas =
-        model.getMeasurementData().getModifiableValues();
-    List<NameValuePair> modSim =
-        model.getSimulationData().getModifiableValues();
-    return List.generate(
-      modMeas.length,
-      (int i) {
-        NameValuePair meas = modMeas[i];
-        NameValuePair sim = modSim[i];
         return new Padding(
           padding: EdgeInsets.only(bottom: 5),
           child: new Container(
@@ -135,26 +94,41 @@ class SimulationPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 new Text(
-                  ScheibnerLocalizations.of(context).getValue(meas.name),
+                  ScheibnerLocalizations.of(context).getValue(name),
                   style: DEFAULT_TEXT_STYLE,
                 ),
                 new Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     new Text(
-                      meas.value.toStringAsFixed(1),
+                      measValue.toStringAsFixed(1),
                       style: DEFAULT_TEXT_STYLE,
                     ),
-                    new Text(
-                      sim.value.toStringAsFixed(1),
-                      style: DEFAULT_TEXT_STYLE,
+                    new Container(
+                      width: 100,
+                      height: 40,
+                      child: new TextField(
+                        keyboardType:
+                            TextInputType.numberWithOptions(signed: false),
+                        controller: controller,
+                        onSubmitted: (String text) {
+                          double val = double.tryParse(_controllers[name].text);
+                          if (val != null) {
+                            model.setSimValue(name, val);
+                          }
+                        },
+                        style: DEFAULT_TEXT_STYLE,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                        ),
+                      ),
                     ),
-                    new Text(
-                      (meas.value - sim.value).toStringAsFixed(1),
-                      style: DEFAULT_TEXT_STYLE,
-                    ),
+                    _createDifferenceText(simValue, measValue),
                   ],
                 ),
+                //TODO slider
               ],
             ),
           ),
@@ -163,25 +137,20 @@ class SimulationPage extends StatelessWidget {
     ).toList();
   }
 
-  // List<Widget> _createWidgetList3(BuildContext context, AppModel model) {
-  //   return model
-  //       .getMeasurementData()
-  //       .getShowableValues()
-  //       .expand((NameValuePair p) {
-  //     return [
-  //       new Center(
-  //         child: new Text(
-  //           ScheibnerLocalizations.of(context).getValue(p.name),
-  //           style: DEFAULT_TEXT_STYLE,
-  //         ),
-  //       ),
-  //       new Center(
-  //         child: new Text(
-  //           p.value.toStringAsFixed(1),
-  //           style: DEFAULT_TEXT_STYLE,
-  //         ),
-  //       ),
-  //     ];
-  //   }).toList();
-  // }
+  Text _createDifferenceText(double simValue, double measValue) {
+    String plus = "";
+    if (simValue > measValue) {
+      plus += "+";
+    }
+    return new Text(
+      plus + (simValue - measValue).toStringAsFixed(1),
+      style: DEFAULT_TEXT_STYLE,
+    );
+  }
+
+  @override
+  void dispose() {
+    _controllers.forEach((name, o) => o.dispose());
+    super.dispose();
+  }
 }
