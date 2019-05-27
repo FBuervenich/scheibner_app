@@ -2,32 +2,31 @@ import 'package:scheibner_app/data/data.dart';
 import 'dart:math';
 
 class ScheibnerSimulation {
-  calcAdditionalData(Data d) {
-    
-    double cmdWinkel = d.getValue("cmd_winkel");
-    double gRw = d.getValue("g_Rw");
-    double abstandVorn = d.getValue("abstand_vorn_read");
-    double vorderachshoehe = d.getValue("vorderachshoehe_read");
-    double offset = d.getValue("offset");
-    double c1 = d.getValue("c1");
-    double c2 = d.getValue("c2");
-    double c3 = d.getValue("c3");
-    double c4 = d.getValue("c4");
-    double c5 = d.getValue("c5");
-    double c6 = d.getValue("c6");
-    double c7 = d.getValue("c7");
-    double c8 = d.getValue("c8");
-    double hinterachshoehe = d.getValue("hinterachshoehe_read");
-    double radumfangVorn = d.getValue("radumfang_vorn");
-    double radumfangHinten = d.getValue("radumfang_hinten");
-    double abstandHinten = d.getValue("abstand_hinten");
-    double gRl = d.getValue("g_Rl");
-    double nachlauf = d.getValue("nachlauf_real");
-    double gabellaenge = d.getValue("gabellaenge");
-    double schwingenlaenge = d.getValue("schwingenlaenge");
-    double heckhoehe = d.getValue("heckhoehe");
-    double radstand = d.getValue("radstand");
-    
+  void calcAdditionalData(Map<String, double> data) {
+    // TODO @Björn assignments correct?
+    double cmdWinkel = 0;//data["cmd_winkel"];
+    double gRw = 0;//data["g_Rw"];
+    double abstandVorn = data["abstand_vorn_read"];
+    double vorderachshoehe = data["vorderachshoehe_read"];
+    double offset = data["offset"];
+    double c1 = data["c1"];
+    double c2 = data["c2"];
+    double c3 = data["c3"];
+    double c4 = data["c4"];
+    double c5 = data["c5"];
+    double c6 = data["c6"];
+    double c7 = data["c7"];
+    double c8 = data["c8"];
+    double hinterachshoehe = data["hinterachshoehe_read"];
+    double radumfangVorn = data["radumfang_vorn"];
+    double radumfangHinten = data["radumfang_hinten"];
+    double abstandHinten = data["abstand_hinten_read"];
+    double gRl = 0;//data["g_Rl"];
+    double nachlauf = data["nachlauf_real"];
+    double gabellaenge = data["gabellaenge"];
+    double schwingenlaenge = data["schwingenlaenge"];
+    double heckhoehe = data["heckhoehe"];
+    double radstand = data["radstand"];
 
     double r1 = 0;
     double posHor = 0.0;
@@ -116,8 +115,7 @@ class ScheibnerSimulation {
     v07 = vorderbauhoeheFb - vorderachshoeheFb;
     v08 = gRl * sin(w05);
     double gabellaengeFb = v07 / cos(lkwFb) + offset * tan(lkwFb);
-    double nachlaufFb =
-        tan(lkwFb) * (vorderachshoeheFb - offset / sin(lkwFb));
+    double nachlaufFb = tan(lkwFb) * (vorderachshoeheFb - offset / sin(lkwFb));
     double nachlaufReal = cos(lkwFb) * nachlaufFb;
     double radstandFb = v04 + v08 - nachlaufFb + vorderbauhoeheFb * tan(lkwFb);
     double schwingenwinkelGrad = schwingenwinkelFb * 180 / pi;
@@ -186,7 +184,31 @@ class ScheibnerSimulation {
     radstand = radstandFb;
     vorderachshoehe = vorderachshoeheFb;
     hinterachshoehe = hinterachshoeheFb;
-    return d;
+
+    // TODO @Björn assignments correct?
+    data["cmd_winkel"] = cmdWinkel;
+    data["g_Rw"] = gRw;
+    data["abstand_vorn_read"] = abstandVorn;
+    data["vorderachshoehe_read"] = vorderachshoehe;
+    data["offset"] = offset;
+    data["c1"] = c1;
+    data["c2"] = c2;
+    data["c3"] = c3;
+    data["c4"] = c4;
+    data["c5"] = c5;
+    data["c6"] = c6;
+    data["c7"] = c7;
+    data["c8"] = c8;
+    data["hinterachshoehe_read"] = hinterachshoehe;
+    data["radumfang_vorn"] = radumfangVorn;
+    data["radumfang_hinten"] = radumfangHinten;
+    data["abstand_hinten_read"] = abstandHinten;
+    data["g_Rl"] = gRl;
+    data["nachlauf_real"] = nachlauf;
+    data["gabellaenge"] = gabellaenge;
+    data["schwingenlaenge"] = 42;
+    data["heckhoehe"] = heckhoehe;
+    data["radstand"] = radstand;
   }
   //Anmerkungen
 //Messung.php

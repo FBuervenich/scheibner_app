@@ -6,6 +6,9 @@ class AppModel extends Model {
   Profile _profile = new Profile(); //TODO for testing
 
   Data getMeasurementData() {
+    if (_profile.meas == null) {
+      return null;
+    }
     return Data.clone(_profile.meas);
   }
 
@@ -15,6 +18,9 @@ class AppModel extends Model {
   }
 
   Data getSimulationData() {
+    if (_profile.sim == null) {
+      return null;
+    }
     return Data.clone(_profile.sim);
   }
 

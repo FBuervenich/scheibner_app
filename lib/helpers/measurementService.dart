@@ -31,32 +31,33 @@ class ApiService {
     if (error != null) {
       throw new ScheibnerException("errorJsonParsing");
     }
-    Data d = null;
-    // Data d = new Data();
 
-    // d.radumfangVorn = (json['radumfang_vorn']  as int).toDouble();
-    // d.radumfangHinten = (json['radumfang_hinten'] as int).toDouble();
-    // d.abstandVorn = (json['abstand_vorn_read'] as int).toDouble();
-    // d.vorderachshoehe = (json['vorderachshoehe_read'] as int).toDouble();
-    // d.abstandHinten = (json['abstand_hinten_read'] as int).toDouble();
-    // d.hinterachshoehe = (json['hinterachshoehe_read'] as int).toDouble();
-    // d.heckhoehe = (json['heckhoehe'] as int).toDouble();
-    // d.offset = json['offset'] as double;
-    // d.gSt = json['gSt'] as double;
-    // d.gRw = json['gRw'] as double;
-    // d.gRl = json['gRl'] as double;
-    // d.cmdWinkel = json['cmdWinkel'] as double;
-    // d.gLv = json['gLv'] as double;
-    // d.c1 = (json['c1'] as int).toDouble();
-    // d.c2 = (json['c2'] as int).toDouble();
-    // d.c3 = (json['c3'] as int).toDouble();
-    // d.c4 = (json['c4'] as int).toDouble();
-    // d.c5 = (json['c5'] as int).toDouble();
-    // d.c6 = (json['c6'] as int).toDouble();
-    // d.c7 = (json['c7'] as int).toDouble();
-    // d.c8 = (json['c8'] as int).toDouble();
+    Map<String, double> values = {};
+    values["radumfang_vorn"] = (json['radumfang_vorn']  as int).toDouble();
+    values["radumfang_hinten"] = (json['radumfang_hinten'] as int).toDouble();
+    values["abstand_vorn_read"] = (json['abstand_vorn_read'] as int).toDouble();
+    values["vorderachshoehe_read"] = (json['vorderachshoehe_read'] as int).toDouble();
+    values["abstand_hinten_read"] = (json['abstand_hinten_read'] as int).toDouble();
+    values["hinterachshoehe_read"] = (json['hinterachshoehe_read'] as int).toDouble();
+    values["heckhoehe"] = (json['heckhoehe'] as int).toDouble();
+    values["offset"] = json['offset'] as double;
+    values["gSt"] = json['g_st'] as double;
+    values["gRw"] = json['g_rw'] as double;
+    values["gRl"] = json['g_rl'] as double;
+    values["cmdWinkel"] = (json['cmd_winkel'] as int).toDouble();
+    values["gLv"] = json['g_lv'] as double;
+    values["c1"] = (json['c1'] as int).toDouble();
+    values["c2"] = (json['c2'] as int).toDouble();
+    values["c3"] = (json['c3'] as int).toDouble();
+    values["c4"] = (json['c4'] as int).toDouble();
+    values["c5"] = (json['c5'] as int).toDouble();
+    values["c6"] = (json['c6'] as int).toDouble();
+    values["c7"] = (json['c7'] as int).toDouble();
+    values["c8"] = (json['c8'] as int).toDouble();
 
-    return d;
+    DateTime date = DateTime.now();
+    Data data = new Data(date, values);
+    return data;
   }
 
   String _checkIfObjIsValid(Map<String, dynamic> json) {

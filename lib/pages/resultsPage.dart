@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scheibner_app/Localizations.dart';
-import 'package:scheibner_app/components/threePointMenu.dart';
+import 'package:scheibner_app/styles.dart';
 
 import 'resultsChartView.dart';
 import 'resultsSaveView.dart';
@@ -17,8 +17,12 @@ class ResultsPage extends StatelessWidget {
             ScheibnerLocalizations.of(context).getValue("resultsTitle"),
           ),
           actions: <Widget>[
-            // new BackButton(),
-            // new ThreePointWidget()
+            new IconButton(
+              icon: new Icon(Icons.settings),
+              onPressed: () {
+                Navigator.pushNamed(context, '/preferences');
+              },
+            ),
           ],
           bottom: new TabBar(
             tabs: [
@@ -28,6 +32,7 @@ class ResultsPage extends StatelessWidget {
             ],
           ),
         ),
+        backgroundColor: backgroundColor,
         body: new TabBarView(
           children: [
             new TableView(),
@@ -35,9 +40,6 @@ class ResultsPage extends StatelessWidget {
             new SaveView(),
           ],
         ),
-        // new Center(
-        //   child: new Text("Show results here"),
-        // ),
       ),
     );
   }

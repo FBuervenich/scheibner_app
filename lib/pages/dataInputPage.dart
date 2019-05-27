@@ -7,10 +7,10 @@ import 'package:preferences/preference_service.dart';
 
 import 'package:scheibner_app/Localizations.dart';
 import 'package:scheibner_app/algorithm/simulation.dart';
-import 'package:scheibner_app/commonWidgets/menuButton.dart';
 import 'package:scheibner_app/data/appmodel.dart';
 import 'package:scheibner_app/data/data.dart';
 import 'package:scheibner_app/helpers/measurementService.dart';
+import 'package:scheibner_app/styles.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:scheibner_app/helpers/scheibnerException.dart';
 
@@ -31,108 +31,156 @@ class _DataInputState extends State<DataInputPage> {
 
   @override
   Widget build(BuildContext context) {
-    /*
-    IMPORTANT
-    This initialization must be executed on first page of app.
-    Cannot initialize in main.dart, as context is missing...
-    */
-    this._initalizePreferencesValues(context);
-
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(
-            ScheibnerLocalizations.of(context).getValue("dataInputTitle")),
-        leading: new MenuButton(),
+          ScheibnerLocalizations.of(context).getValue("dataInputTitle"),
+        ),
+        actions: <Widget>[
+          new IconButton(
+            icon: new Icon(Icons.settings),
+            onPressed: () {
+              Navigator.pushNamed(context, '/preferences');
+            },
+          ),
+        ],
       ),
+      backgroundColor: backgroundColor,
       body: Builder(
         // Create an inner BuildContext so that the onPressed methods
         // can refer to the Scaffold with Scaffold.of().
         builder: (BuildContext context) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              new Padding(
-                padding: EdgeInsets.all(20.0),
-                child: new Row(
+          return new Padding(
+            padding: EdgeInsets.only(bottom: 5),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                new Expanded(
+                  child: new Padding(
+                    padding: EdgeInsets.all(0),
+                    child: new ScopedModelDescendant<AppModel>(
+                      builder: (context, child, model) => new ListView.builder(
+                            itemCount: model.getMeasurementData() != null
+                                ? Data.showable.length
+                                : 1,
+                            itemBuilder: (context, position) =>
+                                _createMeasValueList(context, model, position),
+                          ),
+                    ),
+                  ),
+                ),
+                new Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    Expanded(
-                      child: new TextField(
-                        decoration: new InputDecoration(
-                          labelText: ScheibnerLocalizations.of(context)
-                              .getValue("measurementID"),
-                        ),
-                        keyboardType: TextInputType.number,
+                    new RaisedButton(
+                      onPressed: () async {
+                        try {
+                          Data measurementData =
+                              await apiService.getMeasurementFromId(
+                                  0); // TODO use id from textfield
+                          processMeasurement(measurementData);
+                        } on ScheibnerException catch (e) {
+                          this._showToast(
+                              context,
+                              ScheibnerLocalizations.of(context)
+                                  .getValue(e.toString()));
+                        }
+                      },
+                      child: new Text(
+                        ScheibnerLocalizations.of(context)
+                            .getValue("loadFromServer"),
                       ),
                     ),
-                    new Expanded(
-                      child: new RaisedButton(
-                        onPressed: () async {
-                          try {
-                            Data measurementData = null; //TODO
-                                // await apiService.getMeasurementFromId(
-                                //     0); // TODO use id from textfield
+                    new RaisedButton(
+                      onPressed: () async {
+                        try {
+                          setState(() => this.barcode = "");
+                          await scan(context);
+
+                          if (this.barcode != "") {
+                            measurementData =
+                                apiService.getMeasurementFromJson(barcode);
                             processMeasurement(measurementData);
-                          } on ScheibnerException catch (e) {
-                            this._showToast(
-                                context,
-                                ScheibnerLocalizations.of(context)
-                                    .getValue(e.toString()));
                           }
-                        },
-                        child: new Text(ScheibnerLocalizations.of(context)
-                            .getValue("loadFromServer")),
+                        } on ScheibnerException catch (e) {
+                          this._showToast(
+                              context,
+                              ScheibnerLocalizations.of(context)
+                                  .getValue(e.toString()));
+                        }
+                      },
+                      child: Text(
+                        ScheibnerLocalizations.of(context)
+                            .getValue("loadFromQRCode"),
                       ),
                     ),
                   ],
                 ),
-              ),
-              new Divider(),
-              new RaisedButton(
-                onPressed: () async {
-                  try {
-                    setState(() => this.barcode = "");
-                    await scan(context);
-
-                    if (this.barcode != "") {
-                      measurementData =
-                          apiService.getMeasurementFromJson(barcode);
-                      processMeasurement(measurementData);
-                    }
-                  } on ScheibnerException catch (e) {
-                    this._showToast(
-                        context,
-                        ScheibnerLocalizations.of(context)
-                            .getValue(e.toString()));
-                  }
-                },
-                child: Text(ScheibnerLocalizations.of(context)
-                    .getValue("loadFromQRCode")),
-              ),
-              new RaisedButton(
-                child: const Text('Preferences Page'),
-                onPressed: () {
-                  Navigator.pushNamed(context, '/preferences');
-                },
-              ),
-            ],
+                new ScopedModelDescendant<AppModel>(
+                  builder: (context, child, model) => Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          new RaisedButton(
+                            onPressed: model.getMeasurementData() != null
+                                ? () {
+                                    Navigator.pushNamed(context, '/simulation');
+                                  }
+                                : null,
+                            child: new Text("Edit for Simulation"),
+                          ),
+                          new RaisedButton(
+                            onPressed: null,
+                            child: Text("Load last simulation"),
+                          ),
+                        ],
+                      ),
+                ),
+              ],
+            ),
           );
         },
       ),
     );
   }
 
+  Widget _createMeasValueList(
+      BuildContext context, AppModel model, int position) {
+    if (model.getMeasurementData() == null) {
+      return new Center(
+        child: new Text("No data loaded"),
+      );
+    }
+
+    String name = Data.showable[position];
+    double measValue = model.getMeasValue(name);
+
+    return new Padding(
+      padding: EdgeInsets.only(bottom: 5),
+      child: new Container(
+        padding: EdgeInsets.symmetric(horizontal: 15),
+        color: Colors.white,
+        height: 100,
+        child: new Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            new Text(
+              ScheibnerLocalizations.of(context).getValue(name),
+              style: defaultTextStyle,
+            ),
+            new Text(
+              measValue != null ? measValue.toStringAsFixed(1) : "Value could not be calculated",
+              style: defaultTextStyle,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   void processMeasurement(Data measurementData) {
-    // Scaffold.of(context).showSnackBar(new SnackBar(
-    //   content: new Text(barcode),
-    // ));
-    measurementData = new Data.testData(); // TODO for debugging
-    debugPrint(">>>> " + measurementData.getValue("schwingenlaenge").toString());
-    // new ScheibnerSimulation().calcAdditionalData(measurementData);
-    // debugPrint(">>>calcaddit");
     ScopedModel.of<AppModel>(context).setMeasurementData(measurementData);
     ScopedModel.of<AppModel>(context)
         .setSimulationData(Data.clone(measurementData));
-    Navigator.pushNamed(context, '/simulation');
   }
 
   Future scan(BuildContext context) async {
@@ -169,19 +217,5 @@ class _DataInputState extends State<DataInputPage> {
             onPressed: scaffold.hideCurrentSnackBar),
       ),
     );
-  }
-
-  void _initalizePreferencesValues(BuildContext context) {
-    String inputMode = PrefService.getString("input_mode");
-    if (inputMode == null) {
-      PrefService.setString('input_mode',
-          ScheibnerLocalizations.of(context).getValue("inputModeSliders"));
-    }
-
-    String language = PrefService.getString("language");
-    if (language == null) {
-      PrefService.setString('language',
-          ScheibnerLocalizations.of(context).getValue("languageGerman"));
-    }
   }
 }

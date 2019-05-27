@@ -1,3 +1,6 @@
+import 'package:flutter/widgets.dart';
+import 'package:scheibner_app/algorithm/simulation.dart';
+
 class Data {
   static const List<String> names = <String>[
     "radumfang_vorn",
@@ -33,17 +36,18 @@ class Data {
   ];
   //TODO: review showable and editable values
   //TODO: name localization
-  static final List<String> showable = names.sublist(0, 12);
-  static final List<String> modifiable = showable.sublist(0, 6);
+  static final List<String> showable = names.sublist(0, 14);
+  static final List<String> modifiable = showable.sublist(0, 5);
 
   DateTime _date;
   Map<String, double> _values;
 
   Data(this._date, this._values) {
-    //TODO: call calcAdditionalData here
+    ScheibnerSimulation scheibnersim = new ScheibnerSimulation();
+    scheibnersim.calcAdditionalData(this._values);
   }
 
-  // creates a random data object for testing
+  // creates random data for testing
   Data.testData() {
     _values = <String, double>{};
     for (int i = 0; i < names.length; i++) {
@@ -54,8 +58,10 @@ class Data {
   }
 
   Data.clone(Data data) {
-    _values = new Map<String, double>.from(data._values);
-    _date = data._date;
+    if (data != null) {
+      _values = new Map<String, double>.from(data._values);
+      _date = data._date;
+    }
   }
 
   double getValue(String name) {

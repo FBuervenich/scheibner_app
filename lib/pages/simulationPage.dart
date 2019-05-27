@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:preferences/preference_service.dart';
 import 'package:flutter/widgets.dart';
 import 'package:scheibner_app/Localizations.dart';
+import 'package:scheibner_app/commonWidgets/framedButton.dart';
 import 'package:scheibner_app/data/appmodel.dart';
 import 'package:scheibner_app/data/data.dart';
 import 'package:scheibner_app/styles.dart';
@@ -13,48 +14,49 @@ class SimulationPage extends StatefulWidget {
 }
 
 class _SimulationState extends State<SimulationPage> {
+  static const EPS = 5e-2;
   final Map<String, TextEditingController> _controllers = Map.fromIterable(
-      Data.names,
-      key: (name) => name,
-      value: (name) => new TextEditingController());
+    Data.names,
+    key: (name) => name,
+    value: (name) => new TextEditingController(),
+  );
+  final Map<String, double> _sliderValues = Map.fromIterable(
+    Data.names,
+    key: (name) => name,
+    value: (name) => null,
+  );
 
   @override
   Widget build(BuildContext context) {
     String mode = PrefService.getString("input_mode");
-    //@DNeuroth: check mode and decide whether to show sliders or numer input boxes
+    var inputListBuilder;
     if (mode ==
         ScheibnerLocalizations.of(context).getValue("inputModeTextFields")) {
-      //show textfields
-    } else if (mode ==
-        ScheibnerLocalizations.of(context).getValue("inputModeSliders")) {
-      //show sliders
+      inputListBuilder = _createTextBoxList;
+    } else {
+      inputListBuilder = _createSliderList;
     }
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(
           ScheibnerLocalizations.of(context).getValue("simulationTitle"),
         ),
-        actions: <Widget>[],
+        actions: <Widget>[
+          new IconButton(
+            icon: new Icon(Icons.settings),
+            onPressed: () {
+              Navigator.pushNamed(context, '/preferences');
+            },
+          ),
+        ],
       ),
-      backgroundColor: Colors.grey[200],
+      backgroundColor: backgroundColor,
       body: new Column(
         children: <Widget>[
           new Padding(
             padding: EdgeInsets.all(10),
-            child: RaisedButton(
-              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-              color: Colors.white,
-              child: new Text(
-                "Simulate values",
-                style: new TextStyle(fontSize: 20, color: Colors.amber[600]),
-              ),
-              shape: new RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5),
-                side: BorderSide(
-                  width: 1.5,
-                  color: Colors.amber[600],
-                ),
-              ),
+            child: new FramedButton(
+              text: "Simulate values",
               onPressed: () {
                 Navigator.pushNamed(context, '/results');
               },
@@ -64,7 +66,7 @@ class _SimulationState extends State<SimulationPage> {
             child: new ScopedModelDescendant<AppModel>(
               builder: (context, child, model) => new ListView(
                     // physics: new NeverScrollableScrollPhysics(),
-                    children: _createTextBoxList(context, model),
+                    children: inputListBuilder(context, model),
                   ),
             ),
           ),
@@ -74,10 +76,84 @@ class _SimulationState extends State<SimulationPage> {
   }
 
   List<Widget> _createSliderList(BuildContext context, AppModel model) {
-    return null; //TODO
+    if (model.getMeasurementData() == null) {
+      return [
+        new Center(
+          child: new Text("No data loaded"),
+        ),
+      ];
+    }
+    return Data.modifiable.map(
+      (String name) {
+        double measValue = model.getMeasValue(name);
+        double simValue;
+        if (_sliderValues[name] == null) {
+          simValue = model.getSimValue(name);
+          _sliderValues[name] = simValue;
+        } else {
+          simValue = _sliderValues[name];
+        }
+
+        return new Padding(
+          padding: EdgeInsets.only(bottom: 5),
+          child: new Container(
+            padding: EdgeInsets.symmetric(horizontal: 15),
+            color: Colors.white,
+            height: 100,
+            child: new Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                new Text(
+                  ScheibnerLocalizations.of(context).getValue(name),
+                  style: defaultTextStyle,
+                ),
+                new Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    new Text(
+                      measValue.toStringAsFixed(1),
+                      style: defaultTextStyle,
+                    ),
+                    new Text(
+                      simValue.toStringAsFixed(1),
+                      style: defaultTextStyle,
+                    ),
+                    new Align(
+                      alignment: Alignment.centerRight,
+                      child: _createDifferenceText(simValue, measValue),
+                    ),
+                  ],
+                ),
+                new Slider(
+                  value: simValue,
+                  min: measValue * 0.5,
+                  max: measValue * 1.5,
+                  onChanged: (double value) {
+                    setState(() {
+                      _sliderValues[name] = value;
+                    });
+                  },
+                  onChangeEnd: (double value) {
+                    model.setSimValue(name, value);
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    ).toList();
   }
 
   List<Widget> _createTextBoxList(BuildContext context, AppModel model) {
+    if (model.getMeasurementData() == null) {
+      return [
+        new Center(
+          child: new Text("No data loaded"),
+        ),
+      ];
+    }
+
     return Data.modifiable.map(
       (String name) {
         double measValue = model.getMeasValue(name);
@@ -88,47 +164,59 @@ class _SimulationState extends State<SimulationPage> {
         return new Padding(
           padding: EdgeInsets.only(bottom: 5),
           child: new Container(
+            padding: EdgeInsets.symmetric(horizontal: 15),
             color: Colors.white,
-            height: 100, //TODO
+            height: 100,
             child: new Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 new Text(
                   ScheibnerLocalizations.of(context).getValue(name),
-                  style: DEFAULT_TEXT_STYLE,
+                  style: defaultTextStyle,
                 ),
                 new Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    new Text(
-                      measValue.toStringAsFixed(1),
-                      style: DEFAULT_TEXT_STYLE,
+                    new Expanded(
+                      child: new Text(
+                        measValue.toStringAsFixed(1),
+                        style: defaultTextStyle,
+                      ),
                     ),
-                    new Container(
-                      width: 100,
-                      height: 40,
-                      child: new TextField(
-                        keyboardType:
-                            TextInputType.numberWithOptions(signed: false),
-                        controller: controller,
-                        onSubmitted: (String text) {
-                          double val = double.tryParse(_controllers[name].text);
-                          if (val != null) {
-                            model.setSimValue(name, val);
-                          }
-                        },
-                        style: DEFAULT_TEXT_STYLE,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
+                    new Expanded(
+                      child: new Container(
+                        width: 100,
+                        height: 40,
+                        child: new TextField(
+                          keyboardType:
+                              TextInputType.numberWithOptions(signed: false),
+                          controller: controller,
+                          onSubmitted: (String text) {
+                            double val =
+                                double.tryParse(_controllers[name].text);
+                            if (val != null) {
+                              model.setSimValue(name, val);
+                              // necessary to update slider value
+                              _sliderValues[name] = null;
+                            }
+                          },
+                          style: defaultTextStyle,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
                           ),
                         ),
                       ),
                     ),
-                    _createDifferenceText(simValue, measValue),
+                    new Expanded(
+                      child: new Align(
+                        alignment: Alignment.centerRight,
+                        child: _createDifferenceText(simValue, measValue),
+                      ),
+                    ),
                   ],
                 ),
-                //TODO slider
               ],
             ),
           ),
@@ -138,13 +226,18 @@ class _SimulationState extends State<SimulationPage> {
   }
 
   Text _createDifferenceText(double simValue, double measValue) {
-    String plus = "";
-    if (simValue > measValue) {
-      plus += "+";
+    String text = "";
+    if ((simValue - measValue).abs() < EPS) {
+      text = "0.0";
+    } else {
+      if (simValue > measValue) {
+        text += "+";
+      }
+      text += (simValue - measValue).toStringAsFixed(1);
     }
     return new Text(
-      plus + (simValue - measValue).toStringAsFixed(1),
-      style: DEFAULT_TEXT_STYLE,
+      text,
+      style: defaultTextStyle,
     );
   }
 

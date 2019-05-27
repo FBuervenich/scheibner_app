@@ -1,7 +1,4 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart' show SynchronousFuture;
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:scheibner_app/Localizations.dart';
 import 'package:scheibner_app/data/appmodel.dart';
@@ -28,6 +25,11 @@ void main() async {
 class ScheibnerApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    /*
+    IMPORTANT
+    This initialization must be executed on first page of app.
+    */
+    this._initalizePreferencesValues(context);
     return new MaterialApp(
       onGenerateTitle: (BuildContext context) =>
           ScheibnerLocalizations.of(context).getValue("title"),
@@ -60,5 +62,19 @@ class ScheibnerApp extends StatelessWidget {
         '/preferences': (BuildContext context) => new PreferencesPage(),
       },
     );
+  }
+
+  void _initalizePreferencesValues(BuildContext context) {
+    String inputMode = PrefService.getString("input_mode");
+    if (inputMode == null) {
+      PrefService.setString('input_mode',
+          ScheibnerLocalizations.of(context).getValue("inputModeSliders"));
+    }
+
+    String language = PrefService.getString("language");
+    if (language == null) {
+      PrefService.setString('language',
+          ScheibnerLocalizations.of(context).getValue("languageGerman"));
+    }
   }
 }
