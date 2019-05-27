@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:scheibner_app/Localizations.dart';
 import 'package:scheibner_app/styles.dart';
+import 'package:scheibner_app/localization/app_translations.dart';
 
 import 'resultsChartView.dart';
 import 'resultsSaveView.dart';
@@ -14,7 +14,7 @@ class ResultsPage extends StatelessWidget {
       child: new Scaffold(
         appBar: new AppBar(
           title: new Text(
-            ScheibnerLocalizations.of(context).getValue("resultsTitle"),
+            AppTranslations.of(context).text("resultsTitle"),
           ),
           actions: <Widget>[
             new IconButton(

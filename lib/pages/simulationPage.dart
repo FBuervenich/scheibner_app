@@ -5,6 +5,7 @@ import 'package:scheibner_app/Localizations.dart';
 import 'package:scheibner_app/commonWidgets/framedButton.dart';
 import 'package:scheibner_app/data/appmodel.dart';
 import 'package:scheibner_app/data/data.dart';
+import 'package:scheibner_app/localization/app_translations.dart';
 import 'package:scheibner_app/styles.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -31,7 +32,7 @@ class _SimulationState extends State<SimulationPage> {
     String mode = PrefService.getString("input_mode");
     var inputListBuilder;
     if (mode ==
-        ScheibnerLocalizations.of(context).getValue("inputModeTextFields")) {
+        AppTranslations.of(context).text("inputModeTextFields")) {
       inputListBuilder = _createTextBoxList;
     } else {
       inputListBuilder = _createSliderList;
@@ -39,7 +40,7 @@ class _SimulationState extends State<SimulationPage> {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(
-          ScheibnerLocalizations.of(context).getValue("simulationTitle"),
+          AppTranslations.of(context).text("simulationTitle"),
         ),
         actions: <Widget>[
           new IconButton(
@@ -171,7 +172,7 @@ class _SimulationState extends State<SimulationPage> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 new Text(
-                  ScheibnerLocalizations.of(context).getValue(name),
+                  AppTranslations.of(context).text(name),
                   style: defaultTextStyle,
                 ),
                 new Row(

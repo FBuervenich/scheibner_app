@@ -5,12 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:preferences/preference_service.dart';
 
-import 'package:scheibner_app/Localizations.dart';
-import 'package:scheibner_app/algorithm/simulation.dart';
 import 'package:scheibner_app/data/appmodel.dart';
 import 'package:scheibner_app/data/data.dart';
 import 'package:scheibner_app/helpers/measurementService.dart';
 import 'package:scheibner_app/styles.dart';
+import 'package:scheibner_app/localization/app_translations.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:scheibner_app/helpers/scheibnerException.dart';
 
@@ -34,7 +33,7 @@ class _DataInputState extends State<DataInputPage> {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(
-          ScheibnerLocalizations.of(context).getValue("dataInputTitle"),
+          AppTranslations.of(context).text("dataInputTitle"),
         ),
         actions: <Widget>[
           new IconButton(
@@ -80,15 +79,12 @@ class _DataInputState extends State<DataInputPage> {
                                   0); // TODO use id from textfield
                           processMeasurement(measurementData);
                         } on ScheibnerException catch (e) {
-                          this._showToast(
-                              context,
-                              ScheibnerLocalizations.of(context)
-                                  .getValue(e.toString()));
+                          this._showToast(context,
+                              AppTranslations.of(context).text(e.toString()));
                         }
                       },
                       child: new Text(
-                        ScheibnerLocalizations.of(context)
-                            .getValue("loadFromServer"),
+                        AppTranslations.of(context).text("loadFromServer"),
                       ),
                     ),
                     new RaisedButton(
@@ -103,15 +99,12 @@ class _DataInputState extends State<DataInputPage> {
                             processMeasurement(measurementData);
                           }
                         } on ScheibnerException catch (e) {
-                          this._showToast(
-                              context,
-                              ScheibnerLocalizations.of(context)
-                                  .getValue(e.toString()));
+                          this._showToast(context,
+                              AppTranslations.of(context).text(e.toString()));
                         }
                       },
                       child: Text(
-                        ScheibnerLocalizations.of(context)
-                            .getValue("loadFromQRCode"),
+                        AppTranslations.of(context).text("loadFromQRCode"),
                       ),
                     ),
                   ],
@@ -164,11 +157,13 @@ class _DataInputState extends State<DataInputPage> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             new Text(
-              ScheibnerLocalizations.of(context).getValue(name),
+              AppTranslations.of(context).text(name),
               style: defaultTextStyle,
             ),
             new Text(
-              measValue != null ? measValue.toStringAsFixed(1) : "Value could not be calculated",
+              measValue != null
+                  ? measValue.toStringAsFixed(1)
+                  : "Value could not be calculated",
               style: defaultTextStyle,
             ),
           ],
@@ -189,21 +184,17 @@ class _DataInputState extends State<DataInputPage> {
       setState(() => this.barcode = barcode);
     } on PlatformException catch (e) {
       if (e.code == BarcodeScanner.CameraAccessDenied) {
-        this._showToast(context,
-            ScheibnerLocalizations.of(context).getValue("cameraPermissions"));
-      } else {
         this._showToast(
-            context,
-            ScheibnerLocalizations.of(context).getValue("unknownError") +
-                e.toString());
+            context, AppTranslations.of(context).text("cameraPermissions"));
+      } else {
+        this._showToast(context,
+            AppTranslations.of(context).text("unknownError") + e.toString());
       }
     } on FormatException {
       //do nothing, user pressed back button
     } catch (e) {
-      this._showToast(
-          context,
-          ScheibnerLocalizations.of(context).getValue("unknownError") +
-              e.toString());
+      this._showToast(context,
+          AppTranslations.of(context).text("unknownError") + e.toString());
     }
   }
 
@@ -213,9 +204,23 @@ class _DataInputState extends State<DataInputPage> {
       SnackBar(
         content: Text(str),
         action: SnackBarAction(
-            label: ScheibnerLocalizations.of(context).getValue("close"),
+            label: AppTranslations.of(context).text("close"),
             onPressed: scaffold.hideCurrentSnackBar),
       ),
     );
+  }
+
+  void _initalizePreferencesValues(BuildContext context) {
+    String inputMode = PrefService.getString("input_mode");
+    if (inputMode == null) {
+      PrefService.setString(
+          'input_mode', AppTranslations.of(context).text("inputModeSliders"));
+    }
+
+    String language = PrefService.getString("language");
+    if (language == null) {
+      PrefService.setString(
+          'language', AppTranslations.of(context).text("languageGerman"));
+    }
   }
 }
