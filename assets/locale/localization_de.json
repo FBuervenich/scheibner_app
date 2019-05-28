@@ -1,8 +1,10 @@
 {
     "title": "Scheibner App",
+    "profileTitle": "Profilverwaltung",
     "dataInputTitle": "Daten einlesen",
     "simulationTitle": "Simulation",
     "resultsTitle": "Ergebnisse",
+
     "comments": "Kommentare",
     "modifyValues": "Messwerte für Simulation anpassen",
     "measurementID": "ID der Messung:",
@@ -36,5 +38,12 @@
     "general": "Allgemein",
     "inputAppereance": "Darstellung Eingabe",
     "countrySettings": "Landeseinstellungen",
-    "language": "Sprache"
+    "language": "Sprache",
+    "cancel": "Abbrechen",
+
+
+    "newProfile": "Neues Profil",
+    "enterProfileName": "Profilnamen eingeben",
+    "profileName": "Profilname",
+    "createProfile": "Profil erstellen"
   }
