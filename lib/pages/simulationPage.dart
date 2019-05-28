@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:preferences/preference_service.dart';
 import 'package:flutter/widgets.dart';
-import 'package:scheibner_app/Localizations.dart';
 import 'package:scheibner_app/commonWidgets/framedButton.dart';
 import 'package:scheibner_app/data/appmodel.dart';
 import 'package:scheibner_app/data/data.dart';
@@ -31,8 +30,7 @@ class _SimulationState extends State<SimulationPage> {
   Widget build(BuildContext context) {
     String mode = PrefService.getString("input_mode");
     var inputListBuilder;
-    if (mode ==
-        AppTranslations.of(context).text("inputModeTextFields")) {
+    if (mode == AppTranslations.of(context).text("inputModeTextFields")) {
       inputListBuilder = _createTextBoxList;
     } else {
       inputListBuilder = _createSliderList;
@@ -59,6 +57,7 @@ class _SimulationState extends State<SimulationPage> {
             child: new FramedButton(
               text: "Simulate values",
               onPressed: () {
+                ScopedModel.of<AppModel>(context).simulate();
                 Navigator.pushNamed(context, '/results');
               },
             ),
@@ -105,7 +104,7 @@ class _SimulationState extends State<SimulationPage> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 new Text(
-                  ScheibnerLocalizations.of(context).getValue(name),
+                  AppTranslations.of(context).text(name),
                   style: defaultTextStyle,
                 ),
                 new Row(

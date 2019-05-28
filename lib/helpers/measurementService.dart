@@ -41,11 +41,11 @@ class ApiService {
     values["hinterachshoehe_read"] = (json['hinterachshoehe_read'] as int).toDouble();
     values["heckhoehe"] = (json['heckhoehe'] as int).toDouble();
     values["offset"] = json['offset'] as double;
-    values["gSt"] = json['g_st'] as double;
-    values["gRw"] = json['g_rw'] as double;
-    values["gRl"] = json['g_rl'] as double;
-    values["cmdWinkel"] = (json['cmd_winkel'] as int).toDouble();
-    values["gLv"] = json['g_lv'] as double;
+    values["g_st"] = json['g_st'] as double;
+    values["g_rw"] = json['g_rw'] as double;
+    values["g_rl"] = json['g_rl'] as double;
+    values["cmd_winkel"] = (json['cmd_winkel'] as int).toDouble();
+    values["g_lv"] = json['g_lv'] as double;
     values["c1"] = (json['c1'] as int).toDouble();
     values["c2"] = (json['c2'] as int).toDouble();
     values["c3"] = (json['c3'] as int).toDouble();

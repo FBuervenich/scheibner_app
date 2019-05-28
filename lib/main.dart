@@ -10,6 +10,7 @@ import 'package:scheibner_app/pages/resultsPage.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:preferences/preferences.dart';
 
+
 import 'package:scheibner_app/localization/app_translations_delegate.dart';
 import 'package:scheibner_app/localization/application.dart';
 
@@ -40,16 +41,14 @@ class ScheibnerAppState extends State<ScheibnerApp> {
     super.initState();
 
     String localeFromPrefs = PrefService.getString("language");
-
-    _newLocaleDelegate = AppTranslationsDelegate(
-        newLocale: localeFromPrefs != null
-            ? Locale(localeFromPrefs.toLowerCase())
-            : null);
+    
+    _newLocaleDelegate = AppTranslationsDelegate(newLocale: localeFromPrefs != null ? Locale(localeFromPrefs.toLowerCase()) : null);
     application.onLocaleChanged = onLocaleChange;
   }
 
   @override
   Widget build(BuildContext context) {
+    this._initalizePreferencesValues(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: new ThemeData(
@@ -81,6 +80,12 @@ class ScheibnerAppState extends State<ScheibnerApp> {
     );
   }
 
+  void onLocaleChange(Locale locale) {
+    setState(() {
+      _newLocaleDelegate = AppTranslationsDelegate(newLocale: locale);
+    });
+  }
+
   void _initalizePreferencesValues(BuildContext context) {
     String inputMode = PrefService.getString("input_mode");
     if (inputMode == null) {
@@ -93,11 +98,5 @@ class ScheibnerAppState extends State<ScheibnerApp> {
       PrefService.setString(
           'language', AppTranslations.of(context).text("languageGerman"));
     }
-  }
-
-  void onLocaleChange(Locale locale) {
-    setState(() {
-      _newLocaleDelegate = AppTranslationsDelegate(newLocale: locale);
-    });
   }
 }

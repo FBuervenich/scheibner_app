@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart';
 import 'package:scheibner_app/algorithm/simulation.dart';
 
 class Data {
@@ -43,8 +42,7 @@ class Data {
   Map<String, double> _values;
 
   Data(this._date, this._values) {
-    ScheibnerSimulation scheibnersim = new ScheibnerSimulation();
-    scheibnersim.calcAdditionalData(this._values);
+    ScheibnerSimulation.calcAdditionalData(this._values);
   }
 
   // creates random data for testing
@@ -64,6 +62,10 @@ class Data {
     }
   }
 
+  void simulate() {
+    ScheibnerSimulation.simulate(_values);
+  }
+
   double getValue(String name) {
     return _values[name];
   }
@@ -72,27 +74,3 @@ class Data {
     _values[name] = value;
   }
 }
-
-// List<NameValuePair> getShowableValues() {
-//   return [
-//     NameValuePair("radumfangVorn", radumfangVorn),
-//     NameValuePair("radumfangHinten", radumfangHinten),
-//     NameValuePair("gabellaenge", gabellaenge),
-//     NameValuePair("heckhoehe", heckhoehe),
-//     NameValuePair("schwingenlaenge", schwingenlaenge),
-//     NameValuePair("lkwgrad", lkwGrad),
-//     NameValuePair("nachlauf", nachlauf),
-//     NameValuePair("offset", offset),
-//     NameValuePair("schwingenwinkelGrad", schwingenwinkelGrad),
-//     NameValuePair("radstand", radstand),
-//     // NameValuePair("vorderbauhoehe", vorderbauhoehe), //TODO is not calculated yet
-//     NameValuePair("vorderachshoehe", vorderachshoehe),
-//     // NameValuePair("schwingenachshoehe", schwingenachshoehe), //TODO is not calculated yet
-//     NameValuePair("hinterachshoehe", hinterachshoehe),
-
-//     // abstandVorn,
-//     // abstandHinten,
-//     // cmdWinkel,
-//     // nachlaufReal,
-//   ];
-// }

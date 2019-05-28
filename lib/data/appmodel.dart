@@ -42,6 +42,10 @@ class AppModel extends Model {
     notifyListeners();
   }
 
+  void simulate() {
+    _profile.sim.simulate();
+  }
+
   Profile getProfile() {
     return _profile;
   }

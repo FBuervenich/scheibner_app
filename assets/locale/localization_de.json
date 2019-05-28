@@ -16,9 +16,11 @@
     "lkwgrad": "Lenkkopfwinkel",
     "nachlauf": "Nachlauf",
     "offset": "Offset",
-    "schwingenwinkelGrad": "Schwingenwinkel",
+    "schwingenwinkel_grad": "Schwingenwinkel",
     "radstand": "Radstand",
+    "vorderbauhoehe": "Vorderbauhöhe",
     "vorderachshoehe_read": "Vorderachshöhe",
+    "schwingenachshoehe": "Schwingenachshöhe",
     "hinterachshoehe_read": "Hinterachshöhe",
     "cameraPermissions":
         "Keine Kamera-Berechtigung erteilt. Bitte erteilen Sie sie in den Einstellungen.",
