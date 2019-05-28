@@ -48,7 +48,6 @@ class ScheibnerAppState extends State<ScheibnerApp> {
 
   @override
   Widget build(BuildContext context) {
-    this._initalizePreferencesValues(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: new ThemeData(
@@ -84,19 +83,5 @@ class ScheibnerAppState extends State<ScheibnerApp> {
     setState(() {
       _newLocaleDelegate = AppTranslationsDelegate(newLocale: locale);
     });
-  }
-
-  void _initalizePreferencesValues(BuildContext context) {
-    String inputMode = PrefService.getString("input_mode");
-    if (inputMode == null) {
-      PrefService.setString(
-          'input_mode', AppTranslations.of(context).text("inputModeSliders"));
-    }
-
-    String language = PrefService.getString("language");
-    if (language == null) {
-      PrefService.setString(
-          'language', AppTranslations.of(context).text("languageGerman"));
-    }
   }
 }
