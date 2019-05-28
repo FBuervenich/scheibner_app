@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:scheibner_app/commonWidgets/framedButton.dart';
 import 'package:scheibner_app/data/appmodel.dart';
 import 'package:scheibner_app/data/data.dart';
+import 'package:scheibner_app/helpers/helperfunctions.dart';
 import 'package:scheibner_app/localization/app_translations.dart';
 import 'package:scheibner_app/styles.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -14,7 +15,6 @@ class SimulationPage extends StatefulWidget {
 }
 
 class _SimulationState extends State<SimulationPage> {
-  static const EPS = 5e-2;
   final Map<String, TextEditingController> _controllers = Map.fromIterable(
     Data.names,
     key: (name) => name,
@@ -120,7 +120,9 @@ class _SimulationState extends State<SimulationPage> {
                     ),
                     new Align(
                       alignment: Alignment.centerRight,
-                      child: _createDifferenceText(simValue, measValue),
+                      child: new Text(
+                          Helper.createDifferenceText(simValue, measValue),
+                          style: defaultTextStyle),
                     ),
                   ],
                 ),
@@ -212,7 +214,9 @@ class _SimulationState extends State<SimulationPage> {
                     new Expanded(
                       child: new Align(
                         alignment: Alignment.centerRight,
-                        child: _createDifferenceText(simValue, measValue),
+                        child: new Text(
+                            Helper.createDifferenceText(simValue, measValue),
+                            style: defaultTextStyle),
                       ),
                     ),
                   ],
@@ -223,22 +227,6 @@ class _SimulationState extends State<SimulationPage> {
         );
       },
     ).toList();
-  }
-
-  Text _createDifferenceText(double simValue, double measValue) {
-    String text = "";
-    if ((simValue - measValue).abs() < EPS) {
-      text = "0.0";
-    } else {
-      if (simValue > measValue) {
-        text += "+";
-      }
-      text += (simValue - measValue).toStringAsFixed(1);
-    }
-    return new Text(
-      text,
-      style: defaultTextStyle,
-    );
   }
 
   @override
