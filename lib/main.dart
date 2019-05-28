@@ -1,28 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:scheibner_app/data/appmodel.dart';
-import 'package:scheibner_app/localization/app_translations.dart';
 import 'package:scheibner_app/pages/preferencesPage.dart';
 import 'package:scheibner_app/pages/profilePage.dart';
 import 'package:scheibner_app/pages/simulationPage.dart';
 import 'package:scheibner_app/pages/dataInputPage.dart';
 import 'package:scheibner_app/pages/resultsPage.dart';
+import 'package:scheibner_app/styles.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:preferences/preferences.dart';
-
 
 import 'package:scheibner_app/localization/app_translations_delegate.dart';
 import 'package:scheibner_app/localization/application.dart';
 
+import 'data/profileList.dart';
+
 void main() async {
   await PrefService.init(prefix: 'pref_');
   final model = new AppModel();
+  final profileList = new ProfileList();
 
   runApp(
     new ScopedModel<AppModel>(
       model: model,
       child: new ScheibnerApp(),
-    ),
+    )
   );
 }
 
@@ -41,8 +43,11 @@ class ScheibnerAppState extends State<ScheibnerApp> {
     super.initState();
 
     String localeFromPrefs = PrefService.getString("language");
-    
-    _newLocaleDelegate = AppTranslationsDelegate(newLocale: localeFromPrefs != null ? Locale(localeFromPrefs.toLowerCase()) : null);
+
+    _newLocaleDelegate = AppTranslationsDelegate(
+        newLocale: localeFromPrefs != null
+            ? Locale(localeFromPrefs.toLowerCase())
+            : null);
     application.onLocaleChanged = onLocaleChange;
   }
 
@@ -51,13 +56,16 @@ class ScheibnerAppState extends State<ScheibnerApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: new ThemeData(
+        primaryColor: highlightColor,
+        accentColor: highlightColor,
         textTheme: new TextTheme(
           display4: new TextStyle(
             fontSize: 24,
           ),
         ),
       ),
-      home: new DataInputPage(),
+      home: new ProfilePage(),
+      // home: new DataInputPage(),
       routes: {
         '/profiles': (BuildContext context) => new ProfilePage(),
         '/inputdata': (BuildContext context) => new DataInputPage(),
