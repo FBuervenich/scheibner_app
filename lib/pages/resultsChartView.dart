@@ -21,7 +21,7 @@ class ChartView extends StatelessWidget {
       ChartType.simpleBarChart,
       data: [
         new charts.Series<BarChartData, String>(
-          id: 'Sales',
+          id: 'Sales', 
           colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
           domainFn: (BarChartData sales, _) => sales.year,
           measureFn: (BarChartData sales, _) => sales.sales,
