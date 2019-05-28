@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:scheibner_app/data/appmodel.dart';
 import 'package:scheibner_app/data/data.dart';
+import 'package:scheibner_app/helpers/helperfunctions.dart';
 import 'package:scheibner_app/localization/app_translations.dart';
 import 'package:scheibner_app/styles.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class TableView extends StatelessWidget {
-  static const EPS = 5e-2;
   @override
   Widget build(BuildContext context) {
     return new Padding(
@@ -52,35 +52,22 @@ class TableView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 new Text(
-                  measValue.toStringAsFixed(1),
+                  Helper.valToString(measValue),
                   style: defaultTextStyle,
                 ),
                 new Text(
-                  simValue.toStringAsFixed(1),
+                  Helper.valToString(simValue),
                   style: defaultTextStyle,
                 ),
-                new Text("asdf"),//_createDifferenceText(simValue, measValue),
+                new Text(
+                  Helper.createDifferenceText(simValue, measValue),
+                  style: defaultTextStyle,
+                ),
               ],
             ),
           ],
         ),
       ),
-    );
-  }
-
-  Text _createDifferenceText(double simValue, double measValue) {
-    String text = "";
-    if ((simValue - measValue).abs() < EPS) {
-      text = "0.0";
-    } else {
-      if (simValue > measValue) {
-        text += "+";
-      }
-      text += (simValue - measValue).toStringAsFixed(1);
-    }
-    return new Text(
-      text,
-      style: defaultTextStyle,
     );
   }
 }
