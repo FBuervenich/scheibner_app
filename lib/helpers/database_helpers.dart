@@ -34,14 +34,6 @@ class Word {
   }
 }
 
-/**
- * Profile class representing one bike profile
- */
-class Profile {
-  int id;
-  String name;
-}
-
 // singleton class to manage the database
 class DatabaseHelper {
   // This is the actual database filename that is saved in the docs directory.
