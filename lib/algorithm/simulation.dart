@@ -330,8 +330,18 @@ class ScheibnerSimulation {
     data["schwingenlaenge"] = schwingenlaengeFbKor;
     data["vorderbauhoehe"] = vorderbauhoeheFbKor;
     data["schwingenachshoehe"] = schwingenachshoeheFbKor;
-    data["hinterachshoehe"] = hinterachshoeheFbKor;
+    // data["hinterachshoehe"] = hinterachshoeheFbKor;
     data["radumfang_vorn"] = radumfangvornKor;
     data["radumfang_hinten"] = radumfangHintenKor;
   }
+
+      // assert(25.103436943933 == ret.lkwGrad);
+    // assert(103.49745455836 == ret.nachlauf);
+    // assert(1420.2508522495 == ret.radstand);
+    // assert(-8.279053145702E-6 == ret.schwingenwinkelGrad);
+    // assert(533.7312057581 == ret.schwingenlaenge);
+    // assert(661.08596760676 == ret.vorderbauhoehe);
+    // assert(310.03375202059 == ret.schwingenachshoehe);
+    // assert(1889 == ret.radumfangVorn);
+    // assert(1948 == ret.radumfangHinten);
 }

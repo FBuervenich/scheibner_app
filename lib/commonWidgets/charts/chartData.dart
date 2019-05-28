@@ -1,4 +1,5 @@
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 
@@ -17,11 +18,11 @@ class Chart {
       this.pieChartBehaviors});
 
   static Chart getExampleBarChart() {
-    final data = [
-      new BarChartData('2014', 5),
-      new BarChartData('2015', 25),
-      new BarChartData('2016', 100),
-      new BarChartData('2017', 75),
+   final data = [
+      new BarChartData('2014', 5, Colors.blue),
+      new BarChartData('2015', 25, Colors.blue),
+      new BarChartData('2016', 100, Colors.blue),
+      new BarChartData('2017', 75, Colors.blue),
     ];
 
     return new Chart(
@@ -65,10 +66,10 @@ class Chart {
 
   static Chart getExamplePieChart() {
     final data = [
-      new LinearSales("Lenkkopfwinkel", 100),
-      new LinearSales("1", 75),
-      new LinearSales("2", 25),
-      new LinearSales("3", 5),
+      new LinearSales("Lenkkopfwinkel", 100, Colors.blue),
+      new LinearSales("1", 75, Colors.blue),
+      new LinearSales("2", 25, Colors.blue),
+      new LinearSales("3", 5, Colors.blue),
     ];
 
     return new Chart(
@@ -96,24 +97,27 @@ class ChartRow {
   ChartRow.byWidget(this.widget);
 
   bool isWidget() {
-    return widget == null;
+    return widget != null;
   }
 }
 
 //Chart Data, its types and its implementations
 abstract class ChartData {}
 
-enum ChartType { simpleBarChart, pieChart }
+enum ChartType { simpleBarChart, pieChart, horizonalBarChart }
 
 class BarChartData implements ChartData {
   final String year;
-  final int sales;
-  BarChartData(this.year, this.sales);
+  final double sales;
+  final Color color;
+  BarChartData(this.year, this.sales, this.color);
 }
 
 class LinearSales implements ChartData {
   final String year;
   final int sales;
+  
+  final Color color;
 
-  LinearSales(this.year, this.sales);
+  LinearSales(this.year, this.sales, this.color);
 }
