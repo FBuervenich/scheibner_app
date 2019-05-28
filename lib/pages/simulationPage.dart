@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:preferences/preference_service.dart';
 import 'package:flutter/widgets.dart';
-import 'package:scheibner_app/Localizations.dart';
 import 'package:scheibner_app/data/appmodel.dart';
 import 'package:scheibner_app/data/data.dart';
+import 'package:scheibner_app/localization/app_translations.dart';
 import 'package:scheibner_app/styles.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -23,16 +23,16 @@ class _SimulationState extends State<SimulationPage> {
     String mode = PrefService.getString("input_mode");
     //@DNeuroth: check mode and decide whether to show sliders or numer input boxes
     if (mode ==
-        ScheibnerLocalizations.of(context).getValue("inputModeTextFields")) {
+        AppTranslations.of(context).text("inputModeTextFields")) {
       //show textfields
     } else if (mode ==
-        ScheibnerLocalizations.of(context).getValue("inputModeSliders")) {
+        AppTranslations.of(context).text("inputModeSliders")) {
       //show sliders
     }
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(
-          ScheibnerLocalizations.of(context).getValue("simulationTitle"),
+          AppTranslations.of(context).text("simulationTitle"),
         ),
         actions: <Widget>[],
       ),
@@ -94,7 +94,7 @@ class _SimulationState extends State<SimulationPage> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 new Text(
-                  ScheibnerLocalizations.of(context).getValue(name),
+                  AppTranslations.of(context).text(name),
                   style: DEFAULT_TEXT_STYLE,
                 ),
                 new Row(
