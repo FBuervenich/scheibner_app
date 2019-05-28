@@ -15,17 +15,18 @@ import 'package:scheibner_app/localization/application.dart';
 
 import 'data/profileList.dart';
 
+final model = new AppModel();
+final profileList = new ProfileList();
+
 void main() async {
   await PrefService.init(prefix: 'pref_');
-  final model = new AppModel();
-  final profileList = new ProfileList();
 
   runApp(
-    new ScopedModel<AppModel>(
-      model: model,
-      child: new ScheibnerApp(),
-    )
-  );
+      // new ScopedModel<AppModel>(
+      //   model: model,
+      //   child: new ScheibnerApp(),
+      // )
+      new ScheibnerApp());
 }
 
 class ScheibnerApp extends StatefulWidget {
@@ -64,13 +65,33 @@ class ScheibnerAppState extends State<ScheibnerApp> {
           ),
         ),
       ),
-      home: new ProfilePage(),
-      // home: new DataInputPage(),
+      // profilePage
+      home: new ScopedModel<ProfileList>(
+        model: profileList,
+        child: new ProfilePage(),
+      ),
+      // dataInputPage
+      // home: new ScopedModel<AppModel>(
+      //   model: profileList,
+      //   child: new DataInputPage(),
+      // ),
       routes: {
-        '/profiles': (BuildContext context) => new ProfilePage(),
-        '/inputdata': (BuildContext context) => new DataInputPage(),
-        '/simulation': (BuildContext context) => new SimulationPage(),
-        '/results': (BuildContext context) => new ResultsPage(),
+        '/profiles': (BuildContext context) => new ScopedModel<ProfileList>(
+              model: profileList,
+              child: new ProfilePage(),
+            ),
+        '/inputdata': (BuildContext context) => new ScopedModel<AppModel>(
+              model: model,
+              child: new DataInputPage(),
+            ),
+        '/simulation': (BuildContext context) => new ScopedModel<AppModel>(
+              model: model,
+              child: new SimulationPage(),
+            ),
+        '/results': (BuildContext context) => new ScopedModel<AppModel>(
+              model: model,
+              child: new ResultsPage(),
+            ),
         '/preferences': (BuildContext context) => new PreferencesPage(),
       },
       localizationsDelegates: [
@@ -92,4 +113,22 @@ class ScheibnerAppState extends State<ScheibnerApp> {
       _newLocaleDelegate = AppTranslationsDelegate(newLocale: locale);
     });
   }
+
+  // Wrap a widget into a given Scoped Model
+  ScopedModel _scopedModelWrapper(Model model, widget) {
+    return new ScopedModel(
+      model: model,
+      child: widget,
+    );
+  }
 }
+
+// class _scopedModelWrapperc<T> {
+
+//   ScopedModel _scopedModelWrappera(Model model, T modelType, widget) {
+//     return new ScopedModel<T>(
+//       model: model,
+//       child: widget,
+//     );
+//   }
+// }

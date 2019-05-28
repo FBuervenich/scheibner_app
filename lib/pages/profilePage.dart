@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:scheibner_app/data/profileList.dart';
 import 'package:scheibner_app/localization/app_translations.dart';
+import 'package:scoped_model/scoped_model.dart';
 import '../styles.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -14,7 +16,7 @@ class _ProfiletState extends State<ProfilePage> {
     super.initState();
   }
 
-  final items = List<String>.generate(100, (i) => "Item ${i + 1}");
+  // final items = List<String>.generate(100, (i) => "Item ${i + 1}");
   int _itemCounter = 0;
 
   @override
@@ -34,45 +36,42 @@ class _ProfiletState extends State<ProfilePage> {
         ],
       ),
       backgroundColor: backgroundColor,
-      body: Builder(
-        // Create an inner BuildContext so that the onPressed methods
-        // can refer to the Scaffold with Scaffold.of().
-        builder: (BuildContext context) {
-          return ListView.builder(
-            itemCount: items.length,
-            itemBuilder: (context, index) {
-              final item = items[index];
-              return Dismissible(
-                // Each Dismissible must contain a Key. Keys allow Flutter to
-                // uniquely identify Widgets.
-                key: Key(item),
-                // We also need to provide a function that will tell our app
-                // what to do after an item has been swiped away.
-                onDismissed: (direction) {
-                  // Remove the item from our data source.
-                  setState(() {
-                    items.removeAt(index);
-                  });
+      body: new ScopedModelDescendant<ProfileList>(
+        builder: (BuildContext context, child, ProfileList profileList) =>
+            ListView.builder(
+              itemCount: profileList.getProfiles().length,
+              itemBuilder: (context, index) {
+                final item = profileList.getProfiles()[index];
+                return Dismissible(
+                  // Each Dismissible must contain a Key. Keys allow Flutter to
+                  // uniquely identify Widgets.
+                  key: Key(item),
+                  // We also need to provide a function that will tell our app
+                  // what to do after an item has been swiped away.
+                  onDismissed: (direction) {
+                    // Remove the item from our data source.
+                    setState(() {
+                      profileList.deleteProfile(index);
+                    });
 
-                  // Show a snackbar! This snackbar could also contain "Undo" actions.
-                  Scaffold.of(context)
-                      .showSnackBar(SnackBar(content: Text("$item dismissed")));
-                },
-                child: new GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/inputdata');
+                    // Show a snackbar! This snackbar could also contain "Undo" actions.
+                    Scaffold.of(context).showSnackBar(
+                        SnackBar(content: Text("$item dismissed")));
                   },
-                  child: new Card(
-                    child: new Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Text("$item", style: TextStyle(fontSize: 22.0)),
+                  child: new GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/inputdata');
+                    },
+                    child: new Card(
+                      child: new Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Text("$item", style: TextStyle(fontSize: 22.0)),
+                      ),
                     ),
                   ),
-                ),
-              );
-            },
-          );
-        },
+                );
+              },
+            ),
       ),
       floatingActionButton: Builder(
         builder: (context) => FloatingActionButton(
@@ -132,7 +131,11 @@ class _ProfiletState extends State<ProfilePage> {
       _textFieldController.text = "";
     } else if (retVal == "success") {
       // user clicked the "success" button
+
+      // add the profile
+      ScopedModel.of<ProfileList>(context).addProfile(_itemCounter, _textFieldController.text);
       _itemCounter++;
+      _textFieldController.text = "";
     }
   }
 }
