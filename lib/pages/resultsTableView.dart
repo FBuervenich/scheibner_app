@@ -33,6 +33,7 @@ class TableView extends StatelessWidget {
 
     String name = Data.showable[position];
     double measValue = model.getMeasValue(name);
+    if (measValue == null) measValue = 0;
     double simValue = model.getSimValue(name);
 
     return new Padding(
@@ -59,7 +60,7 @@ class TableView extends StatelessWidget {
                   simValue.toStringAsFixed(1),
                   style: defaultTextStyle,
                 ),
-                new Text("asdf"),//_createDifferenceText(simValue, measValue),
+                new Text("asdf"), //_createDifferenceText(simValue, measValue),
               ],
             ),
           ],

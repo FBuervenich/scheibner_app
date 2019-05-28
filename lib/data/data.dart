@@ -37,6 +37,7 @@ class Data {
   //TODO: name localization
   static final List<String> showable = names.sublist(0, 14);
   static final List<String> modifiable = showable.sublist(0, 5);
+  static final List<String> chartable = showable.sublist(4, 13);
 
   DateTime _date;
   Map<String, double> _values;
