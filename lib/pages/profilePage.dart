@@ -18,6 +18,12 @@ class ReducedProfile {
     this.name = name;
     this.lastChanged = lastChanged;
   }
+
+  ReducedProfile.fromMap(Map<String, dynamic> map) {
+    this.profileID = map["id"];
+    this.name = map["name"];
+    this.lastChanged = DateTime.tryParse(map["lastChanged"]);
+  }
 }
 
 class ProfilePage extends StatefulWidget {
@@ -26,7 +32,6 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfiletState extends State<ProfilePage> {
-  int _itemCounter = 0;
   List<ReducedProfile> _profiles;
 
   @override
@@ -199,9 +204,8 @@ class _ProfiletState extends State<ProfilePage> {
 
       // add the profile
       for (int i = 0; i < 5; i++) {
-        _profiles.add(new ReducedProfile(
-            _itemCounter, _textFieldController.text, DateTime.now()));
-        _itemCounter++;
+        _profiles.add(
+            new ReducedProfile(i, _textFieldController.text, DateTime.now()));
       }
       _textFieldController.text = "";
     }
