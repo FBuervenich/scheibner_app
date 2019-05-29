@@ -5,9 +5,7 @@ import 'package:scoped_model/scoped_model.dart';
 class AppModel extends Model {
   Profile _profile = new Profile(); //TODO for testing
 
-  AppModel() {
-    _profile.sim = new List<Data>();
-  }
+  AppModel() {}
 
   Data getMeasurementData() {
     if (_profile.meas == null) {
@@ -25,7 +23,7 @@ class AppModel extends Model {
     if (_profile.sim == null) {
       return null;
     }
-    return Data.clone(_profile.sim[0]);
+    return Data.clone(_profile.sim);
   }
 
   double getMeasValue(String name) {
@@ -33,22 +31,21 @@ class AppModel extends Model {
   }
 
   double getSimValue(String name) {
-    return _profile.sim[0].getValue(name);
+    return _profile.sim.getValue(name);
   }
 
   void setSimValue(String name, double value) {
-    _profile.sim[0].setValue(name, value);
+    _profile.sim.setValue(name, value);
     notifyListeners();
   }
 
   void setSimulationData(Data d) {
-    _profile.sim = new List<Data>();
-    _profile.sim.add(d);
+    _profile.sim = d;
     notifyListeners();
   }
 
   void simulate() {
-    _profile.sim[0].simulate();
+    _profile.sim.simulate();
   }
 
   Profile getProfile() {

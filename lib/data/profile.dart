@@ -7,5 +7,5 @@ class Profile {
   // measurement data
   Data meas;
   // simulation data
-  List<Data> sim;
+  Data sim;
 }
