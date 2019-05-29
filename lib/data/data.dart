@@ -1,4 +1,5 @@
 import 'package:scheibner_app/algorithm/simulation.dart';
+import 'dart:convert';
 
 class Data {
   static const List<String> names = <String>[
@@ -33,7 +34,6 @@ class Data {
     "abstand_vorn_read",
     "abstand_hinten_read",
   ];
-  //TODO: review showable and editable values
   //TODO: name localization
   static final List<String> showable = names.sublist(0, 14);
   static final List<String> modifiable = showable.sublist(0, 5);
@@ -46,22 +46,23 @@ class Data {
     ScheibnerSimulation.calcAdditionalData(this._values);
   }
 
-  // creates random data for testing
-  Data.testData() {
-    _values = <String, double>{};
-    for (int i = 0; i < names.length; i++) {
-      String name = names[i];
-      _values[name] = i + 1000.01234;
-    }
-    _date = new DateTime.now();
-  }
-
   Data.clone(Data data) {
     if (data != null) {
       _values = new Map<String, double>.from(data._values);
       _date = data._date;
     }
   }
+
+  Data.fromJson(String s) {
+    Map<String, dynamic> map = json.decode(s);
+    _date = map["date"];
+    _values = json.decode(map["values"]);
+  }
+
+  String toJson() => json.encode({
+        "date": _date,
+        "values": json.encode(_values),
+      });
 
   void simulate() {
     ScheibnerSimulation.simulate(_values);
