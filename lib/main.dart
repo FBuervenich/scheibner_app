@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:scheibner_app/data/appmodel.dart';
-import 'package:scheibner_app/data/profile.dart';
 import 'package:scheibner_app/pages/preferencesPage.dart';
 import 'package:scheibner_app/pages/profilePage.dart';
 import 'package:scheibner_app/pages/simulationPage.dart';
@@ -22,12 +21,10 @@ final profileList = new ProfileList();
 void main() async {
   await PrefService.init(prefix: 'pref_');
 
-  runApp(
-      // new ScopedModel<AppModel>(
-      //   model: model,
-      //   child: new ScheibnerApp(),
-      // )
-      new ScheibnerApp());
+  runApp(new ScopedModel<AppModel>(
+    model: model,
+    child: new ScheibnerApp(),
+  ));
 }
 
 class ScheibnerApp extends StatefulWidget {
@@ -68,27 +65,12 @@ class ScheibnerAppState extends State<ScheibnerApp> {
           ),
         ),
       ),
-      // profilePage
       home: new ProfilePage(),
-      // dataInputPage
-      // home: new ScopedModel<AppModel>(
-      //   model: profileList,
-      //   child: new DataInputPage(),
-      // ),
       routes: {
         '/profiles': (BuildContext context) => new ProfilePage(),
-        '/inputdata': (BuildContext context) => new ScopedModel<AppModel>(
-              model: model,
-              child: new DataInputPage(),
-            ),
-        '/simulation': (BuildContext context) => new ScopedModel<AppModel>(
-              model: model,
-              child: new SimulationPage(),
-            ),
-        '/results': (BuildContext context) => new ScopedModel<AppModel>(
-              model: model,
-              child: new ResultsPage(),
-            ),
+        '/inputdata': (BuildContext context) => new DataInputPage(),
+        '/simulation': (BuildContext context) => new SimulationPage(),
+        '/results': (BuildContext context) => new ResultsPage(),
         '/preferences': (BuildContext context) => new PreferencesPage(),
       },
       localizationsDelegates: [
@@ -118,14 +100,11 @@ class ScheibnerAppState extends State<ScheibnerApp> {
       child: widget,
     );
   }
+
+  // ScopedModel _scopedModelWrappera(Model model, widget) {
+  //   return new ScopedModel<T>(
+  //     model: model,
+  //     child: widget,
+  //   );
+  // }
 }
-
-// class _scopedModelWrapperc<T> {
-
-//   ScopedModel _scopedModelWrappera(Model model, T modelType, widget) {
-//     return new ScopedModel<T>(
-//       model: model,
-//       child: widget,
-//     );
-//   }
-// }
