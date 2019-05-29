@@ -1,9 +1,16 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:scheibner_app/data/profileList.dart';
 import 'package:scheibner_app/localization/app_translations.dart';
 import 'package:scoped_model/scoped_model.dart';
 import '../styles.dart';
+
+class ReducedProfile {
+  int profileID;
+  String name;
+  DateTime lastChanged;
+}
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -11,13 +18,14 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfiletState extends State<ProfilePage> {
+  int _itemCounter = 0;
+  HashMap<int, String> _profiles;
+
   @override
   initState() {
+    _profiles = new HashMap<int, String>();
     super.initState();
   }
-
-  // final items = List<String>.generate(100, (i) => "Item ${i + 1}");
-  int _itemCounter = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -35,13 +43,12 @@ class _ProfiletState extends State<ProfilePage> {
           ),
         ],
       ),
-      backgroundColor: backgroundColor,
-      body: new ScopedModelDescendant<ProfileList>(
-        builder: (BuildContext context, child, ProfileList profileList) =>
-            ListView.builder(
-              itemCount: profileList.getProfiles().length,
+      backgroundColor: Colors.black,
+      body: Builder(
+        builder: (BuildContext context) => ListView.builder(
+              itemCount: _profiles.length,
               itemBuilder: (context, index) {
-                final item = profileList.getProfiles()[index];
+                final item = _profiles[index];
                 return Dismissible(
                   // Each Dismissible must contain a Key. Keys allow Flutter to
                   // uniquely identify Widgets.
@@ -51,12 +58,12 @@ class _ProfiletState extends State<ProfilePage> {
                   onDismissed: (direction) {
                     // Remove the item from our data source.
                     setState(() {
-                      profileList.deleteProfile(index);
+                      _profiles.remove(index);
                     });
 
                     // Show a snackbar! This snackbar could also contain "Undo" actions.
                     Scaffold.of(context).showSnackBar(
-                        SnackBar(content: Text("$item dismissed")));
+                        SnackBar(content: Text("$item index $index dismissed")));
                   },
                   child: new GestureDetector(
                     onTap: () {
@@ -133,8 +140,10 @@ class _ProfiletState extends State<ProfilePage> {
       // user clicked the "success" button
 
       // add the profile
-      ScopedModel.of<ProfileList>(context).addProfile(_itemCounter, _textFieldController.text);
-      _itemCounter++;
+      for (int i = 0; i < 10; i++) {
+        _profiles[_itemCounter] = _textFieldController.text;
+        _itemCounter++;
+      }
       _textFieldController.text = "";
     }
   }

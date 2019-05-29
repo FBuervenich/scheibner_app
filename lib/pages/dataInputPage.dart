@@ -45,7 +45,7 @@ class _DataInputState extends State<DataInputPage> {
           ),
         ],
       ),
-      backgroundColor: backgroundColor,
+      // backgroundColor: backgroundColor,
       body: Builder(
         // Create an inner BuildContext so that the onPressed methods
         // can refer to the Scaffold with Scaffold.of().

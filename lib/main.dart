@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:scheibner_app/data/appmodel.dart';
+import 'package:scheibner_app/data/profile.dart';
 import 'package:scheibner_app/pages/preferencesPage.dart';
 import 'package:scheibner_app/pages/profilePage.dart';
 import 'package:scheibner_app/pages/simulationPage.dart';
@@ -57,6 +58,8 @@ class ScheibnerAppState extends State<ScheibnerApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: new ThemeData(
+        backgroundColor: backgroundColor,
+        scaffoldBackgroundColor: backgroundColor,
         primaryColor: highlightColor,
         accentColor: highlightColor,
         textTheme: new TextTheme(
@@ -66,20 +69,14 @@ class ScheibnerAppState extends State<ScheibnerApp> {
         ),
       ),
       // profilePage
-      home: new ScopedModel<ProfileList>(
-        model: profileList,
-        child: new ProfilePage(),
-      ),
+      home: new ProfilePage(),
       // dataInputPage
       // home: new ScopedModel<AppModel>(
       //   model: profileList,
       //   child: new DataInputPage(),
       // ),
       routes: {
-        '/profiles': (BuildContext context) => new ScopedModel<ProfileList>(
-              model: profileList,
-              child: new ProfilePage(),
-            ),
+        '/profiles': (BuildContext context) => new ProfilePage(),
         '/inputdata': (BuildContext context) => new ScopedModel<AppModel>(
               model: model,
               child: new DataInputPage(),
