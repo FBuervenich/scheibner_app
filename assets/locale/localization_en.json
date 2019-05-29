@@ -41,5 +41,9 @@
     "newProfile": "New profile",
     "enterProfileName": "Enter profile name",
     "profileName": "Profilename",
-    "createProfile": "Create profile"
+    "createProfile": "Create profile",
+
+    
+    "chartFactory_newOldBarChart": "textTODO",
+    "chartFactory_createPercentDiffChart": "Change of simulation values"
 }
