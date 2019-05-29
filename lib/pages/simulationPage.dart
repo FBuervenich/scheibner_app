@@ -52,6 +52,14 @@ class _SimulationState extends State<SimulationPage> {
       backgroundColor: backgroundColor,
       body: new Column(
         children: <Widget>[
+          new Expanded(
+            child: new ScopedModelDescendant<AppModel>(
+              builder: (context, child, model) => new ListView(
+                    // physics: new NeverScrollableScrollPhysics(),
+                    children: inputListBuilder(context, model),
+                  ),
+            ),
+          ),
           new Padding(
             padding: EdgeInsets.all(10),
             child: new FramedButton(
@@ -60,14 +68,6 @@ class _SimulationState extends State<SimulationPage> {
                 ScopedModel.of<AppModel>(context).simulate();
                 Navigator.pushNamed(context, '/results');
               },
-            ),
-          ),
-          new Expanded(
-            child: new ScopedModelDescendant<AppModel>(
-              builder: (context, child, model) => new ListView(
-                    // physics: new NeverScrollableScrollPhysics(),
-                    children: inputListBuilder(context, model),
-                  ),
             ),
           ),
         ],
