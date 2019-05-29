@@ -32,7 +32,7 @@ class ResultsPage extends StatelessWidget {
             ],
           ),
         ),
-        backgroundColor: backgroundColor,
+        // backgroundColor: backgroundColor,
         body: new TabBarView(
           children: [
             new TableView(),

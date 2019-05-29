@@ -49,7 +49,7 @@ class _SimulationState extends State<SimulationPage> {
           ),
         ],
       ),
-      backgroundColor: backgroundColor,
+      // backgroundColor: backgroundColor,
       body: new Column(
         children: <Widget>[
           new Expanded(
