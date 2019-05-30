@@ -4,7 +4,6 @@
     "dataInputTitle": "Read Data",
     "simulationTitle": "Simulation",
     "resultsTitle": "Results",
-
     "comments": "Comments",
     "modifyValues": "Modify values for simulation",
     "measurementID": "Measurement ID:",
@@ -27,6 +26,8 @@
     "errorDataLoading": "Error while calling Scheibner API",
     "errorJsonParsing": "Error while parsing JSON",
     "close": "Close",
+    "delete": "Delete",
+    "undo": "UNDO",
     "inputModeTextFields": "Text",
     "inputModeSliders": "Slider",
     "languageGerman": "DE",
@@ -37,13 +38,12 @@
     "countrySettings": "Country Settings",
     "language": "Language",
     "cancel": "Cancel",
-
     "newProfile": "New profile",
     "enterProfileName": "Enter profile name",
     "profileName": "Profilename",
     "createProfile": "Create profile",
-
-    
+    "profile": "Profile",
+    "deleted": "deleted",
     "chartFactory_newOldBarChart": "textTODO",
     "chartFactory_createPercentDiffChart": "Change of simulation values"
 }

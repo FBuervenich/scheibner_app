@@ -72,7 +72,7 @@ class _DataInputState extends State<DataInputPage> {
                 new Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    new RaisedButton(
+                    new RaisedButton.icon(
                       onPressed: () async {
                         try {
                           Data measurementData =
@@ -84,48 +84,50 @@ class _DataInputState extends State<DataInputPage> {
                               AppTranslations.of(context).text(e.toString()));
                         }
                       },
-                      child: new Text(
+                      label: Text(
                         AppTranslations.of(context).text("loadFromServer"),
                       ),
+                      icon: Icon(Icons.cloud),
                     ),
-                    new RaisedButton(
-                      onPressed: () async {
-                        try {
-                          setState(() => this.barcode = "");
-                          await scan(context);
+                    new RaisedButton.icon(
+                        onPressed: () async {
+                          try {
+                            setState(() => this.barcode = "");
+                            await scan(context);
 
-                          if (this.barcode != "") {
-                            measurementData =
-                                apiService.getMeasurementFromJson(barcode);
-                            processMeasurement(measurementData);
+                            if (this.barcode != "") {
+                              measurementData =
+                                  apiService.getMeasurementFromJson(barcode);
+                              processMeasurement(measurementData);
+                            }
+                          } on ScheibnerException catch (e) {
+                            this._showToast(context,
+                                AppTranslations.of(context).text(e.toString()));
                           }
-                        } on ScheibnerException catch (e) {
-                          this._showToast(context,
-                              AppTranslations.of(context).text(e.toString()));
-                        }
-                      },
-                      child: Text(
-                        AppTranslations.of(context).text("loadFromQRCode"),
-                      ),
-                    ),
+                        },
+                        label: Text(
+                          AppTranslations.of(context).text("loadFromQRCode"),
+                        ),
+                        icon: Icon(Icons.select_all)),
                   ],
                 ),
                 new ScopedModelDescendant<AppModel>(
                   builder: (context, child, model) => Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
-                          new RaisedButton(
+                          new RaisedButton.icon(
                             onPressed: model.getMeasurementData() != null
                                 ? () {
                                     Navigator.pushNamed(context, '/simulation');
                                   }
                                 : null,
-                            child: new Text("Edit for Simulation"),
+                            label: new Text("Edit for Simulation"),
+                            icon: Icon(Icons.edit),
                           ),
-                          new RaisedButton(
-                            onPressed: null,
-                            child: Text("Load last simulation"),
-                          ),
+                          // new RaisedButton(
+                          //   onPressed: null,
+                          //   child: Text("Load last simulation"),
+                          // ),
                         ],
                       ),
                 ),

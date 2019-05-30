@@ -5,7 +5,8 @@ final TextStyle defaultTextStyle = TextStyle(
   color: Colors.grey[500],
 );
 
-final Color backgroundColor = Colors.grey[200];
+final Color backgroundColor = Color.fromRGBO(58, 66, 86, 1.0);
+// final Color backgroundColor = Colors.grey[200];
 final Color highlightColor = Color.fromRGBO(216, 7, 42, 1);
 
 
