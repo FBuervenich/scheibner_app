@@ -1,11 +1,10 @@
-import 'dart:collection';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
+import 'package:scheibner_app/helpers/database_helpers.dart';
 import 'package:scheibner_app/localization/app_translations.dart';
 import 'package:scheibner_app/styles.dart';
-import 'package:scoped_model/scoped_model.dart';
+
 import '../styles.dart';
 
 class ReducedProfile {
@@ -33,11 +32,17 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfiletState extends State<ProfilePage> {
   List<ReducedProfile> _profiles;
+  final dbHelper = DatabaseHelper.instance;
 
   @override
   initState() {
-    _profiles = new List<ReducedProfile>();
+    // _profiles = new List<ReducedProfile>();
+    _reloadProfiles();
     super.initState();
+  }
+
+  void _reloadProfiles() async {
+    _profiles = await dbHelper.getRedProfileList();
   }
 
   @override
@@ -242,12 +247,20 @@ class _ProfiletState extends State<ProfilePage> {
     } else if (retVal == "success") {
       // user clicked the "success" button
 
-      // add the profile
+      // add the profile 5 times (debug purposes)
+      // TODO remove this loop
       for (int i = 0; i < 5; i++) {
-        _profiles.add(
-            new ReducedProfile(i, _textFieldController.text, DateTime.now()));
+        ReducedProfile rp =
+            new ReducedProfile(i, _textFieldController.text, DateTime.now());
+        // add the profile to the database
+        dbHelper.createProfile(_textFieldController.text);
+
+        // reload the profiles so the list is updated
+        _reloadProfiles();
+
+        // reset the profile name input
+        _textFieldController.text = "";
       }
-      _textFieldController.text = "";
     }
   }
 

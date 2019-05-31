@@ -1,10 +1,11 @@
 import 'dart:io';
+
 import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:scheibner_app/data/data.dart';
 import 'package:scheibner_app/data/profile.dart';
 import 'package:scheibner_app/pages/profilePage.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:path_provider/path_provider.dart';
 
 // database table and column names
 final String tableProfiles = 'profiles';
@@ -87,6 +88,12 @@ class DatabaseHelper {
     return count > 0;
   }
 
+  Future<bool> deleteAllProfiles() async {
+    Database db = await database;
+    int count = await db.delete(tableProfiles);
+    return count > 0;
+  }
+
   Future<Profile> loadProfile(int id) async {
     Database db = await database;
     List<Map<String, dynamic>> result = await db.query(
@@ -166,12 +173,16 @@ class DatabaseHelper {
 
   Future<List<ReducedData>> getSimDataList(int profileId) async {
     Database db = await database;
-    List<Map<String, dynamic>> result = await db.query(tableSimData,
-    columns: [colSimId, colSaveDate],
-    where: "$colForeignProfile = ?",
-    whereArgs: [profileId],
-    orderBy: "$colSaveDate DESC",);
-    return result.map((Map<String, dynamic> map) => ReducedData.fromMap(map)).toList();
+    List<Map<String, dynamic>> result = await db.query(
+      tableSimData,
+      columns: [colSimId, colSaveDate],
+      where: "$colForeignProfile = ?",
+      whereArgs: [profileId],
+      orderBy: "$colSaveDate DESC",
+    );
+    return result
+        .map((Map<String, dynamic> map) => ReducedData.fromMap(map))
+        .toList();
   }
 
   Future<List<ReducedProfile>> getRedProfileList() async {
@@ -182,6 +193,7 @@ class DatabaseHelper {
       orderBy: "$colLastChanged DESC",
     );
     return result
-        .map((Map<String, dynamic> map) => ReducedProfile.fromMap(map)).toList();
+        .map((Map<String, dynamic> map) => ReducedProfile.fromMap(map))
+        .toList();
   }
 }
