@@ -66,7 +66,7 @@ class ScheibnerAppState extends State<ScheibnerApp> {
           ),
         ),
       ),
-      home: new DataInputPage(),
+      home: new ProfilePage(),
       routes: {
         '/profiles': (BuildContext context) => new ProfilePage(),
         '/inputdata': (BuildContext context) => new DataInputPage(),
