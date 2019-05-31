@@ -28,6 +28,8 @@
     "errorDataLoading": "Fehler beim Aufrufen der Scheibner API",
     "errorJsonParsing": "Fehler beim Parsen des JSON",
     "close": "Schließen",
+    "delete": "Löschen",
+    "undo": "RÜCKGÄNGIG",
     "inputModeTextFields": "Text",
     "inputModeSliders": "Slider",
     "languageGerman": "DE",
@@ -42,6 +44,8 @@
     "enterProfileName": "Profilnamen eingeben",
     "profileName": "Profilname",
     "createProfile": "Profil erstellen",
+    "profile": "Profil",
+    "deleted": "gelöscht",
     "chartFactory_newOldBarChart": "textTODO",
     "chartFactory_createPercentDiffChart": "Veränderung der Simulationswerte"
 }

@@ -56,13 +56,13 @@ class _ProfiletState extends State<ProfilePage> {
           ),
         ],
       ),
-      backgroundColor: Colors.black,
+      // backgroundColor: Colors.black,
       body: Builder(
         builder: (BuildContext context) => ListView.builder(
               physics: BouncingScrollPhysics(),
-              // shrinkWrap: true,
-              itemCount: _profiles.length,
-              itemBuilder: _makeCard,
+              itemCount: _profiles.length > 0 ? _profiles.length : 1,
+              itemBuilder:
+                  _profiles.length > 0 ? _makeCard : _makeNoProfilesWidget,
             ),
       ),
       floatingActionButton: Builder(
@@ -78,6 +78,14 @@ class _ProfiletState extends State<ProfilePage> {
     );
   }
 
+  Widget _makeNoProfilesWidget(BuildContext context, int index) {
+    return new SizedBox(
+      height: double.infinity,
+      // height: double.infinity,
+      child: new RaisedButton(),
+    );
+  }
+
   Widget _makeCard(BuildContext context, int index) {
     final item = _profiles[index];
     return Dismissible(
@@ -89,20 +97,48 @@ class _ProfiletState extends State<ProfilePage> {
       onDismissed: (direction) {
         // Remove the item from our data source.
         setState(() {
-          _profiles.remove(index);
+          _profiles.remove(item);
         });
 
-        // Show a snackbar! This snackbar could also contain "Undo" actions.
-        Scaffold.of(context).showSnackBar(
-            SnackBar(content: Text("$item index $index dismissed")));
+        // Show a snackbar! Also let the user undo his deletion!
+        Scaffold.of(context)
+            .showSnackBar(new SnackBar(
+              content: new Text(
+                  "${AppTranslations.of(context).text("profile")} ${item.name} ${AppTranslations.of(context).text("deleted")}."),
+              action: new SnackBarAction(
+                  label: AppTranslations.of(context).text("undo"),
+                  onPressed: () {
+                    setState(() {
+                      _profiles.add(item);
+                    });
+                  }),
+            ))
+            // wait for the SnackBar to close
+            .closed
+            .then((SnackBarClosedReason reason) {
+          if (reason != SnackBarClosedReason.action) {
+            // DELETE FROM DB HERE (SnackBar has closed, now the deletion can NOT be undone!!)
+          }
+        });
       },
+      background: Container(
+        margin: new EdgeInsets.symmetric(horizontal: 0, vertical: 6.0),
+        color: highlightColor,
+        child: Container(
+          margin: new EdgeInsets.symmetric(horizontal: 10),
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            _getDeleteIconColumn(),
+            _getDeleteIconColumn(),
+          ]),
+        ),
+      ),
       child: new GestureDetector(
         // stack to put an inkwell above
         child: new Stack(
           children: <Widget>[
-            Card(
-              elevation: 8.0,
-              margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+            Container(
+              margin: new EdgeInsets.symmetric(horizontal: 0, vertical: 6.0),
               color: cardBackgroundColor,
               child: ListTile(
                 leading: Container(
@@ -123,7 +159,11 @@ class _ProfiletState extends State<ProfilePage> {
                 ),
                 subtitle: Row(
                   children: <Widget>[
-                    Icon(Icons.linear_scale, color: highlightColor),
+                    Icon(
+                      Icons.edit,
+                      color: highlightColor,
+                      size: 15,
+                    ),
                     Text(" " + _getDateString(),
                         style: TextStyle(color: Colors.white))
                   ],
@@ -209,5 +249,22 @@ class _ProfiletState extends State<ProfilePage> {
       }
       _textFieldController.text = "";
     }
+  }
+
+  Widget _getDeleteIconColumn() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Icon(
+          Icons.delete_forever,
+          color: Colors.white,
+          size: 30,
+        ),
+        Text(
+          AppTranslations.of(context).text("delete"),
+          style: TextStyle(color: Colors.white),
+        ),
+      ],
+    );
   }
 }
