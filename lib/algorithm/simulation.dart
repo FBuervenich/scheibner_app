@@ -1,7 +1,7 @@
 import 'dart:math';
 
 class ScheibnerSimulation {
-  static void calcAdditionalData(Map<String, double> data) {
+  static void calcAdditionalData(Map<String, dynamic> data) {
     double cmdWinkel = data["cmd_winkel"];
     double gRw = data["g_rw"];
     double abstandVorn = data["abstand_vorn_read"];
@@ -165,7 +165,7 @@ class ScheibnerSimulation {
 //Zeile 105: hinterachshoehe_cmd existiert nur 1 Mal und wird in einer rechnung verwendet
 //Anmerkungen
 
-  static simulate(Map<String, double> data,
+  static simulate(Map<String, dynamic> data,
       {double radumfangVorn,
       double radumfangHinten,
       double gabellaenge,

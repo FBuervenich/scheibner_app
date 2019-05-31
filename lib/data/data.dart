@@ -1,6 +1,20 @@
 import 'package:scheibner_app/algorithm/simulation.dart';
 import 'dart:convert';
 
+import 'package:scheibner_app/helpers/database_helpers.dart';
+
+class ReducedData {
+  int id;
+  DateTime saveDate;
+
+  ReducedData(this.id, this.saveDate);
+
+  ReducedData.fromMap(Map<String, dynamic> map) {
+    id = map[colSimId];
+    saveDate = DateTime.tryParse(map[colSaveDate]);
+  }
+}
+
 class Data {
   static const List<String> names = <String>[
     "radumfang_vorn",
@@ -37,13 +51,16 @@ class Data {
   //TODO: name localization
   static final List<String> showable = names.sublist(0, 14);
   static final List<String> modifiable = showable.sublist(0, 5);
-  static final List<String> chartable = showable.sublist(modifiable.length, showable.length);
+  static final List<String> chartable =
+      showable.sublist(modifiable.length, showable.length);
 
   DateTime _date;
-  Map<String, double> _values;
+  Map<String, dynamic> _values;
 
-  Data(this._date, this._values) {
-    ScheibnerSimulation.calcAdditionalData(this._values);
+  Data(this._date, this._values, {bool calcAdditional = true}) {
+    if (calcAdditional) {
+      ScheibnerSimulation.calcAdditionalData(this._values);
+    }
   }
 
   Data.clone(Data data) {
@@ -55,13 +72,13 @@ class Data {
 
   Data.fromJson(String s) {
     Map<String, dynamic> map = json.decode(s);
-    _date = map["date"];
-    _values = json.decode(map["values"]);
+    _date = DateTime.tryParse(map["date"]);
+    _values = map["values"];
   }
 
   String toJson() => json.encode({
-        "date": _date,
-        "values": json.encode(_values),
+        "date": _date?.toIso8601String(),
+        "values": _values,
       });
 
   void simulate() {

@@ -1,38 +1,24 @@
 import 'dart:io';
 import 'package:path/path.dart';
+import 'package:scheibner_app/data/data.dart';
+import 'package:scheibner_app/data/profile.dart';
+import 'package:scheibner_app/pages/profilePage.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 
 // database table and column names
-final String tableWords = 'words';
-final String columnId = '_id';
-final String columnWord = 'word';
-final String columnFrequency = 'frequency';
+final String tableProfiles = 'profiles';
+final String colProfileId = '_id';
+final String colProfileName = 'name';
+final String colLastChanged = 'lastChanged';
+final String colServerId = 'serverId';
+final String colMeasDataContent = 'measurementContent';
 
-// data model class
-class Word {
-  int id;
-  String word;
-  int frequency;
-
-  Word();
-
-  // convenience constructor to create a Word object
-  Word.fromMap(Map<String, dynamic> map) {
-    id = map[columnId];
-    word = map[columnWord];
-    frequency = map[columnFrequency];
-  }
-
-  // convenience method to create a Map from this Word object
-  Map<String, dynamic> toMap() {
-    var map = <String, dynamic>{columnWord: word, columnFrequency: frequency};
-    if (id != null) {
-      map[columnId] = id;
-    }
-    return map;
-  }
-}
+final String tableSimData = 'simulationData';
+final String colSimId = '_id';
+final String colSaveDate = 'saveDate';
+final String colSimDataContent = 'simulationContent';
+final String colForeignProfile = 'profileId';
 
 // singleton class to manage the database
 class DatabaseHelper {
@@ -66,35 +52,136 @@ class DatabaseHelper {
   // SQL string to create the database
   Future _onCreate(Database db, int version) async {
     await db.execute('''
-              CREATE TABLE $tableWords (
-                $columnId INTEGER PRIMARY KEY,
-                $columnWord TEXT NOT NULL,
-                $columnFrequency INTEGER NOT NULL
-              )
+              CREATE TABLE $tableProfiles (
+                $colProfileId INTEGER PRIMARY KEY,
+                $colProfileName TEXT NOT NULL,
+                $colLastChanged TEXT,
+                $colServerId INTEGER,
+                $colMeasDataContent TEXT
+              );
+              ''');
+    await db.execute('''
+              CREATE TABLE $tableSimData (
+                $colSimId INTEGER PRIMARY KEY,
+                $colSimDataContent TEXT NOT NULL,
+                $colSaveDate TEXT,
+                $colForeignProfile INTEGER NOT NULL,
+                FOREIGN KEY ($colForeignProfile) REFERENCES $tableProfiles ($colProfileId)
+                ON DELETE CASCADE
+              );
               ''');
   }
 
   // Database helper methods:
 
-  Future<int> insert(Word word) async {
+  Future<int> createProfile(String name) async {
     Database db = await database;
-    int id = await db.insert(tableWords, word.toMap());
+    int id = await db.insert(tableProfiles, new Profile(name).toMap());
     return id;
   }
 
-  Future<Word> queryWord(int id) async {
+  Future<bool> deleteProfile(int id) async {
     Database db = await database;
-    List<Map> maps = await db.query(tableWords,
-        columns: [columnId, columnWord, columnFrequency],
-        where: '$columnId = ?',
-        whereArgs: [id]);
-    if (maps.length > 0) {
-      return Word.fromMap(maps.first);
-    }
-    return null;
+    int count = await db
+        .delete(tableProfiles, where: "colProfileId = ?", whereArgs: [id]);
+    return count > 0;
   }
 
-  // TODO: queryAllWords()
-  // TODO: delete(int id)
-  // TODO: update(Word word)
+  Future<Profile> loadProfile(int id) async {
+    Database db = await database;
+    List<Map<String, dynamic>> result = await db.query(
+      tableProfiles,
+      columns: ["*"],
+      where: "$colProfileId = ?",
+      whereArgs: [id],
+    );
+    Profile profile = new Profile.fromMap(result.first);
+    result = await db.query(
+      tableSimData,
+      columns: [colSimDataContent],
+      where: "$colForeignProfile = ?",
+      whereArgs: [profile.id],
+      orderBy: "$colSaveDate DESC",
+      limit: 1,
+    );
+    if (result.isNotEmpty) {
+      Data sim = Data.fromJson(result.first[colSimDataContent]);
+      profile.sim = sim;
+    }
+    //TODO: update lastChanged?
+    return profile;
+  }
+
+  // Future<bool> saveProfile(Profile profile) async {
+  //   Database db = await database;
+  //   int count = await db.update(tableProfiles, profile.toMap(), where: "$colProfileId = ?", whereArgs: [profile.id]);
+  //   return count > 0;
+  // }
+
+  Future<bool> changeProfileName(int id, String name) async {
+    Database db = await database;
+    int count = await db.update(tableProfiles, {colProfileName: name},
+        where: "$colProfileId = ?", whereArgs: [id]);
+    return count > 0;
+  }
+
+  Future<bool> changeServerId(int profileId, int serverId) async {
+    Database db = await database;
+    int count = await db.update(tableProfiles, {colServerId: serverId},
+        where: "$colProfileId = ?", whereArgs: [profileId]);
+    return count > 0;
+  }
+
+  Future<bool> changeMeasData(int id, Data meas) async {
+    Database db = await database;
+    String content = meas.toJson();
+    int count = await db.update(tableProfiles, {colMeasDataContent: content},
+        where: "$colProfileId = ?", whereArgs: [id]);
+    return count > 0;
+  }
+
+  Future<int> addSimData(int profileId, Data sim) async {
+    Database db = await database;
+    String content = sim.toJson();
+    String saveDate = DateTime.now().toIso8601String();
+    int simDataId = await db.insert(tableSimData, {
+      colSaveDate: saveDate,
+      colSimDataContent: content,
+      colForeignProfile: profileId,
+    });
+    return simDataId;
+  }
+
+  Future<Data> loadSimData(int simId) async {
+    Database db = await database;
+    List<Map<String, dynamic>> result = await db.query(
+      tableSimData,
+      columns: [colSimDataContent],
+      where: "$colSimId = ?",
+      whereArgs: [simId],
+    );
+    Data sim = Data.fromJson(result.first[colSimDataContent]);
+    return sim;
+  }
+
+  Future<List<ReducedData>> getSimDataList(int profileId) async {
+    Database db = await database;
+    List<Map<String, dynamic>> result = await db.query(tableSimData,
+    columns: [colSimId, colSaveDate],
+    where: "$colForeignProfile = ?",
+    whereArgs: [profileId],
+    orderBy: "$colSaveDate DESC",);
+    return result.map((Map<String, dynamic> map) => ReducedData.fromMap(map)).toList();
+  }
+
+  Future<List<ReducedProfile>> getRedProfileList() async {
+    Database db = await database;
+    List<Map<String, dynamic>> result = await db.query(
+      tableProfiles,
+      columns: [colProfileId, colProfileName, colLastChanged],
+      orderBy: "$colLastChanged DESC",
+    );
+    return result
+        .map((Map<String, dynamic> map) => ReducedProfile.fromMap(map)).toList();
+  }
 }

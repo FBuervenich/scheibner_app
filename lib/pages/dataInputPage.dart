@@ -7,6 +7,8 @@ import 'package:preferences/preference_service.dart';
 
 import 'package:scheibner_app/data/appmodel.dart';
 import 'package:scheibner_app/data/data.dart';
+import 'package:scheibner_app/data/profile.dart';
+import 'package:scheibner_app/helpers/database_helpers.dart';
 import 'package:scheibner_app/helpers/measurementService.dart';
 import 'package:scheibner_app/styles.dart';
 import 'package:scheibner_app/localization/app_translations.dart';
@@ -176,9 +178,10 @@ class _DataInputState extends State<DataInputPage> {
   }
 
   void processMeasurement(Data measurementData) {
-    ScopedModel.of<AppModel>(context).setMeasurementData(measurementData);
-    ScopedModel.of<AppModel>(context)
-        .setSimulationData(Data.clone(measurementData));
+    AppModel model = ScopedModel.of<AppModel>(context);
+    model.setMeasurementData(measurementData);
+    model.setSimulationData(Data.clone(measurementData));
+    DatabaseHelper.instance.changeMeasData(model.getProfile().id, measurementData);
   }
 
   Future scan(BuildContext context) async {
