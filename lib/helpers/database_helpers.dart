@@ -1,10 +1,11 @@
 import 'dart:io';
+
 import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:scheibner_app/data/data.dart';
 import 'package:scheibner_app/data/profile.dart';
 import 'package:scheibner_app/pages/profilePage.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:path_provider/path_provider.dart';
 
 // database table and column names
 final String tableProfiles = 'profiles';
@@ -25,7 +26,7 @@ class DatabaseHelper {
   // This is the actual database filename that is saved in the docs directory.
   static final _databaseName = "MyDatabase.db";
   // Increment this version when you need to change the schema.
-  static final _databaseVersion = 1;
+  static final _databaseVersion = 3;
 
   // Make this a singleton class.
   DatabaseHelper._privateConstructor();
@@ -53,7 +54,7 @@ class DatabaseHelper {
   Future _onCreate(Database db, int version) async {
     await db.execute('''
               CREATE TABLE $tableProfiles (
-                $colProfileId INTEGER PRIMARY KEY,
+                $colProfileId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                 $colProfileName TEXT NOT NULL,
                 $colLastChanged TEXT,
                 $colServerId INTEGER,
@@ -62,7 +63,7 @@ class DatabaseHelper {
               ''');
     await db.execute('''
               CREATE TABLE $tableSimData (
-                $colSimId INTEGER PRIMARY KEY,
+                $colSimId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                 $colSimDataContent TEXT NOT NULL,
                 $colSaveDate TEXT,
                 $colForeignProfile INTEGER NOT NULL,
@@ -76,15 +77,29 @@ class DatabaseHelper {
 
   Future<int> createProfile(String name) async {
     Database db = await database;
-    int id = await db.insert(tableProfiles, new Profile(name).toMap());
+    int id = await db.insert(tableProfiles, new Profile(name).toMap(), conflictAlgorithm: ConflictAlgorithm.replace);
     return id;
   }
 
   Future<bool> deleteProfile(int id) async {
     Database db = await database;
     int count = await db
-        .delete(tableProfiles, where: "colProfileId = ?", whereArgs: [id]);
+        .delete(tableProfiles, where: "$colProfileId = ?", whereArgs: [id]);
     return count > 0;
+  }
+
+  Future<bool> deleteAllProfiles() async {
+    Database db = await database;
+    int count = await db.delete(tableProfiles);
+    return count > 0;
+  }
+
+  Future dropAllTables() async {
+    Database db = await database;
+    await db.execute('''
+        DROP TABLE $tableProfiles;
+        DROP TABLE $tableSimData;
+    ''');
   }
 
   Future<Profile> loadProfile(int id) async {
@@ -166,12 +181,16 @@ class DatabaseHelper {
 
   Future<List<ReducedData>> getSimDataList(int profileId) async {
     Database db = await database;
-    List<Map<String, dynamic>> result = await db.query(tableSimData,
-    columns: [colSimId, colSaveDate],
-    where: "$colForeignProfile = ?",
-    whereArgs: [profileId],
-    orderBy: "$colSaveDate DESC",);
-    return result.map((Map<String, dynamic> map) => ReducedData.fromMap(map)).toList();
+    List<Map<String, dynamic>> result = await db.query(
+      tableSimData,
+      columns: [colSimId, colSaveDate],
+      where: "$colForeignProfile = ?",
+      whereArgs: [profileId],
+      orderBy: "$colSaveDate DESC",
+    );
+    return result
+        .map((Map<String, dynamic> map) => ReducedData.fromMap(map))
+        .toList();
   }
 
   Future<List<ReducedProfile>> getRedProfileList() async {
@@ -182,6 +201,7 @@ class DatabaseHelper {
       orderBy: "$colLastChanged DESC",
     );
     return result
-        .map((Map<String, dynamic> map) => ReducedProfile.fromMap(map)).toList();
+        .map((Map<String, dynamic> map) => ReducedProfile.fromMap(map))
+        .toList();
   }
 }

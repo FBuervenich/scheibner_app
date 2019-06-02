@@ -1,11 +1,10 @@
-import 'dart:collection';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
+import 'package:scheibner_app/helpers/database_helpers.dart';
 import 'package:scheibner_app/localization/app_translations.dart';
 import 'package:scheibner_app/styles.dart';
-import 'package:scoped_model/scoped_model.dart';
+
 import '../styles.dart';
 
 class ReducedProfile {
@@ -20,9 +19,9 @@ class ReducedProfile {
   }
 
   ReducedProfile.fromMap(Map<String, dynamic> map) {
-    this.profileID = map["id"];
-    this.name = map["name"];
-    this.lastChanged = DateTime.tryParse(map["lastChanged"]);
+    this.profileID = map[colProfileId];
+    this.name = map[colProfileName];
+    this.lastChanged = DateTime.tryParse(map[colLastChanged]);
   }
 }
 
@@ -33,11 +32,20 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfiletState extends State<ProfilePage> {
   List<ReducedProfile> _profiles;
+  final dbHelper = DatabaseHelper.instance;
 
   @override
   initState() {
     _profiles = new List<ReducedProfile>();
+    _reloadProfiles();
     super.initState();
+  }
+
+  void _reloadProfiles() async {
+    var tempProjects = await dbHelper.getRedProfileList();
+    setState(() {
+      _profiles = tempProjects;
+    });
   }
 
   @override
@@ -80,10 +88,10 @@ class _ProfiletState extends State<ProfilePage> {
 
   Widget _makeNoProfilesWidget(BuildContext context, int index) {
     return new SizedBox(
-      height: double.infinity,
-      // height: double.infinity,
-      child: new RaisedButton(),
-    );
+        // height: double.infinity,
+        // height: double.infinity,
+        // child: new RaisedButton(),
+        );
   }
 
   Widget _makeCard(BuildContext context, int index) {
@@ -118,6 +126,7 @@ class _ProfiletState extends State<ProfilePage> {
             .then((SnackBarClosedReason reason) {
           if (reason != SnackBarClosedReason.action) {
             // DELETE FROM DB HERE (SnackBar has closed, now the deletion can NOT be undone!!)
+            dbHelper.deleteProfile(item.profileID);
           }
         });
       },
@@ -151,7 +160,7 @@ class _ProfiletState extends State<ProfilePage> {
                   child: Icon(Icons.directions_bike, color: Colors.white),
                 ),
                 title: Text(
-                  item.name,
+                  item.name + " [${item.profileID}]",
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -164,7 +173,7 @@ class _ProfiletState extends State<ProfilePage> {
                       color: highlightColor,
                       size: 15,
                     ),
-                    Text(" " + _getDateString(),
+                    Text(" " + _dateToString(item.lastChanged),
                         style: TextStyle(color: Colors.white))
                   ],
                 ),
@@ -189,12 +198,13 @@ class _ProfiletState extends State<ProfilePage> {
     );
   }
 
-  String _getDateString() {
-    var now = new DateTime.now();
-    var formatter = new DateFormat('yyyy-MM-dd - hh:mm');
-    String formatted = formatter.format(now);
+  String _dateToString(DateTime date) {
+    var formatter = new DateFormat('yyyy-MM-dd - HH:mm:ss');
+    String formatted = formatter.format(date);
     return formatted; // something like 2013-04-20
   }
+
+  void _setProfileAsCurrent(int id) {}
 
   TextEditingController _textFieldController = TextEditingController();
 
@@ -242,11 +252,13 @@ class _ProfiletState extends State<ProfilePage> {
     } else if (retVal == "success") {
       // user clicked the "success" button
 
-      // add the profile
-      for (int i = 0; i < 5; i++) {
-        _profiles.add(
-            new ReducedProfile(i, _textFieldController.text, DateTime.now()));
-      }
+      // add the profile to the database
+      dbHelper.createProfile(_textFieldController.text);
+
+      // reload the profiles so the list is updated
+      _reloadProfiles();
+
+      // reset the profile name input
       _textFieldController.text = "";
     }
   }
