@@ -19,9 +19,9 @@ class ReducedProfile {
   }
 
   ReducedProfile.fromMap(Map<String, dynamic> map) {
-    this.profileID = map["id"];
-    this.name = map["name"];
-    this.lastChanged = DateTime.tryParse(map["lastChanged"]);
+    this.profileID = map[colProfileId];
+    this.name = map[colProfileName];
+    this.lastChanged = DateTime.tryParse(map[colLastChanged]);
   }
 }
 
@@ -36,13 +36,16 @@ class _ProfiletState extends State<ProfilePage> {
 
   @override
   initState() {
-    // _profiles = new List<ReducedProfile>();
+    _profiles = new List<ReducedProfile>();
     _reloadProfiles();
     super.initState();
   }
 
   void _reloadProfiles() async {
-    _profiles = await dbHelper.getRedProfileList();
+    var tempProjects = await dbHelper.getRedProfileList();
+    setState(() {
+      _profiles = tempProjects;
+    });
   }
 
   @override
@@ -85,10 +88,10 @@ class _ProfiletState extends State<ProfilePage> {
 
   Widget _makeNoProfilesWidget(BuildContext context, int index) {
     return new SizedBox(
-      height: double.infinity,
-      // height: double.infinity,
-      child: new RaisedButton(),
-    );
+        // height: double.infinity,
+        // height: double.infinity,
+        // child: new RaisedButton(),
+        );
   }
 
   Widget _makeCard(BuildContext context, int index) {
@@ -123,6 +126,7 @@ class _ProfiletState extends State<ProfilePage> {
             .then((SnackBarClosedReason reason) {
           if (reason != SnackBarClosedReason.action) {
             // DELETE FROM DB HERE (SnackBar has closed, now the deletion can NOT be undone!!)
+            dbHelper.deleteProfile(item.profileID);
           }
         });
       },
@@ -156,7 +160,7 @@ class _ProfiletState extends State<ProfilePage> {
                   child: Icon(Icons.directions_bike, color: Colors.white),
                 ),
                 title: Text(
-                  item.name,
+                  item.name + " [${item.profileID}]",
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -169,7 +173,7 @@ class _ProfiletState extends State<ProfilePage> {
                       color: highlightColor,
                       size: 15,
                     ),
-                    Text(" " + _getDateString(),
+                    Text(" " + _dateToString(item.lastChanged),
                         style: TextStyle(color: Colors.white))
                   ],
                 ),
@@ -194,12 +198,13 @@ class _ProfiletState extends State<ProfilePage> {
     );
   }
 
-  String _getDateString() {
-    var now = new DateTime.now();
-    var formatter = new DateFormat('yyyy-MM-dd - hh:mm');
-    String formatted = formatter.format(now);
+  String _dateToString(DateTime date) {
+    var formatter = new DateFormat('yyyy-MM-dd - HH:mm:ss');
+    String formatted = formatter.format(date);
     return formatted; // something like 2013-04-20
   }
+
+  void _setProfileAsCurrent(int id) {}
 
   TextEditingController _textFieldController = TextEditingController();
 
@@ -247,20 +252,14 @@ class _ProfiletState extends State<ProfilePage> {
     } else if (retVal == "success") {
       // user clicked the "success" button
 
-      // add the profile 5 times (debug purposes)
-      // TODO remove this loop
-      for (int i = 0; i < 5; i++) {
-        ReducedProfile rp =
-            new ReducedProfile(i, _textFieldController.text, DateTime.now());
-        // add the profile to the database
-        dbHelper.createProfile(_textFieldController.text);
+      // add the profile to the database
+      dbHelper.createProfile(_textFieldController.text);
 
-        // reload the profiles so the list is updated
-        _reloadProfiles();
+      // reload the profiles so the list is updated
+      _reloadProfiles();
 
-        // reset the profile name input
-        _textFieldController.text = "";
-      }
+      // reset the profile name input
+      _textFieldController.text = "";
     }
   }
 

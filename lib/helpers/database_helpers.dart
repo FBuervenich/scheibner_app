@@ -26,7 +26,7 @@ class DatabaseHelper {
   // This is the actual database filename that is saved in the docs directory.
   static final _databaseName = "MyDatabase.db";
   // Increment this version when you need to change the schema.
-  static final _databaseVersion = 1;
+  static final _databaseVersion = 3;
 
   // Make this a singleton class.
   DatabaseHelper._privateConstructor();
@@ -54,7 +54,7 @@ class DatabaseHelper {
   Future _onCreate(Database db, int version) async {
     await db.execute('''
               CREATE TABLE $tableProfiles (
-                $colProfileId INTEGER PRIMARY KEY,
+                $colProfileId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                 $colProfileName TEXT NOT NULL,
                 $colLastChanged TEXT,
                 $colServerId INTEGER,
@@ -63,7 +63,7 @@ class DatabaseHelper {
               ''');
     await db.execute('''
               CREATE TABLE $tableSimData (
-                $colSimId INTEGER PRIMARY KEY,
+                $colSimId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                 $colSimDataContent TEXT NOT NULL,
                 $colSaveDate TEXT,
                 $colForeignProfile INTEGER NOT NULL,
@@ -77,14 +77,14 @@ class DatabaseHelper {
 
   Future<int> createProfile(String name) async {
     Database db = await database;
-    int id = await db.insert(tableProfiles, new Profile(name).toMap());
+    int id = await db.insert(tableProfiles, new Profile(name).toMap(), conflictAlgorithm: ConflictAlgorithm.replace);
     return id;
   }
 
   Future<bool> deleteProfile(int id) async {
     Database db = await database;
     int count = await db
-        .delete(tableProfiles, where: "colProfileId = ?", whereArgs: [id]);
+        .delete(tableProfiles, where: "$colProfileId = ?", whereArgs: [id]);
     return count > 0;
   }
 
@@ -92,6 +92,14 @@ class DatabaseHelper {
     Database db = await database;
     int count = await db.delete(tableProfiles);
     return count > 0;
+  }
+
+  Future dropAllTables() async {
+    Database db = await database;
+    await db.execute('''
+        DROP TABLE $tableProfiles;
+        DROP TABLE $tableSimData;
+    ''');
   }
 
   Future<Profile> loadProfile(int id) async {
