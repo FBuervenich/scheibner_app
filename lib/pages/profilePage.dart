@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
+import 'package:scheibner_app/data/appmodel.dart';
+import 'package:scheibner_app/data/profile.dart';
 import 'package:scheibner_app/helpers/database_helpers.dart';
 import 'package:scheibner_app/localization/app_translations.dart';
 import 'package:scheibner_app/styles.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 import '../styles.dart';
 
@@ -187,6 +190,8 @@ class _ProfiletState extends State<ProfilePage> {
                 color: Colors.transparent,
                 child: new InkWell(
                   onTap: () {
+                    // load data and switch to input data page
+                    _setProfileAsCurrent(item.profileID);
                     Navigator.pushNamed(context, '/inputdata');
                   },
                 ),
@@ -204,7 +209,10 @@ class _ProfiletState extends State<ProfilePage> {
     return formatted; // something like 2013-04-20
   }
 
-  void _setProfileAsCurrent(int id) {}
+  _setProfileAsCurrent(int id) async {
+    Profile p = await dbHelper.loadProfile(id);
+    ScopedModel.of<AppModel>(context).setProfile(p);
+  }
 
   TextEditingController _textFieldController = TextEditingController();
 
