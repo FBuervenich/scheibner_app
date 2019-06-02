@@ -18,6 +18,7 @@ class TableView extends StatelessWidget {
                   model.getSimulationData() != null ? Data.showable.length : 1,
               itemBuilder: (context, position) =>
                   _createSimValueList(context, model, position),
+              physics: BouncingScrollPhysics(),
             ),
       ),
     );

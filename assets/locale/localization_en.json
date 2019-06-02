@@ -21,6 +21,7 @@
     "radstand": "TODO",
     "vorderachshoehe_read": "TODO",
     "hinterachshoehe_read": "TODO",
+    "simulate": "Simulate values",
     "cameraPermissions": "No camera permission granted. Please go to settings and grand it!",
     "unknownError": "Unknown error: ",
     "errorDataLoading": "Error while calling Scheibner API",
@@ -45,5 +46,6 @@
     "profile": "Profile",
     "deleted": "deleted",
     "chartFactory_newOldBarChart": "textTODO",
-    "chartFactory_createPercentDiffChart": "Change of simulation values"
+    "chartFactory_createPercentDiffChart": "Change of simulation values",
+    "saveSimulation": "Save simulation"
 }

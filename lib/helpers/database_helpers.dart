@@ -110,6 +110,9 @@ class DatabaseHelper {
       where: "$colProfileId = ?",
       whereArgs: [id],
     );
+    if (result.isEmpty) {
+      return null; // profile does not exist;
+    }
     Profile profile = new Profile.fromMap(result.first);
     result = await db.query(
       tableSimData,
@@ -123,15 +126,16 @@ class DatabaseHelper {
       Data sim = Data.fromJson(result.first[colSimDataContent]);
       profile.sim = sim;
     }
-    //TODO: update lastChanged?
+    updateProfileLastChanged(id, DateTime.now());
     return profile;
   }
 
-  // Future<bool> saveProfile(Profile profile) async {
-  //   Database db = await database;
-  //   int count = await db.update(tableProfiles, profile.toMap(), where: "$colProfileId = ?", whereArgs: [profile.id]);
-  //   return count > 0;
-  // }
+  Future<bool> updateProfileLastChanged(int id, DateTime date) async {
+    Database db = await database;
+    int count = await db.update(tableProfiles, {colLastChanged: date.toIso8601String()},
+        where: "$colProfileId = ?", whereArgs: [id]);
+    return count > 0;
+  }
 
   Future<bool> changeProfileName(int id, String name) async {
     Database db = await database;

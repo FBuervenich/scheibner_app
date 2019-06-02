@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:scheibner_app/commonWidgets/framedButton.dart';
+import 'package:scheibner_app/localization/app_translations.dart';
 import 'package:scheibner_app/styles.dart';
 
 class SaveView extends StatelessWidget {
@@ -30,8 +31,9 @@ class SaveView extends StatelessWidget {
           ),
           new Padding(
             padding: EdgeInsets.all(15),
-            child: new FramedButton(
-              text: "Save Simulation",
+            child: new RaisedButton.icon(
+              label: new Text(AppTranslations.of(context).text("saveSimulation")),
+              icon: Icon(Icons.save),
               onPressed: () {},
             ),
           ),

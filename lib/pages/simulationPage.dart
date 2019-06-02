@@ -49,21 +49,21 @@ class _SimulationState extends State<SimulationPage> {
           ),
         ],
       ),
-      // backgroundColor: backgroundColor,
       body: new Column(
         children: <Widget>[
           new Expanded(
             child: new ScopedModelDescendant<AppModel>(
               builder: (context, child, model) => new ListView(
-                    // physics: new NeverScrollableScrollPhysics(),
                     children: inputListBuilder(context, model),
+                    physics: BouncingScrollPhysics(),
                   ),
             ),
           ),
           new Padding(
             padding: EdgeInsets.all(10),
-            child: new FramedButton(
-              text: "Simulate values",
+            child: new RaisedButton.icon(
+              label: new Text(AppTranslations.of(context).text("simulate")),
+              icon: Icon(Icons.equalizer),
               onPressed: () {
                 ScopedModel.of<AppModel>(context).simulate();
                 Navigator.pushNamed(context, '/results');

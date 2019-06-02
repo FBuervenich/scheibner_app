@@ -23,6 +23,7 @@
     "vorderachshoehe_read": "Vorderachshöhe",
     "schwingenachshoehe": "Schwingenachshöhe",
     "hinterachshoehe_read": "Hinterachshöhe",
+    "simulate": "Messwerte simulieren",
     "cameraPermissions": "Keine Kamera-Berechtigung erteilt. Bitte erteilen Sie sie in den Einstellungen.",
     "unknownError": "Unbekannter Fehler: ",
     "errorDataLoading": "Fehler beim Aufrufen der Scheibner API",
@@ -47,5 +48,6 @@
     "profile": "Profil",
     "deleted": "gelöscht",
     "chartFactory_newOldBarChart": "textTODO",
-    "chartFactory_createPercentDiffChart": "Veränderung der Simulationswerte"
+    "chartFactory_createPercentDiffChart": "Veränderung der Simulationswerte",
+    "saveSimulation": "Simulation speichern"
 }

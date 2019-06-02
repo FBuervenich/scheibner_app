@@ -7,7 +7,6 @@ import 'package:preferences/preference_service.dart';
 
 import 'package:scheibner_app/data/appmodel.dart';
 import 'package:scheibner_app/data/data.dart';
-import 'package:scheibner_app/data/profile.dart';
 import 'package:scheibner_app/helpers/database_helpers.dart';
 import 'package:scheibner_app/helpers/measurementService.dart';
 import 'package:scheibner_app/styles.dart';
@@ -48,7 +47,6 @@ class _DataInputState extends State<DataInputPage> {
           ),
         ],
       ),
-      // backgroundColor: backgroundColor,
       body: Builder(
         // Create an inner BuildContext so that the onPressed methods
         // can refer to the Scaffold with Scaffold.of().
@@ -68,6 +66,7 @@ class _DataInputState extends State<DataInputPage> {
                                 : 1,
                             itemBuilder: (context, position) =>
                                 _createMeasValueList(context, model, position),
+                            physics: BouncingScrollPhysics(),
                           ),
                     ),
                   ),
@@ -121,6 +120,8 @@ class _DataInputState extends State<DataInputPage> {
                           new RaisedButton.icon(
                             onPressed: model.getMeasurementData() != null
                                 ? () {
+                                    model.setSimulationData(
+                                        Data.clone(model.getMeasurementData()));
                                     Navigator.pushNamed(context, '/simulation');
                                   }
                                 : null,
