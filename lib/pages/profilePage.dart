@@ -191,8 +191,7 @@ class _ProfiletState extends State<ProfilePage> {
                 child: new InkWell(
                   onTap: () {
                     // load data and switch to input data page
-                    _setProfileAsCurrent(item.profileID);
-                    Navigator.pushNamed(context, '/inputdata');
+                    _openProfile(item.profileID);
                   },
                 ),
               ),
@@ -209,9 +208,10 @@ class _ProfiletState extends State<ProfilePage> {
     return formatted; // something like 2013-04-20
   }
 
-  _setProfileAsCurrent(int id) async {
+  _openProfile(int id) async {
     Profile p = await dbHelper.loadProfile(id);
     ScopedModel.of<AppModel>(context).setProfile(p);
+    Navigator.pushNamed(context, '/inputdata');
   }
 
   TextEditingController _textFieldController = TextEditingController();

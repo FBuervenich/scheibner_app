@@ -14,6 +14,7 @@ import 'package:scheibner_app/styles.dart';
 import 'package:scheibner_app/localization/app_translations.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:scheibner_app/helpers/scheibnerException.dart';
+import 'package:scheibner_app/helpers/helperfunctions.dart' as hf;
 
 class DataInputPage extends StatefulWidget {
   @override
@@ -36,7 +37,7 @@ class _DataInputState extends State<DataInputPage> {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(
-          AppTranslations.of(context).text("dataInputTitle"),
+          "${AppTranslations.of(context).text("dataInputTitle")} [${hf.Helper.getCurrentProfileName(context)}]",
         ),
         actions: <Widget>[
           new IconButton(
@@ -181,7 +182,8 @@ class _DataInputState extends State<DataInputPage> {
     AppModel model = ScopedModel.of<AppModel>(context);
     model.setMeasurementData(measurementData);
     model.setSimulationData(Data.clone(measurementData));
-    DatabaseHelper.instance.changeMeasData(model.getProfile().id, measurementData);
+    DatabaseHelper.instance
+        .changeMeasData(model.getProfile().id, measurementData);
   }
 
   Future scan(BuildContext context) async {
