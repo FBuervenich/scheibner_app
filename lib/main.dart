@@ -60,9 +60,13 @@ class ScheibnerAppState extends State<ScheibnerApp> {
         primaryColor: highlightColor,
         accentColor: highlightColor,
         buttonColor: highlightColor,
+        iconTheme: IconThemeData(
+          color: Colors.white,
+        ),
         textTheme: new TextTheme(
           display4: new TextStyle(
             fontSize: 24,
+            color: Colors.white,
           ),
         ),
       ),

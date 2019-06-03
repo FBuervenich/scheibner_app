@@ -80,6 +80,11 @@ class DatabaseHelper {
     int id = await db.insert(tableProfiles, new Profile(name).toMap(), conflictAlgorithm: ConflictAlgorithm.replace);
     return id;
   }
+  Future<int> insertProfile(Profile p) async {
+    Database db = await database;
+    int id = await db.insert(tableProfiles, p.toMap(), conflictAlgorithm: ConflictAlgorithm.replace);
+    return id;
+  }
 
   Future<bool> deleteProfile(int id) async {
     Database db = await database;

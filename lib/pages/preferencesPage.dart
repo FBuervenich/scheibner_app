@@ -25,7 +25,7 @@ class PreferencesPageState extends State<PreferencesPage> {
   void initState() {
     super.initState();
     application.onLocaleChanged = onLocaleChange;
-    onLocaleChange(Locale(languagesMap["English"]));
+    // onLocaleChange(Locale(languagesMap["English"]));
   }
 
   void onLocaleChange(Locale locale) async {

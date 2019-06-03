@@ -47,7 +47,9 @@
     "createProfile": "Profil erstellen",
     "profile": "Profil",
     "deleted": "gelöscht",
+    "noExistingProfiles": "Keine Profile vorhanden.",
     "chartFactory_newOldBarChart": "textTODO",
     "chartFactory_createPercentDiffChart": "Veränderung der Simulationswerte",
-    "saveSimulation": "Simulation speichern"
+    "saveSimulation": "Simulation speichern",
+    "dateFormat": "yyyy-MM-dd - HH:mm"
 }

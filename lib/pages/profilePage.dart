@@ -68,14 +68,7 @@ class _ProfiletState extends State<ProfilePage> {
         ],
       ),
       // backgroundColor: Colors.black,
-      body: Builder(
-        builder: (BuildContext context) => ListView.builder(
-              physics: BouncingScrollPhysics(),
-              itemCount: _profiles.length > 0 ? _profiles.length : 1,
-              itemBuilder:
-                  _profiles.length > 0 ? _makeCard : _makeNoProfilesWidget,
-            ),
-      ),
+      body: Builder(builder: _makeContent),
       floatingActionButton: Builder(
         builder: (context) => FloatingActionButton(
               onPressed: () {
@@ -89,27 +82,58 @@ class _ProfiletState extends State<ProfilePage> {
     );
   }
 
-  Widget _makeNoProfilesWidget(BuildContext context, int index) {
-    return new SizedBox(
-        // height: double.infinity,
-        // height: double.infinity,
-        // child: new RaisedButton(),
-        );
+  Widget _makeContent(BuildContext context) {
+    if (_profiles.length > 0) {
+      return ListView.builder(
+        physics: BouncingScrollPhysics(),
+        itemCount: _profiles.length,
+        itemBuilder: _makeCard,
+      );
+    } else {
+      return Container(
+        child: _makeNoProfilesWidget(context),
+      );
+    }
+  }
+
+  Widget _makeNoProfilesWidget(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Icon(
+              Icons.insert_drive_file,
+              size: 50,
+            ),
+            Container(height: 20),
+            Text(AppTranslations.of(context).text("noExistingProfiles"),
+                style: Theme.of(context).textTheme.display4),
+            Container(height: 00)
+          ],
+        ),
+      ],
+    );
   }
 
   Widget _makeCard(BuildContext context, int index) {
     final item = _profiles[index];
     return Dismissible(
+      direction: DismissDirection.endToStart,
       // Each Dismissible must contain a Key. Keys allow Flutter to
       // uniquely identify Widgets.
       key: Key(item.profileID.toString()),
       // We also need to provide a function that will tell our app
       // what to do after an item has been swiped away.
-      onDismissed: (direction) {
+      onDismissed: (direction) async {
+        Profile fullProfile = await dbHelper.loadProfile(item.profileID);
         // Remove the item from our data source.
         setState(() {
           _profiles.remove(item);
         });
+        // DELETE FROM DB HERE
+        dbHelper.deleteProfile(item.profileID);
 
         // Show a snackbar! Also let the user undo his deletion!
         Scaffold.of(context)
@@ -119,17 +143,17 @@ class _ProfiletState extends State<ProfilePage> {
               action: new SnackBarAction(
                   label: AppTranslations.of(context).text("undo"),
                   onPressed: () {
-                    setState(() {
-                      _profiles.add(item);
-                    });
+                    _profiles.add(item);
+                    // save the project back to db and reload everything
+                    dbHelper.insertProfile(fullProfile);
+                    _reloadProfiles();
                   }),
             ))
             // wait for the SnackBar to close
             .closed
             .then((SnackBarClosedReason reason) {
           if (reason != SnackBarClosedReason.action) {
-            // DELETE FROM DB HERE (SnackBar has closed, now the deletion can NOT be undone!!)
-            dbHelper.deleteProfile(item.profileID);
+            // (SnackBar has closed, now the deletion can NOT be undone!!)
           }
         });
       },
@@ -140,7 +164,7 @@ class _ProfiletState extends State<ProfilePage> {
           margin: new EdgeInsets.symmetric(horizontal: 10),
           child:
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            _getDeleteIconColumn(),
+            Container(),
             _getDeleteIconColumn(),
           ]),
         ),
@@ -153,17 +177,21 @@ class _ProfiletState extends State<ProfilePage> {
               margin: new EdgeInsets.symmetric(horizontal: 0, vertical: 6.0),
               color: cardBackgroundColor,
               child: ListTile(
-                leading: Container(
-                  padding: EdgeInsets.only(right: 12.0),
-                  decoration: new BoxDecoration(
-                    border: new Border(
-                        right:
-                            new BorderSide(width: 1.0, color: Colors.white24)),
-                  ),
-                  child: Icon(Icons.directions_bike, color: Colors.white),
-                ),
+                leading: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.only(right: 12.0),
+                        decoration: new BoxDecoration(
+                          border: new Border(
+                              right: new BorderSide(
+                                  width: 1.0, color: Colors.white24)),
+                        ),
+                        child: Icon(Icons.directions_bike, color: Colors.white),
+                      )
+                    ]),
                 title: Text(
-                  item.name + " [${item.profileID}]",
+                  item.name,
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -203,7 +231,8 @@ class _ProfiletState extends State<ProfilePage> {
   }
 
   String _dateToString(DateTime date) {
-    var formatter = new DateFormat('yyyy-MM-dd - HH:mm:ss');
+    var formatter =
+        new DateFormat(AppTranslations.of(context).text("dateFormat"));
     String formatted = formatter.format(date);
     return formatted; // something like 2013-04-20
   }
@@ -244,8 +273,15 @@ class _ProfiletState extends State<ProfilePage> {
                 child:
                     new Text(AppTranslations.of(context).text("createProfile")),
                 onPressed: () {
-                  // return "createProfile" so it can be determined what has been clicked from outside
-                  Navigator.of(context).pop("success");
+                  var projectName = _textFieldController.text;
+
+                  if (projectName.length > 0) {
+                    // return "createProfile" so it can be determined what has been clicked from outside
+                    Navigator.of(context).pop("success");
+                  } else {
+                    // no project name --> do nothing
+                    return;
+                  }
                 },
                 color: Theme.of(context).accentColor,
                 textColor: Colors.white,
@@ -262,7 +298,6 @@ class _ProfiletState extends State<ProfilePage> {
 
       // add the profile to the database
       dbHelper.createProfile(_textFieldController.text);
-
       // reload the profiles so the list is updated
       _reloadProfiles();
 

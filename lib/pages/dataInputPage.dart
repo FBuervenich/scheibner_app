@@ -61,13 +61,12 @@ class _DataInputState extends State<DataInputPage> {
                     padding: EdgeInsets.all(0),
                     child: new ScopedModelDescendant<AppModel>(
                       builder: (context, child, model) => new ListView.builder(
-                            itemCount: model.getMeasurementData() != null
-                                ? Data.showable.length
-                                : 1,
-                            itemBuilder: (context, position) =>
-                                _createMeasValueList(context, model, position),
-                            physics: BouncingScrollPhysics(),
-                          ),
+                          itemCount: model.getMeasurementData() != null
+                              ? Data.showable.length
+                              : 1,
+                          itemBuilder: (context, position) =>
+                              _createMeasValueList(context, model, position),
+                          physics: BouncingScrollPhysics()),
                     ),
                   ),
                 ),
