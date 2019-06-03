@@ -54,6 +54,24 @@ class Data {
   static final List<String> chartable =
       showable.sublist(modifiable.length, showable.length);
 
+  static const List<String> units = [
+    "mm",
+    "mm",
+    "mm",
+    "mm",
+    "mm",
+    "°",
+    "mm",
+    "mm",
+    "°",
+    "mm",
+    "mm",
+    "mm",
+    "mm",
+    "mm",
+  ];
+  static final Map<String, String> unitsMap = Map.fromIterables(showable, units);
+
   DateTime _date;
   Map<String, dynamic> _values;
 

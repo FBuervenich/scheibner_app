@@ -1,7 +1,7 @@
 {
     "title": "Scheibner App",
     "profileTitle": "Profilverwaltung",
-    "dataInputTitle": "Daten einlesen",
+    "dataInputTitle": "Aktuelle Daten",
     "simulationTitle": "Simulation",
     "resultsTitle": "Ergebnisse",
     "comments": "Kommentare",
@@ -9,6 +9,8 @@
     "measurementID": "ID der Messung:",
     "loadFromServer": "Vom Server laden",
     "loadFromQRCode": "Aus QR-Code laden",
+    "noDataLoaded": "Keine Daten geladen",
+    "editForSimulation": "Für Simulation bearbeiten",
     "radumfang_vorn": "Radumfang vorne",
     "radumfang_hinten": "Radumfang hinten",
     "gabellaenge": "Gabellänge",

@@ -60,13 +60,8 @@ class _DataInputState extends State<DataInputPage> {
                   child: new Padding(
                     padding: EdgeInsets.all(0),
                     child: new ScopedModelDescendant<AppModel>(
-                      builder: (context, child, model) => new ListView.builder(
-                          itemCount: model.getMeasurementData() != null
-                              ? Data.showable.length
-                              : 1,
-                          itemBuilder: (context, position) =>
-                              _createMeasValueList(context, model, position),
-                          physics: BouncingScrollPhysics()),
+                      builder: (context, child, model) =>
+                          _createListView(context, model),
                     ),
                   ),
                 ),
@@ -119,12 +114,15 @@ class _DataInputState extends State<DataInputPage> {
                           new RaisedButton.icon(
                             onPressed: model.getMeasurementData() != null
                                 ? () {
-                                    model.setSimulationData(
-                                        Data.clone(model.getMeasurementData()));
+                                    if (model.getSimulationData() == null) {
+                                      model.setSimulationData(Data.clone(
+                                          model.getMeasurementData()));
+                                    }
                                     Navigator.pushNamed(context, '/simulation');
                                   }
                                 : null,
-                            label: new Text("Edit for Simulation"),
+                            label: new Text(AppTranslations.of(context)
+                                .text("editForSimulation")),
                             icon: Icon(Icons.edit),
                           ),
                           // new RaisedButton(
@@ -142,16 +140,44 @@ class _DataInputState extends State<DataInputPage> {
     );
   }
 
+  Widget _createListView(BuildContext context, AppModel model) {
+    if (model.getMeasurementData() == null) {
+      return _makeNoProfilesWidget(context);
+    }
+    return new ListView.builder(
+      itemCount: model.getMeasurementData() != null ? Data.showable.length : 1,
+      itemBuilder: (context, position) =>
+          _createMeasValueList(context, model, position),
+      physics: BouncingScrollPhysics(),
+    );
+  }
+
+  Widget _makeNoProfilesWidget(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Icon(
+              Icons.insert_drive_file,
+              size: 50,
+            ),
+            Container(height: 20),
+            Text(AppTranslations.of(context).text("noDataLoaded"),
+                style: Theme.of(context).textTheme.display4),
+            Container(height: 00)
+          ],
+        ),
+      ],
+    );
+  }
+
   Widget _createMeasValueList(
       BuildContext context, AppModel model, int position) {
-    if (model.getMeasurementData() == null) {
-      return new Center(
-        child: new Text("No data loaded"),
-      );
-    }
-
     String name = Data.showable[position];
     double measValue = model.getMeasValue(name);
+    String unit = Data.units[position];
 
     return new Padding(
       padding: EdgeInsets.only(bottom: 5),
@@ -168,7 +194,7 @@ class _DataInputState extends State<DataInputPage> {
             ),
             new Text(
               measValue != null
-                  ? measValue.toStringAsFixed(1)
+                  ? measValue.toStringAsFixed(1) + " " + unit
                   : "Value could not be calculated",
               style: defaultTextStyle,
             ),

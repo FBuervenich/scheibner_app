@@ -33,6 +33,7 @@ class TableView extends StatelessWidget {
     }
 
     String name = Data.showable[position];
+    String unit = Data.units[position];
     double measValue = model.getMeasValue(name);
     double simValue = model.getSimValue(name);
 
@@ -46,7 +47,7 @@ class TableView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             new Text(
-              AppTranslations.of(context).text(name),
+              AppTranslations.of(context).text(name) + " [$unit]",
               style: defaultTextStyle,
             ),
             new Row(

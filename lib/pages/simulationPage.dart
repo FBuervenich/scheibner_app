@@ -85,6 +85,7 @@ class _SimulationState extends State<SimulationPage> {
     }
     return Data.modifiable.map(
       (String name) {
+        String unit = Data.unitsMap[name];
         double measValue = model.getMeasValue(name);
         double simValue;
         if (_sliderValues[name] == null) {
@@ -104,7 +105,7 @@ class _SimulationState extends State<SimulationPage> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 new Text(
-                  AppTranslations.of(context).text(name),
+                  AppTranslations.of(context).text(name) + " [$unit]",
                   style: defaultTextStyle,
                 ),
                 new Row(
@@ -128,7 +129,7 @@ class _SimulationState extends State<SimulationPage> {
                 ),
                 new Slider(
                   value: simValue,
-                  min: measValue * 0.5,
+                  min: measValue * 0.5, //TODO: choose a better value range
                   max: measValue * 1.5,
                   onChanged: (double value) {
                     setState(() {
