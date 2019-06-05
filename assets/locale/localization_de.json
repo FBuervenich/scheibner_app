@@ -51,6 +51,9 @@
     "deleted": "gelöscht",
     "noExistingProfiles": "Keine Profile vorhanden.",
     "chartFactory_newOldBarChart": "textTODO",
+    "chatFactory_newOldBarChart_newValue": "Wert nach der Simulation",
+    "chatFactory_newOldBarChart_oldValue": "Wert vor der Simulation",
+    "differenzInPercent": "Veränderung in Prozent",
     "chartFactory_createPercentDiffChart": "Veränderung der Simulationswerte",
     "saveSimulation": "Simulation speichern",
     "dateFormat": "yyyy-MM-dd - HH:mm"

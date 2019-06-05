@@ -7,9 +7,17 @@ import 'package:scheibner_app/commonWidgets/charts/chartInitializer.dart'
     as prefix0;
 import 'package:scheibner_app/localization/app_translations.dart';
 
+import '../../styles.dart';
 import 'chartInitializer.dart';
 
 class ChartFactory {
+  static const double chartpadding = 10;
+  static const double cardpadding = 8;
+
+  static const double paddingDiff = 2 * chartpadding + cardpadding;
+
+  static const double wertAnzeigeWidth = 150;
+
   static Widget createPercentDiffChart(
       List<BarChartData> data, BoxConstraints constraints, BuildContext ctx) {
     List<double> range = [];
@@ -81,59 +89,175 @@ class ChartFactory {
     );
   }
 
-  static Widget newOldBarChart(MeasChartValue kennzahl, Color oldcolor,
-      BoxConstraints constraints, BuildContext ctx) {
+  static Widget newOldBarChart(
+    MeasChartValue kennzahl,
+    BoxConstraints constraints,
+    BuildContext ctx, {
+    Color oldcolor,
+    Color newcolor,
+  }) {
     List<BarChartData> data = [
       new BarChartData("alt", kennzahl.measValue, oldcolor),
-      new BarChartData("neu", kennzahl.simValue, kennzahl.color),
+      new BarChartData("neu", kennzahl.simValue, newcolor),
     ];
+
     return ChartFactory.getRow(
       constraints,
       ctx,
       widgets: [
-        //Wertanzeige
         new Column(
-          children: <Widget>[
+          children: [
             new Row(
-              children: <Widget>[
-                new Container(
-                  child: new Text(kennzahl.localization),
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                //Wertanzeige
+                new Column(
+                  children: <Widget>[
+                    new Row(
+                      children: <Widget>[
+                        new Container(
+                          width: wertAnzeigeWidth,
+                          child: new Text(
+                            kennzahl.localization,
+                            style: new TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    _getNewOldChartValueWidget(
+                      ctx,
+                      data[0].sales.toStringAsFixed(2),
+                      false,
+                    ),
+                    _getNewOldChartValueWidget(
+                      ctx,
+                      data[1].sales.toStringAsFixed(2),
+                      true,
+                    ),
+                    _getNewOldChartPercentValueWidget(
+                      ctx,
+                      kennzahl.getPercentageDiff(),
+                    )
+                  ],
+                ),
+                // BarChart New Old
+                new Column(
+                  children: [
+                    new Container(
+                      width:
+                          constraints.maxWidth - wertAnzeigeWidth - paddingDiff,
+                      height: constraints.maxHeight - 245, // wegen Column
+                      child: new charts.BarChart(
+                        [
+                          new charts.Series<BarChartData, String>(
+                              id: 'Sales',
+                              colorFn: (BarChartData sales, __) =>
+                                  charts.ColorUtil.fromDartColor(sales.color),
+                              domainFn: (BarChartData sales, _) =>
+                                  sales.year.substring(0, 3),
+                              measureFn: (BarChartData sales, _) => sales.sales,
+                              data: data,
+                              labelAccessorFn: (BarChartData sales, _) =>
+                                  '${sales.year}: \$${sales.sales.toString()}')
+                        ],
+                        animate: true,
+                        behaviors: [
+                          new charts.ChartTitle(kennzahl.localization,
+                              // subTitle: '',
+                              behaviorPosition: charts.BehaviorPosition.top,
+                              titleOutsideJustification:
+                                  charts.OutsideJustification.start,
+                              innerPadding: 18,
+                              titleStyleSpec:
+                                  new charts.TextStyleSpec(fontSize: 15)),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
-            new Row(
-              children: <Widget>[
-                new Container(
-                  child: new Text(data[0].sales.toString()),
-                ),
-              ],
-            )
-          ],
-        ),
-        // BarChart New Old
-        new charts.BarChart(
-          [
-            new charts.Series<BarChartData, String>(
-                id: 'Sales',
-                colorFn: (BarChartData sales, __) =>
-                    charts.ColorUtil.fromDartColor(sales.color),
-                domainFn: (BarChartData sales, _) => sales.year.substring(0, 3),
-                measureFn: (BarChartData sales, _) => sales.sales,
-                data: data,
-                labelAccessorFn: (BarChartData sales, _) =>
-                    '${sales.year}: \$${sales.sales.toString()}')
-          ],
-          animate: true,
-          behaviors: [
-            new charts.ChartTitle(kennzahl.localization,
-                // subTitle: '',
-                behaviorPosition: charts.BehaviorPosition.top,
-                titleOutsideJustification: charts.OutsideJustification.start,
-                innerPadding: 18,
-                titleStyleSpec: new charts.TextStyleSpec(fontSize: 15)),
           ],
         ),
       ],
+    );
+  }
+
+  static Widget _getNewOldChartPercentValueWidget(
+      BuildContext context, double percentage) {
+    return new Expanded(
+      child: new Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          new Container(
+            child: new Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Align(
+                  alignment: Alignment.center,
+                  child: new Text(
+                    percentage.toStringAsFixed(2) + "%",
+                    textAlign: TextAlign.center,
+                    style: new TextStyle(
+                      fontSize: 16,
+                      color: percentage < 0 ? Colors.red : Colors.green,
+                    ),
+                  ),
+                ),
+                new Text(
+                  AppTranslations.of(context).text("differenzInPercent"),
+                  style: new TextStyle(
+                    fontSize: 10,
+                  ),
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  static Widget _getNewOldChartValueWidget(
+      BuildContext context, String value, bool isNew) {
+    return new Expanded(
+      flex: 2,
+      child: new Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          new Container(
+            child: new Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                new Text(
+                  value,
+                  style: new TextStyle(
+                    fontSize: 25,
+                  ),
+                ),
+                new Text(
+                  isNew
+                      ? AppTranslations.of(context)
+                          .text("chatFactory_newOldBarChart_newValue")
+                      : AppTranslations.of(context)
+                          .text("chatFactory_newOldBarChart_oldValue"),
+                  style: new TextStyle(
+                    fontSize: 10,
+                  ),
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -142,8 +266,6 @@ class ChartFactory {
     BuildContext ctxt, {
     @required List<Widget> widgets,
   }) {
-    double chartpadding = 10;
-
     final double height = constraints.maxHeight - 2 * chartpadding;
     final double width = constraints.maxWidth;
 
@@ -152,6 +274,7 @@ class ChartFactory {
     for (Widget widget in widgets) {
       cardList.add(
         new Card(
+          color: cardBackgroundColor,
           child: Padding(
             padding: EdgeInsets.only(
               left: chartpadding,
@@ -159,10 +282,14 @@ class ChartFactory {
               right: chartpadding,
               bottom: chartpadding,
             ),
-            child: new Container(
-              width: width / widgets.length - chartpadding * 2 - 8,
-              height: height / 2,
-              child: widget,
+            child: new Row(
+              children: [
+                new Container(
+                  width: width / widgets.length - paddingDiff,
+                  height: height / 2,
+                  child: widget,
+                ),
+              ],
             ),
           ),
         ),

@@ -7,6 +7,8 @@ import 'package:scheibner_app/commonWidgets/charts/chartFactory.dart';
 import 'package:scheibner_app/data/data.dart';
 import 'package:scheibner_app/localization/app_translations.dart';
 
+import '../../styles.dart';
+
 typedef Widget RowFunction(BoxConstraints, BuildContext);
 
 class ChartInitializer {
@@ -86,9 +88,11 @@ class ChartInitializer {
       ret.add(
         (constraints, ctx) => ChartFactory.newOldBarChart(
               maxDiff[i],
-              defaultColors[i],
               constraints,
               ctx,
+              oldcolor: backgroundColor,
+              // defaultColors[i], kennzahl.color
+              newcolor: highlightColor,
             ),
       );
     }

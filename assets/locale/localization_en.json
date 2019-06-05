@@ -50,6 +50,9 @@
     "noExistingProfiles": "No existing profiles.",
     "chartFactory_newOldBarChart": "textTODO",
     "chartFactory_createPercentDiffChart": "Change of simulation values",
+    "chatFactory_newOldBarChart_newValue": "Value after simulation",
+    "chatFactory_newOldBarChart_oldValue": "Value before simulation",
+    "differenzInPercent": "Differenz in percent",
     "saveSimulation": "Save simulation",
     "dateFormat": "MM-dd-yyyy - HH:mm"
 }
