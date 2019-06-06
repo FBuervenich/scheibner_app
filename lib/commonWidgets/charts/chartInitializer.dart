@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:scheibner_app/commonWidgets/charts/chartData.dart';
 import 'package:scheibner_app/commonWidgets/charts/chartFactory.dart';
+import 'package:scheibner_app/commonWidgets/charts/simOverviewChart.dart';
+import 'package:scheibner_app/commonWidgets/charts/singleMeasChangeChart.dart';
 import 'package:scheibner_app/data/data.dart';
 import 'package:scheibner_app/localization/app_translations.dart';
 
@@ -53,10 +55,10 @@ class ChartInitializer {
     List<MeasChartValue> ret = values.values.toList();
     //Nach groeße Sortieren
     ret.sort((m1, m2) {
-      if (m1.getPercentageDiff() > m2.getPercentageDiff()) {
+      if (m1.getPercentageDiff().abs() < m2.getPercentageDiff().abs()) {
         return 1;
       }
-      if (m1.getPercentageDiff() < m2.getPercentageDiff()) {
+      if (m1.getPercentageDiff().abs() > m2.getPercentageDiff().abs()) {
         return -1;
       }
       return 0;
@@ -69,16 +71,18 @@ class ChartInitializer {
 
     //PercentDiff
     List<BarChartData> data = [];
-    _getMaxDiffs(6).forEach((MeasChartValue meas) {
-      data.add(
-        new BarChartData(
-            meas.localization, meas.getPercentageDiff(), meas.color),
-      );
+    _getMaxDiffs(4).forEach((MeasChartValue meas) {
+      if (meas.getPercentageDiff().abs() > 0) {
+        data.add(
+          new BarChartData(
+              meas.localization, meas.getPercentageDiff(), meas.color),
+        );
+      }
     });
 
     ret.add(
       (constraints, ctx) =>
-          ChartFactory.createPercentDiffChart(data, constraints, ctx),
+          new SimOverviewChart(constraints, ctx).createView(data),
     );
 
     List<MeasChartValue> maxDiff = _getMaxDiffs(4);
@@ -86,10 +90,8 @@ class ChartInitializer {
     //Je 2 Charts in eine Row
     for (int i = 0; i < maxDiff.length; i++) {
       ret.add(
-        (constraints, ctx) => ChartFactory.newOldBarChart(
+        (constraints, ctx) => SingleMeasChangeChart(constraints, ctx).getView(
               maxDiff[i],
-              constraints,
-              ctx,
               oldcolor: backgroundColor,
               // defaultColors[i], kennzahl.color
               newcolor: highlightColor,

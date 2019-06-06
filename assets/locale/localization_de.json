@@ -56,5 +56,7 @@
     "differenzInPercent": "Veränderung in Prozent",
     "chartFactory_createPercentDiffChart": "Veränderung der Simulationswerte",
     "saveSimulation": "Simulation speichern",
-    "dateFormat": "yyyy-MM-dd - HH:mm"
+    "dateFormat": "yyyy-MM-dd - HH:mm",
+    "old": "vorher",
+    "new": "nachher"
 }

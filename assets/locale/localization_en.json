@@ -54,5 +54,7 @@
     "chatFactory_newOldBarChart_oldValue": "Value before simulation",
     "differenzInPercent": "Differenz in percent",
     "saveSimulation": "Save simulation",
-    "dateFormat": "MM-dd-yyyy - HH:mm"
+    "dateFormat": "MM-dd-yyyy - HH:mm",
+    "old": "before",
+    "new": "after"
 }
