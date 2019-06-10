@@ -15,6 +15,7 @@ final String colLastChanged = 'lastChanged';
 final String colServerId = 'serverId';
 final String colMeasDataContent = 'measurementContent';
 final String colSimDataContent = 'simulationContent';
+final String colComment = 'comment';
 
 // singleton class to manage the database
 class DatabaseHelper {
@@ -54,7 +55,8 @@ class DatabaseHelper {
                 $colLastChanged TEXT,
                 $colServerId INTEGER,
                 $colMeasDataContent TEXT,
-                $colSimDataContent TEXT
+                $colSimDataContent TEXT,
+                $colComment TEXT
               );
               ''');
   }
@@ -115,6 +117,13 @@ class DatabaseHelper {
     int count = await db.update(
         tableProfiles, {colLastChanged: date.toIso8601String()},
         where: "$colProfileId = ?", whereArgs: [id]);
+    return count > 0;
+  }
+
+  Future<bool> saveProfile(Profile profile) async {
+    Database db = await database;
+    int count = await db.update(tableProfiles, profile.toMap(), where: "$colProfileId = ?", whereArgs: [profile.id]);
+    updateProfileLastChanged(profile.id, DateTime.now());
     return count > 0;
   }
 

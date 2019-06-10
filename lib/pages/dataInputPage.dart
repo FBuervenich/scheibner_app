@@ -170,11 +170,10 @@ class _DataInputState extends State<DataInputPage> {
     double measValue = model.getMeasValue(name);
     String unit = Data.units[position];
 
-    return new Padding(
-      padding: EdgeInsets.only(bottom: 5),
+    return new Card(
+      color: cardBackgroundColor,
       child: new Container(
         padding: EdgeInsets.symmetric(horizontal: 15),
-        color: Colors.white,
         height: 100,
         child: new Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,

@@ -68,7 +68,8 @@ class _SimulationState extends State<SimulationPage> {
               onPressed: () {
                 AppModel model = ScopedModel.of<AppModel>(context);
                 model.simulate();
-                DatabaseHelper.instance.changeSimData(model.getProfile().id, model.getSimulationData());
+                DatabaseHelper.instance.changeSimData(
+                    model.getProfile().id, model.getSimulationData());
                 Navigator.pushNamed(context, '/results');
               },
             ),
@@ -98,11 +99,10 @@ class _SimulationState extends State<SimulationPage> {
           simValue = _sliderValues[name];
         }
 
-        return new Padding(
-          padding: EdgeInsets.only(bottom: 5),
+        return new Card(
+          color: cardBackgroundColor,
           child: new Container(
             padding: EdgeInsets.symmetric(horizontal: 15),
-            color: Colors.white,
             height: 100,
             child: new Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -167,11 +167,10 @@ class _SimulationState extends State<SimulationPage> {
         TextEditingController controller = _controllers[name];
         controller.text = simValue.toStringAsFixed(1);
 
-        return new Padding(
-          padding: EdgeInsets.only(bottom: 5),
+        return new Card(
+          color: cardBackgroundColor,
           child: new Container(
             padding: EdgeInsets.symmetric(horizontal: 15),
-            color: Colors.white,
             height: 100,
             child: new Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,

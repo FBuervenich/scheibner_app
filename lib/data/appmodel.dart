@@ -61,4 +61,9 @@ class AppModel extends Model {
     _profile?.serverId = measId;
     notifyListeners();
   }
+
+  void setComment(String comment) {
+    _profile?.comment = comment;
+    notifyListeners();
+  }
 }

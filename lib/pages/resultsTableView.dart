@@ -27,9 +27,7 @@ class TableView extends StatelessWidget {
   Widget _createSimValueList(
       BuildContext context, AppModel model, int position) {
     if (model.getSimulationData() == null) {
-      return new Center(
-        child: new Text("No simulation result available"),
-      );
+      return null;
     }
 
     String name = Data.showable[position];
@@ -37,11 +35,10 @@ class TableView extends StatelessWidget {
     double measValue = model.getMeasValue(name);
     double simValue = model.getSimValue(name);
 
-    return new Padding(
-      padding: EdgeInsets.only(bottom: 5),
+    return new Card(
+      color: cardBackgroundColor,
       child: new Container(
         padding: EdgeInsets.symmetric(horizontal: 15),
-        color: Colors.white,
         height: 100,
         child: new Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
