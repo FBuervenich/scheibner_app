@@ -35,6 +35,6 @@ class Profile {
     colLastChanged: lastChanged?.toIso8601String(),
     colServerId: serverId,
     colMeasDataContent: meas?.toJson(),
-    // colSimDataContent: sim?.toJson(),
+    colSimDataContent: sim?.toJson(),
   };
 }

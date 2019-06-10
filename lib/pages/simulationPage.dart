@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:scheibner_app/commonWidgets/framedButton.dart';
 import 'package:scheibner_app/data/appmodel.dart';
 import 'package:scheibner_app/data/data.dart';
+import 'package:scheibner_app/helpers/database_helpers.dart';
 import 'package:scheibner_app/helpers/helperfunctions.dart';
 import 'package:scheibner_app/localization/app_translations.dart';
 import 'package:scheibner_app/styles.dart';
@@ -65,7 +66,9 @@ class _SimulationState extends State<SimulationPage> {
               label: new Text(AppTranslations.of(context).text("simulate")),
               icon: Icon(Icons.equalizer),
               onPressed: () {
-                ScopedModel.of<AppModel>(context).simulate();
+                AppModel model = ScopedModel.of<AppModel>(context);
+                model.simulate();
+                DatabaseHelper.instance.changeSimData(model.getProfile().id, model.getSimulationData());
                 Navigator.pushNamed(context, '/results');
               },
             ),
