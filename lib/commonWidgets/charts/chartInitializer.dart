@@ -39,7 +39,8 @@ class ChartInitializer {
   ChartInitializer(this.meas, this.sim, context) {
     int i = 0;
 
-    Data.chartable.forEach((key) {
+    Data.chartable.forEach((valInfo) {
+      String key = valInfo.name;
       values[key] = new MeasChartValue(
         key,
         meas.getValue(key),

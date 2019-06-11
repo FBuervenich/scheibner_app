@@ -3,7 +3,7 @@ import 'package:scheibner_app/data/profile.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class AppModel extends Model {
-  Profile _profile = new Profile("AppModel_Test"); //TODO for testing
+  Profile _profile;
 
   AppModel();
 

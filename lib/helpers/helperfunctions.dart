@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:path/path.dart';
 import 'package:scheibner_app/data/appmodel.dart';
+import 'package:scheibner_app/styles.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class Helper {
@@ -10,20 +11,22 @@ class Helper {
     return d != null ? d.toStringAsFixed(1) : "Null";
   }
 
-  static String createDifferenceText(double a, double b) {
-    if (a == null || b == null) {
-      return "Null";
-    }
+  static Text createDifferenceText(double a, double b) {
+    assert(a != null && b != null);
     String text = "";
+    TextStyle style = defaultTextStyle;
     if ((a - b).abs() < EPS) {
-      return "0.0";
+      text = "0.0";
     } else {
       if (a > b) {
         text += "+";
+        style = greenTextStyle;
+      } else {
+        style = redTextStyle;
       }
       text += (a - b).toStringAsFixed(1);
     }
-    return text;
+    return new Text(text, style: style);
   }
 
   static String getCurrentProfileName(BuildContext context) {

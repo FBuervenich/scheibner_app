@@ -30,8 +30,9 @@ class TableView extends StatelessWidget {
       return null;
     }
 
-    String name = Data.showable[position];
-    String unit = Data.units[position];
+    ValueInfo valInfo = Data.showable[position];
+    String name = valInfo.name;
+    String unit = valInfo.unit;
     double measValue = model.getMeasValue(name);
     double simValue = model.getSimValue(name);
 
@@ -58,10 +59,7 @@ class TableView extends StatelessWidget {
                   Helper.valToString(simValue),
                   style: defaultTextStyle,
                 ),
-                new Text(
-                  Helper.createDifferenceText(simValue, measValue),
-                  style: defaultTextStyle,
-                ),
+                Helper.createDifferenceText(simValue, measValue),
               ],
             ),
           ],

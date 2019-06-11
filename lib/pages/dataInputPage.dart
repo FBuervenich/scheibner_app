@@ -166,9 +166,9 @@ class _DataInputState extends State<DataInputPage> {
 
   Widget _createMeasValueList(
       BuildContext context, AppModel model, int position) {
-    String name = Data.showable[position];
+    ValueInfo valInfo = Data.showable[position];
+    String name = valInfo.name;
     double measValue = model.getMeasValue(name);
-    String unit = Data.units[position];
 
     return new Card(
       color: cardBackgroundColor,
@@ -183,7 +183,7 @@ class _DataInputState extends State<DataInputPage> {
               style: defaultTextStyle,
             ),
             new Text(
-              (measValue?.toStringAsFixed(1) ?? "") + " " + unit,
+              (measValue?.toStringAsFixed(1) ?? "") + " " + valInfo.unit,
               style: defaultTextStyle,
             ),
           ],

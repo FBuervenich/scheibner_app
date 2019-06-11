@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:preferences/preference_service.dart';
 import 'package:flutter/widgets.dart';
-import 'package:scheibner_app/commonWidgets/framedButton.dart';
 import 'package:scheibner_app/data/appmodel.dart';
 import 'package:scheibner_app/data/data.dart';
 import 'package:scheibner_app/helpers/database_helpers.dart';
@@ -11,7 +10,6 @@ import 'package:scheibner_app/styles.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:scheibner_app/helpers/helperfunctions.dart' as hf;
 
-
 class SimulationPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => new _SimulationState();
@@ -19,14 +17,14 @@ class SimulationPage extends StatefulWidget {
 
 class _SimulationState extends State<SimulationPage> {
   final Map<String, TextEditingController> _controllers = Map.fromIterable(
-    Data.names,
-    key: (name) => name,
-    value: (name) => new TextEditingController(),
+    Data.modifiable,
+    key: (v) => v.name,
+    value: (v) => new TextEditingController(),
   );
   final Map<String, double> _sliderValues = Map.fromIterable(
-    Data.names,
-    key: (name) => name,
-    value: (name) => null,
+    Data.modifiable,
+    key: (v) => v.name,
+    value: (v) => null,
   );
 
   @override
@@ -41,8 +39,7 @@ class _SimulationState extends State<SimulationPage> {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(
-          "${AppTranslations.of(context).text("simulationTitle")} [${hf.Helper.getCurrentProfileName(context)}]"
-        ),
+            "${AppTranslations.of(context).text("simulationTitle")} [${hf.Helper.getCurrentProfileName(context)}]"),
         actions: <Widget>[
           new IconButton(
             icon: new Icon(Icons.settings),
@@ -90,8 +87,9 @@ class _SimulationState extends State<SimulationPage> {
       ];
     }
     return Data.modifiable.map(
-      (String name) {
-        String unit = Data.unitsMap[name];
+      (ValueInfo valInfo) {
+        String name = valInfo.name;
+        String unit = valInfo.unit;
         double measValue = model.getMeasValue(name);
         double simValue;
         if (_sliderValues[name] == null) {
@@ -126,16 +124,14 @@ class _SimulationState extends State<SimulationPage> {
                     ),
                     new Align(
                       alignment: Alignment.centerRight,
-                      child: new Text(
-                          Helper.createDifferenceText(simValue, measValue),
-                          style: defaultTextStyle),
+                      child: Helper.createDifferenceText(simValue, measValue),
                     ),
                   ],
                 ),
                 new Slider(
                   value: simValue,
-                  min: measValue * 0.5, //TODO: choose a better value range
-                  max: measValue * 1.5,
+                  min: valInfo.lowerBound,
+                  max: valInfo.upperBound,
                   onChanged: (double value) {
                     setState(() {
                       _sliderValues[name] = value;
@@ -163,7 +159,9 @@ class _SimulationState extends State<SimulationPage> {
     }
 
     return Data.modifiable.map(
-      (String name) {
+      (ValueInfo valInfo) {
+        String name = valInfo.name;
+        String unit = valInfo.unit;
         double measValue = model.getMeasValue(name);
         double simValue = model.getSimValue(name);
         TextEditingController controller = _controllers[name];
@@ -178,7 +176,7 @@ class _SimulationState extends State<SimulationPage> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 new Text(
-                  AppTranslations.of(context).text(name),
+                  AppTranslations.of(context).text(name) + " [$unit]",
                   style: defaultTextStyle,
                 ),
                 new Row(
@@ -219,9 +217,7 @@ class _SimulationState extends State<SimulationPage> {
                     new Expanded(
                       child: new Align(
                         alignment: Alignment.centerRight,
-                        child: new Text(
-                            Helper.createDifferenceText(simValue, measValue),
-                            style: defaultTextStyle),
+                        child: Helper.createDifferenceText(simValue, measValue),
                       ),
                     ),
                   ],
