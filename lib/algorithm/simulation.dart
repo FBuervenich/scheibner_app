@@ -147,6 +147,8 @@ class ScheibnerSimulation {
 // Kette berechnen
     // double hara = sqrt((pow(vrh + vhh, 2) + pow(vrv - vhv, 2)));
 
+    data["schwingenachshoehe"] = schwingenachshoeheFb;
+    data["vorderbauhoehe"] = vorderbauhoeheFb;
     data["lkwgrad"] = lkwGrad;
     data["nachlauf"] = nachlaufFb;
     data["nachlauf_real"] = nachlaufReal;

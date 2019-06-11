@@ -1,20 +1,6 @@
 import 'package:scheibner_app/algorithm/simulation.dart';
 import 'dart:convert';
 
-import 'package:scheibner_app/helpers/database_helpers.dart';
-
-class ReducedData {
-  int id;
-  DateTime saveDate;
-
-  ReducedData(this.id, this.saveDate);
-
-  ReducedData.fromMap(Map<String, dynamic> map) {
-    id = map[colSimId];
-    saveDate = DateTime.tryParse(map[colSaveDate]);
-  }
-}
-
 class Data {
   static const List<String> names = <String>[
     "radumfang_vorn",
@@ -53,6 +39,25 @@ class Data {
   static final List<String> modifiable = showable.sublist(0, 5);
   static final List<String> chartable =
       showable.sublist(modifiable.length, showable.length);
+
+  static const List<String> units = [
+    "mm",
+    "mm",
+    "mm",
+    "mm",
+    "mm",
+    "°",
+    "mm",
+    "mm",
+    "°",
+    "mm",
+    "mm",
+    "mm",
+    "mm",
+    "mm",
+  ];
+  static final Map<String, String> unitsMap =
+      Map.fromIterables(showable, units);
 
   DateTime _date;
   Map<String, dynamic> _values;

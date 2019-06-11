@@ -11,6 +11,7 @@ class Profile {
   Data meas;
   // simulation data
   Data sim;
+  String comment;
 
   Profile(this.name, {this.serverId, this.meas, this.sim}) {
     lastChanged = DateTime.now();
@@ -27,14 +28,16 @@ class Profile {
     if (map[colSimDataContent] != null) {
       sim = Data.fromJson(map[colSimDataContent]);
     }
+    comment = map[colComment];
   }
 
   Map<String, dynamic> toMap() => {
-    colProfileId: id,
-    colProfileName: name,
-    colLastChanged: lastChanged?.toIso8601String(),
-    colServerId: serverId,
-    colMeasDataContent: meas?.toJson(),
-    // colSimDataContent: sim?.toJson(),
-  };
+        // colProfileId: id,
+        colProfileName: name,
+        colLastChanged: lastChanged?.toIso8601String(),
+        colServerId: serverId,
+        colMeasDataContent: meas?.toJson(),
+        colSimDataContent: sim?.toJson(),
+        colComment: comment,
+      };
 }

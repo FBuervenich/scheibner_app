@@ -56,4 +56,14 @@ class AppModel extends Model {
     _profile = profile;
     notifyListeners();
   }
+
+  void setMeasurementId(int measId) {
+    _profile?.serverId = measId;
+    notifyListeners();
+  }
+
+  void setComment(String comment) {
+    _profile?.comment = comment;
+    notifyListeners();
+  }
 }

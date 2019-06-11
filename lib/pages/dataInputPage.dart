@@ -24,6 +24,7 @@ class _DataInputState extends State<DataInputPage> {
   String barcode = "";
   Data measurementData;
   ApiService apiService = new ApiService();
+  TextEditingController _textFieldController = TextEditingController();
 
   @override
   initState() {
@@ -60,35 +61,24 @@ class _DataInputState extends State<DataInputPage> {
                   child: new Padding(
                     padding: EdgeInsets.all(0),
                     child: new ScopedModelDescendant<AppModel>(
-                      builder: (context, child, model) => new ListView.builder(
-                          itemCount: model.getMeasurementData() != null
-                              ? Data.showable.length
-                              : 1,
-                          itemBuilder: (context, position) =>
-                              _createMeasValueList(context, model, position),
-                          physics: BouncingScrollPhysics()),
+                      builder: (context, child, model) =>
+                          _createListView(context, model),
                     ),
                   ),
                 ),
                 new Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    new RaisedButton.icon(
-                      onPressed: () async {
-                        try {
-                          Data measurementData =
-                              await apiService.getMeasurementFromId(
-                                  0); // TODO use id from textfield
-                          processMeasurement(measurementData);
-                        } on ScheibnerException catch (e) {
-                          this._showToast(context,
-                              AppTranslations.of(context).text(e.toString()));
-                        }
-                      },
-                      label: Text(
-                        AppTranslations.of(context).text("loadFromServer"),
-                      ),
-                      icon: Icon(Icons.cloud),
+                    new ScopedModelDescendant<AppModel>(
+                      builder: (context, child, model) => new RaisedButton.icon(
+                            onPressed: () =>
+                                _displayMeasIdDialog(context, model),
+                            label: Text(
+                              AppTranslations.of(context)
+                                  .text("loadFromServer"),
+                            ),
+                            icon: Icon(Icons.cloud),
+                          ),
                     ),
                     new RaisedButton.icon(
                         onPressed: () async {
@@ -119,18 +109,17 @@ class _DataInputState extends State<DataInputPage> {
                           new RaisedButton.icon(
                             onPressed: model.getMeasurementData() != null
                                 ? () {
-                                    model.setSimulationData(
-                                        Data.clone(model.getMeasurementData()));
+                                    if (model.getSimulationData() == null) {
+                                      model.setSimulationData(Data.clone(
+                                          model.getMeasurementData()));
+                                    }
                                     Navigator.pushNamed(context, '/simulation');
                                   }
                                 : null,
-                            label: new Text("Edit for Simulation"),
+                            label: new Text(AppTranslations.of(context)
+                                .text("editForSimulation")),
                             icon: Icon(Icons.edit),
                           ),
-                          // new RaisedButton(
-                          //   onPressed: null,
-                          //   child: Text("Load last simulation"),
-                          // ),
                         ],
                       ),
                 ),
@@ -142,22 +131,49 @@ class _DataInputState extends State<DataInputPage> {
     );
   }
 
+  Widget _createListView(BuildContext context, AppModel model) {
+    if (model.getMeasurementData() == null) {
+      return _makeNoProfilesWidget(context);
+    }
+    return new ListView.builder(
+      itemCount: model.getMeasurementData() != null ? Data.showable.length : 1,
+      itemBuilder: (context, position) =>
+          _createMeasValueList(context, model, position),
+      physics: BouncingScrollPhysics(),
+    );
+  }
+
+  Widget _makeNoProfilesWidget(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Icon(
+              Icons.insert_drive_file,
+              size: 50,
+            ),
+            Container(height: 20),
+            Text(AppTranslations.of(context).text("noDataLoaded"),
+                style: Theme.of(context).textTheme.display4),
+            Container(height: 00)
+          ],
+        ),
+      ],
+    );
+  }
+
   Widget _createMeasValueList(
       BuildContext context, AppModel model, int position) {
-    if (model.getMeasurementData() == null) {
-      return new Center(
-        child: new Text("No data loaded"),
-      );
-    }
-
     String name = Data.showable[position];
     double measValue = model.getMeasValue(name);
+    String unit = Data.units[position];
 
-    return new Padding(
-      padding: EdgeInsets.only(bottom: 5),
+    return new Card(
+      color: cardBackgroundColor,
       child: new Container(
         padding: EdgeInsets.symmetric(horizontal: 15),
-        color: Colors.white,
         height: 100,
         child: new Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -167,9 +183,7 @@ class _DataInputState extends State<DataInputPage> {
               style: defaultTextStyle,
             ),
             new Text(
-              measValue != null
-                  ? measValue.toStringAsFixed(1)
-                  : "Value could not be calculated",
+              (measValue?.toStringAsFixed(1) ?? "") + " " + unit,
               style: defaultTextStyle,
             ),
           ],
@@ -178,12 +192,76 @@ class _DataInputState extends State<DataInputPage> {
     );
   }
 
+  void _displayMeasIdDialog(BuildContext context, AppModel model) async {
+    if (model.getProfile().serverId != null) {
+      _textFieldController.text = model.getProfile().serverId.toString();
+    }
+    // save the return val to check if the dialog was dismissed or not
+    String retVal = await showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(AppTranslations.of(context).text("loadFromServer")),
+            content: TextField(
+              controller: _textFieldController,
+              autofocus: true,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                  labelText: AppTranslations.of(context).text("enterMeasId"),
+                  hintText: AppTranslations.of(context).text("measId")),
+            ),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text(AppTranslations.of(context).text("cancel")),
+                onPressed: () {
+                  _textFieldController.text = "";
+                  // return "cancel" so it can be determined what has been clicked from outside
+                  Navigator.of(context).pop("cancel");
+                },
+              ),
+              new RaisedButton(
+                child: new Text(AppTranslations.of(context).text("loadMeas")),
+                onPressed: () {
+                  Navigator.of(context).pop("success");
+                },
+                color: Theme.of(context).accentColor,
+                textColor: Colors.white,
+              )
+            ],
+          );
+        });
+
+    // dialog has been dismissed -> clear text field
+    if (retVal == null) {
+      _textFieldController.text = "";
+    } else if (retVal == "success") {
+      int measId = int.tryParse(_textFieldController.text);
+      if (measId != null) {
+        try {
+          Data measurementData = await apiService.getMeasurementFromId(measId);
+          model.setMeasurementId(measId);
+          DatabaseHelper.instance.changeServerId(model.getProfile().id, measId);
+          processMeasurement(measurementData);
+        } on ScheibnerException catch (e) {
+          this._showToast(
+              context, AppTranslations.of(context).text(e.toString()));
+        }
+      } else {
+        // no valid measurement ID
+        this._showToast(
+            context, AppTranslations.of(context).text("invalidMeasId"));
+      }
+    }
+  }
+
   void processMeasurement(Data measurementData) {
     AppModel model = ScopedModel.of<AppModel>(context);
     model.setMeasurementData(measurementData);
     model.setSimulationData(Data.clone(measurementData));
     DatabaseHelper.instance
         .changeMeasData(model.getProfile().id, measurementData);
+    DatabaseHelper.instance
+        .changeSimData(model.getProfile().id, measurementData);
   }
 
   Future scan(BuildContext context) async {

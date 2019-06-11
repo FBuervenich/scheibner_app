@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:scheibner_app/commonWidgets/framedButton.dart';
 import 'package:scheibner_app/data/appmodel.dart';
 import 'package:scheibner_app/data/data.dart';
+import 'package:scheibner_app/helpers/database_helpers.dart';
 import 'package:scheibner_app/helpers/helperfunctions.dart';
 import 'package:scheibner_app/localization/app_translations.dart';
 import 'package:scheibner_app/styles.dart';
@@ -67,7 +68,10 @@ class _SimulationState extends State<SimulationPage> {
               label: new Text(AppTranslations.of(context).text("simulate")),
               icon: Icon(Icons.equalizer),
               onPressed: () {
-                ScopedModel.of<AppModel>(context).simulate();
+                AppModel model = ScopedModel.of<AppModel>(context);
+                model.simulate();
+                DatabaseHelper.instance.changeSimData(
+                    model.getProfile().id, model.getSimulationData());
                 Navigator.pushNamed(context, '/results');
               },
             ),
@@ -87,6 +91,7 @@ class _SimulationState extends State<SimulationPage> {
     }
     return Data.modifiable.map(
       (String name) {
+        String unit = Data.unitsMap[name];
         double measValue = model.getMeasValue(name);
         double simValue;
         if (_sliderValues[name] == null) {
@@ -96,17 +101,16 @@ class _SimulationState extends State<SimulationPage> {
           simValue = _sliderValues[name];
         }
 
-        return new Padding(
-          padding: EdgeInsets.only(bottom: 5),
+        return new Card(
+          color: cardBackgroundColor,
           child: new Container(
             padding: EdgeInsets.symmetric(horizontal: 15),
-            color: Colors.white,
             height: 100,
             child: new Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 new Text(
-                  AppTranslations.of(context).text(name),
+                  AppTranslations.of(context).text(name) + " [$unit]",
                   style: defaultTextStyle,
                 ),
                 new Row(
@@ -130,7 +134,7 @@ class _SimulationState extends State<SimulationPage> {
                 ),
                 new Slider(
                   value: simValue,
-                  min: measValue * 0.5,
+                  min: measValue * 0.5, //TODO: choose a better value range
                   max: measValue * 1.5,
                   onChanged: (double value) {
                     setState(() {
@@ -165,11 +169,10 @@ class _SimulationState extends State<SimulationPage> {
         TextEditingController controller = _controllers[name];
         controller.text = simValue.toStringAsFixed(1);
 
-        return new Padding(
-          padding: EdgeInsets.only(bottom: 5),
+        return new Card(
+          color: cardBackgroundColor,
           child: new Container(
             padding: EdgeInsets.symmetric(horizontal: 15),
-            color: Colors.white,
             height: 100,
             child: new Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,

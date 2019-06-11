@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 final TextStyle defaultTextStyle = TextStyle(
   fontSize: 20,
-  color: Colors.grey[500],
+  color: Colors.white,
 );
 
 final Color backgroundColor = Color.fromRGBO(58, 66, 86, 1.0);

@@ -13,6 +13,8 @@ class ChartView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //close Keyboard if available
+    FocusScope.of(context).requestFocus(new FocusNode());
     return new ScopedModelDescendant<AppModel>(
       //LayoutBuilder needed for constraints
       builder: (context, child, model) {
