@@ -8,6 +8,8 @@ import 'package:scheibner_app/helpers/helperfunctions.dart';
 import 'package:scheibner_app/localization/app_translations.dart';
 import 'package:scheibner_app/styles.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'package:scheibner_app/helpers/helperfunctions.dart' as hf;
+
 
 class SimulationPage extends StatefulWidget {
   @override
@@ -38,7 +40,7 @@ class _SimulationState extends State<SimulationPage> {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(
-          AppTranslations.of(context).text("simulationTitle"),
+          "${AppTranslations.of(context).text("simulationTitle")} [${hf.Helper.getCurrentProfileName(context)}]"
         ),
         actions: <Widget>[
           new IconButton(
