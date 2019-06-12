@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
+import 'package:preferences/preference_service.dart';
 import 'package:scheibner_app/data/appmodel.dart';
 import 'package:scheibner_app/data/profile.dart';
 import 'package:scheibner_app/helpers/database_helpers.dart';
@@ -53,6 +54,7 @@ class _ProfiletState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    this._initalizePreferencesValues(context);
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(
@@ -245,7 +247,7 @@ class _ProfiletState extends State<ProfilePage> {
 
   TextEditingController _textFieldController = TextEditingController();
 
-  _displayNewProfileNameDialog(BuildContext context) async {
+  _displayNewProfileNameDialog(BuildContext context) async {  
     // save the return val to check if the dialog was dismissed or not
     String retVal = await showDialog(
         context: context,
@@ -321,5 +323,20 @@ class _ProfiletState extends State<ProfilePage> {
         ),
       ],
     );
+  }
+
+  
+  void _initalizePreferencesValues(BuildContext context) {
+    String inputMode = PrefService.getString("input_mode");
+    if (inputMode == null) {
+      PrefService.setString(
+          'input_mode', AppTranslations.of(context).text("inputModeSliders"));
+    }
+
+    String language = PrefService.getString("language");
+    if (language == null) {
+      PrefService.setString(
+          'language', AppTranslations.of(context).text("languageGerman"));
+    }
   }
 }
