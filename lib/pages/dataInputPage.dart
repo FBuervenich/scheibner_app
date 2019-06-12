@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:preferences/preference_service.dart';
+import 'package:unicorndial/unicorndial.dart';
 
 import 'package:scheibner_app/data/appmodel.dart';
 import 'package:scheibner_app/data/data.dart';
@@ -33,7 +33,73 @@ class _DataInputState extends State<DataInputPage> {
 
   @override
   Widget build(BuildContext context) {
+    var childButtons = List<UnicornButton>();
+
+    childButtons.add(UnicornButton(
+        hasLabel: true,
+        labelText: AppTranslations.of(context).text("loadFromServer"),
+        currentButton: FloatingActionButton(
+          heroTag: "cloud",
+          backgroundColor: highlightColor,
+          mini: true,
+          child: Icon(Icons.cloud),
+          onPressed: () {
+            var model = ScopedModel.of<AppModel>(context);
+            _displayMeasIdDialog(context, model);
+          },
+          ),
+        ));
+
+    childButtons.add(UnicornButton(
+        hasLabel: true,
+        labelText: AppTranslations.of(context).text("loadFromQRCode"),
+        currentButton: FloatingActionButton(
+          heroTag: "select_all",
+          backgroundColor: highlightColor,
+          mini: true,
+          child: Icon(Icons.select_all),
+          onPressed: () async {
+            try {
+              setState(() => this.barcode = "");
+              await scan(context);
+
+              if (this.barcode != "") {
+                measurementData = apiService.getMeasurementFromJson(barcode);
+                processMeasurement(measurementData);
+              }
+            } on ScheibnerException catch (e) {
+              this._showToast(
+                  context, AppTranslations.of(context).text(e.toString()));
+            }
+          },
+        )));
+
+    childButtons.add(UnicornButton(
+        hasLabel: true,
+        labelText: AppTranslations.of(context).text("editForSimulation"),
+        currentButton: FloatingActionButton(
+          heroTag: "edit",
+          backgroundColor: highlightColor,
+          mini: true,
+          child: Icon(Icons.edit),
+          onPressed: () {
+            var model = ScopedModel.of<AppModel>(context);
+            if (model.getMeasurementData() != null) {
+              if (model.getSimulationData() == null) {
+                model.setSimulationData(Data.clone(model.getMeasurementData()));
+              }
+              Navigator.pushNamed(context, '/simulation');
+            }
+          },
+        )));
+
     return new Scaffold(
+      floatingActionButton: UnicornDialer(
+          backgroundColor: Color.fromRGBO(255, 255, 255, 0.0),
+          parentButtonBackground: highlightColor,
+          orientation: UnicornOrientation.VERTICAL,
+          parentButton: Icon(Icons.menu),
+          childButtons: childButtons),
       appBar: new AppBar(
         title: new Text(
           "${AppTranslations.of(context).text("dataInputTitle")} [${hf.Helper.getCurrentProfileName(context)}]",
@@ -65,63 +131,63 @@ class _DataInputState extends State<DataInputPage> {
                     ),
                   ),
                 ),
-                new Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    new ScopedModelDescendant<AppModel>(
-                      builder: (context, child, model) => new RaisedButton.icon(
-                            onPressed: () =>
-                                _displayMeasIdDialog(context, model),
-                            label: Text(
-                              AppTranslations.of(context)
-                                  .text("loadFromServer"),
-                            ),
-                            icon: Icon(Icons.cloud),
-                          ),
-                    ),
-                    new RaisedButton.icon(
-                        onPressed: () async {
-                          try {
-                            setState(() => this.barcode = "");
-                            await scan(context);
+                // new Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //   children: <Widget>[
+                //     new ScopedModelDescendant<AppModel>(
+                //       builder: (context, child, model) => new RaisedButton.icon(
+                //             onPressed: () =>
+                //                 _displayMeasIdDialog(context, model),
+                //             label: Text(
+                //               AppTranslations.of(context)
+                //                   .text("loadFromServer"),
+                //             ),
+                //             icon: Icon(Icons.cloud),
+                //           ),
+                //     ),
+                //     new RaisedButton.icon(
+                //         onPressed: () async {
+                //           try {
+                //             setState(() => this.barcode = "");
+                //             await scan(context);
 
-                            if (this.barcode != "") {
-                              measurementData =
-                                  apiService.getMeasurementFromJson(barcode);
-                              processMeasurement(measurementData);
-                            }
-                          } on ScheibnerException catch (e) {
-                            this._showToast(context,
-                                AppTranslations.of(context).text(e.toString()));
-                          }
-                        },
-                        label: Text(
-                          AppTranslations.of(context).text("loadFromQRCode"),
-                        ),
-                        icon: Icon(Icons.select_all)),
-                  ],
-                ),
-                new ScopedModelDescendant<AppModel>(
-                  builder: (context, child, model) => Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          new RaisedButton.icon(
-                            onPressed: model.getMeasurementData() != null
-                                ? () {
-                                    if (model.getSimulationData() == null) {
-                                      model.setSimulationData(Data.clone(
-                                          model.getMeasurementData()));
-                                    }
-                                    Navigator.pushNamed(context, '/simulation');
-                                  }
-                                : null,
-                            label: new Text(AppTranslations.of(context)
-                                .text("editForSimulation")),
-                            icon: Icon(Icons.edit),
-                          ),
-                        ],
-                      ),
-                ),
+                //             if (this.barcode != "") {
+                //               measurementData =
+                //                   apiService.getMeasurementFromJson(barcode);
+                //               processMeasurement(measurementData);
+                //             }
+                //           } on ScheibnerException catch (e) {
+                //             this._showToast(context,
+                //                 AppTranslations.of(context).text(e.toString()));
+                //           }
+                //         },
+                //         label: Text(
+                //           AppTranslations.of(context).text("loadFromQRCode"),
+                //         ),
+                //         icon: Icon(Icons.select_all)),
+                //   ],
+                // ),
+                // new ScopedModelDescendant<AppModel>(
+                //   builder: (context, child, model) => Row(
+                //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //         children: <Widget>[
+                //           new RaisedButton.icon(
+                //             onPressed: model.getMeasurementData() != null
+                //                 ? () {
+                //                     if (model.getSimulationData() == null) {
+                //                       model.setSimulationData(Data.clone(
+                //                           model.getMeasurementData()));
+                //                     }
+                //                     Navigator.pushNamed(context, '/simulation');
+                //                   }
+                //                 : null,
+                //             label: new Text(AppTranslations.of(context)
+                //                 .text("editForSimulation")),
+                //             icon: Icon(Icons.edit),
+                //           ),
+                //         ],
+                //       ),
+                // ),
               ],
             ),
           );
