@@ -1,14 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:scheibner_app/commonWidgets/charts/chartData.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/widgets.dart';
-import 'package:scheibner_app/commonWidgets/charts/chartInitializer.dart'
-    as prefix0;
-import 'package:scheibner_app/localization/app_translations.dart';
 
 import '../../styles.dart';
-import 'chartInitializer.dart';
 
 class ChartFactory {
   double chartpadding = 10;
@@ -24,6 +17,10 @@ class ChartFactory {
     return 2 * chartpadding + cardpadding;
   }
 
+  double getHeight() {
+    return constraints.maxHeight - 2 * chartpadding;
+  }
+
   Widget getRow(
     BoxConstraints constraints,
     BuildContext ctxt, {
@@ -31,7 +28,7 @@ class ChartFactory {
     Widget heading,
     double additionalPadding = 0,
   }) {
-    final double height = constraints.maxHeight - 2 * chartpadding;
+    final double height = getHeight();
     final double width = constraints.maxWidth;
 
     List<Widget> cardList = [];
@@ -51,23 +48,16 @@ class ChartFactory {
               height: height / 2,
               width: width / widgets.length - getPaddingDiff(),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  new Row( mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      new Container(child: heading),
-                    ],
-                  ),
-                  new Row(
-                    children: [
-                      new Container(
-                        width: width / widgets.length -
-                            getPaddingDiff() -
-                            additionalPadding,
-                        height: height / 2 - headingHeight,
-                        child: widget,
-                      ),
-                    ],
+                  new Container(child: heading),
+                  new Container(
+                    width: width / widgets.length -
+                        getPaddingDiff() -
+                        additionalPadding,
+                    height: height / 2 - headingHeight,
+                    child: widget,
                   ),
                 ],
               ),

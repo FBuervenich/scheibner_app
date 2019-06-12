@@ -84,34 +84,28 @@ class SingleMeasChangeChart extends ChartFactory {
   Widget _getNewOldChartPercentValueWidget(
       BuildContext context, double percentage) {
     return new Expanded(
-      child: new Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          new Container(
-            child: new Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Align(
-                  alignment: Alignment.center,
-                  child: new Text(
-                    percentage.toStringAsFixed(2) + "%",
-                    textAlign: TextAlign.center,
-                    style: new TextStyle(
-                      fontSize: 16,
-                      color: percentage < 0 ? Colors.red : Colors.green,
-                    ),
-                  ),
+      child: new Container(
+        child: new Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Align(
+              alignment: Alignment.center,
+              child: new Text(
+                percentage.toStringAsFixed(2) + "%",
+                textAlign: TextAlign.center,
+                style: new TextStyle(
+                  fontSize: 16,
+                  color: percentage < 0 ? Colors.red : Colors.green,
                 ),
-                new Text(
-                  AppTranslations.of(context).text("differenzInPercent"),
-                  style: new TextStyle(fontSize: 10, color: Colors.white),
-                )
-              ],
+              ),
             ),
-          ),
-        ],
+            new Text(
+              AppTranslations.of(context).text("differenzInPercent"),
+              style: new TextStyle(fontSize: 10, color: Colors.white),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -120,31 +114,25 @@ class SingleMeasChangeChart extends ChartFactory {
       BuildContext context, String value, bool isNew) {
     return new Expanded(
       flex: 2,
-      child: new Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          new Container(
-            child: new Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                new Text(
-                  value,
-                  style: new TextStyle(fontSize: 25, color: Colors.white),
-                ),
-                new Text(
-                  isNew
-                      ? AppTranslations.of(context)
-                          .text("chatFactory_newOldBarChart_newValue")
-                      : AppTranslations.of(context)
-                          .text("chatFactory_newOldBarChart_oldValue"),
-                  style: new TextStyle(fontSize: 10, color: Colors.white),
-                )
-              ],
+      child: new Container(
+        child: new Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            new Text(
+              value,
+              style: new TextStyle(fontSize: 25, color: Colors.white),
             ),
-          ),
-        ],
+            new Text(
+              isNew
+                  ? AppTranslations.of(context)
+                      .text("chatFactory_newOldBarChart_newValue")
+                  : AppTranslations.of(context)
+                      .text("chatFactory_newOldBarChart_oldValue"),
+              style: new TextStyle(fontSize: 10, color: Colors.white),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -153,6 +141,7 @@ class SingleMeasChangeChart extends ChartFactory {
  * Returns a Column containing the Barchart
  */
   Widget _getRightSide() {
+    double paddingtop = 20;
     return new Column(
       // mainAxisAlignment: MainAxisAlignment.end,
       // crossAxisAlignment: CrossAxisAlignment.end,
@@ -160,20 +149,20 @@ class SingleMeasChangeChart extends ChartFactory {
         new Padding(
           padding: EdgeInsets.only(
             left: 30,
-            top: 20,
+            top: paddingtop,
           ),
           child: new Container(
             width:
                 constraints.maxWidth - wertAnzeigeWidth - getPaddingDiff() - 30,
-            height: constraints.maxHeight - 275 - headingHeight, // wegen Column
+            height:
+                getHeight() / 2 - paddingtop - headingHeight, // wegen Column
             child: new charts.BarChart(
               [
                 new charts.Series<BarChartData, String>(
                     id: 'Sales',
                     colorFn: (BarChartData sales, __) =>
                         charts.ColorUtil.fromDartColor(sales.color),
-                    domainFn: (BarChartData sales, _) =>
-                        sales.year,
+                    domainFn: (BarChartData sales, _) => sales.year,
                     measureFn: (BarChartData sales, _) => sales.sales,
                     data: data,
                     labelAccessorFn: (BarChartData sales, _) =>
