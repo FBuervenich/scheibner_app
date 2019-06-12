@@ -2,13 +2,15 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 import 'package:scheibner_app/data/data.dart';
 import 'package:scheibner_app/helpers/scheibnerException.dart';
 
 class ApiService {
   Future<Data> getMeasurementFromId(int id) async {
     final response = await http.get(
-        'http://krisc.luca-student.be/scheibner/messung.php?id=' + id.toString());
+        'http://krisc.luca-student.be/scheibner/messung.php?id=' +
+            id.toString());
     if (response.statusCode != 200) {
       throw new ScheibnerException("errorDataLoading");
     }
@@ -17,12 +19,11 @@ class ApiService {
   }
 
   Data getMeasurementFromJson(String jsonString) {
-    try{
+    try {
       Map<String, dynamic> map = json.decode(jsonString);
       return this._createMeasurementFromJson(json.decode(jsonString));
-    }
-    catch (e){
-      throw new ScheibnerException("errorJsonParsing"); 
+    } catch (e) {
+      throw new ScheibnerException("errorJsonParsing");
     }
   }
 
@@ -33,12 +34,15 @@ class ApiService {
     }
 
     Map<String, double> values = {};
-    values["radumfang_vorn"] = (json['radumfang_vorn']  as int).toDouble();
+    values["radumfang_vorn"] = (json['radumfang_vorn'] as int).toDouble();
     values["radumfang_hinten"] = (json['radumfang_hinten'] as int).toDouble();
     values["abstand_vorn_read"] = (json['abstand_vorn_read'] as int).toDouble();
-    values["vorderachshoehe_read"] = (json['vorderachshoehe_read'] as int).toDouble();
-    values["abstand_hinten_read"] = (json['abstand_hinten_read'] as int).toDouble();
-    values["hinterachshoehe_read"] = (json['hinterachshoehe_read'] as int).toDouble();
+    values["vorderachshoehe_read"] =
+        (json['vorderachshoehe_read'] as int).toDouble();
+    values["abstand_hinten_read"] =
+        (json['abstand_hinten_read'] as int).toDouble();
+    values["hinterachshoehe_read"] =
+        (json['hinterachshoehe_read'] as int).toDouble();
     values["heckhoehe"] = (json['heckhoehe'] as int).toDouble();
     values["offset"] = json['offset'] as double;
     values["g_st"] = json['g_st'] as double;

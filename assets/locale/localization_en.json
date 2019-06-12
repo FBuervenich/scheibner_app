@@ -59,5 +59,6 @@
     "addDescription": "Add a description",
     "dateFormat": "MM-dd-yyyy - HH:mm",
     "old": "before",
-    "new": "after"
+    "new": "after",
+    "cancelServerRequest": "Cancel server request"
 }

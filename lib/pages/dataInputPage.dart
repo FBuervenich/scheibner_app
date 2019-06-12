@@ -3,6 +3,9 @@ import 'dart:async';
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart';
+import 'package:http/http.dart';
+import 'package:http/http.dart';
 import 'package:unicorndial/unicorndial.dart';
 
 import 'package:scheibner_app/data/appmodel.dart';
@@ -14,6 +17,7 @@ import 'package:scheibner_app/localization/app_translations.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:scheibner_app/helpers/scheibnerException.dart';
 import 'package:scheibner_app/helpers/helperfunctions.dart' as hf;
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class DataInputPage extends StatefulWidget {
   @override
@@ -25,6 +29,8 @@ class _DataInputState extends State<DataInputPage> {
   Data measurementData;
   ApiService apiService = new ApiService();
   TextEditingController _textFieldController = TextEditingController();
+  bool isLoading = false;
+  var loadingSubScription = null;
 
   @override
   initState() {
@@ -36,19 +42,19 @@ class _DataInputState extends State<DataInputPage> {
     var childButtons = List<UnicornButton>();
 
     childButtons.add(UnicornButton(
-        hasLabel: true,
-        labelText: AppTranslations.of(context).text("loadFromServer"),
-        currentButton: FloatingActionButton(
-          heroTag: "cloud",
-          backgroundColor: highlightColor,
-          mini: true,
-          child: Icon(Icons.cloud),
-          onPressed: () {
-            var model = ScopedModel.of<AppModel>(context);
-            _displayMeasIdDialog(context, model);
-          },
-          ),
-        ));
+      hasLabel: true,
+      labelText: AppTranslations.of(context).text("loadFromServer"),
+      currentButton: FloatingActionButton(
+        heroTag: "cloud",
+        backgroundColor: highlightColor,
+        mini: true,
+        child: Icon(Icons.cloud),
+        onPressed: () {
+          var model = ScopedModel.of<AppModel>(context);
+          _displayMeasIdDialog(context, model);
+        },
+      ),
+    ));
 
     childButtons.add(UnicornButton(
         hasLabel: true,
@@ -197,6 +203,36 @@ class _DataInputState extends State<DataInputPage> {
   }
 
   Widget _createListView(BuildContext context, AppModel model) {
+    if (isLoading) {
+      return new Container(
+        child: new Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            new SpinKitRing(
+              color: highlightColor,
+            ),
+            Container(height: 20),
+            new FlatButton(
+              child: new Text(
+                AppTranslations.of(context).text("cancelServerRequest"),
+                style: TextStyle(color: highlightColor),
+              ),
+              onPressed: () {
+                if (loadingSubScription != null) {
+                  loadingSubScription.cancel();
+                }
+                setState(() {
+                  isLoading = false;
+                  loadingSubScription = null;
+                });
+              },
+            ),
+          ],
+        ),
+      );
+    }
+
     if (model.getMeasurementData() == null) {
       return _makeNoProfilesWidget(context);
     }
@@ -300,13 +336,30 @@ class _DataInputState extends State<DataInputPage> {
     if (retVal == null) {
       _textFieldController.text = "";
     } else if (retVal == "success") {
+      setState(() {
+        isLoading = true;
+        loadingSubScription = null;
+      });
       int measId = int.tryParse(_textFieldController.text);
       if (measId != null) {
         try {
-          Data measurementData = await apiService.getMeasurementFromId(measId);
-          model.setMeasurementId(measId);
-          DatabaseHelper.instance.changeServerId(model.getProfile().id, measId);
-          processMeasurement(measurementData);
+          var sub = apiService
+              .getMeasurementFromId(measId)
+              .asStream()
+              .listen((Data measurementData) {
+            model.setMeasurementId(measId);
+            DatabaseHelper.instance
+                .changeServerId(model.getProfile().id, measId);
+            processMeasurement(measurementData);
+            setState(() {
+              loadingSubScription = null;
+              isLoading = false;
+            });
+          });
+
+          setState(() {
+            loadingSubScription = sub;
+          });
         } on ScheibnerException catch (e) {
           this._showToast(
               context, AppTranslations.of(context).text(e.toString()));

@@ -61,5 +61,6 @@
     "addDescription": "Fügen Sie eine Beschreibung hinzu",
     "dateFormat": "yyyy-MM-dd - HH:mm",
     "old": "vorher",
-    "new": "nachher"
+    "new": "nachher",
+    "cancelServerRequest": "Serverabfrage abbrechen"
 }
