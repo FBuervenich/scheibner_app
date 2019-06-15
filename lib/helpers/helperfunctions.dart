@@ -8,7 +8,13 @@ class Helper {
   static const EPS = 5e-2;
 
   static String valToString(double d) {
-    return d != null ? d.toStringAsFixed(1) : "Null";
+    if(d == null){
+      return "Null";
+    }
+    if(d.abs() < EPS){
+      return "0.0";
+    }
+    return d.toStringAsFixed(1);
   }
 
   static Text createDifferenceText(double a, double b) {

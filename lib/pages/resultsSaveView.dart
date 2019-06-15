@@ -38,7 +38,6 @@ class _SaveViewState extends State<SaveView> {
             ),
             keyboardType: TextInputType.multiline,
             style: greyTextStyle,
-            //controller: _textEditingController,
             controller: new TextEditingController.fromValue(
                 new TextEditingValue(
                     text: model.getProfile().comment,
