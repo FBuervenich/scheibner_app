@@ -12,8 +12,6 @@ class SaveView extends StatefulWidget {
 }
 
 class _SaveViewState extends State<SaveView> {
-  TextEditingController _textEditingController = new TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return new Card(
@@ -22,12 +20,12 @@ class _SaveViewState extends State<SaveView> {
         padding: EdgeInsets.all(15),
         child: new ScopedModelDescendant<AppModel>(
             builder: (context, child, model) {
-          _textEditingController.text = model.getProfile().comment ?? "";
           return new TextField(
             onChanged: (String text) {
               model.setComment(text);
               DatabaseHelper.instance.saveProfile(model.getProfile());
             },
+            minLines: 4,
             maxLines: null,
             decoration: new InputDecoration(
               hintText: AppTranslations.of(context).text("addDescription"),
@@ -40,7 +38,12 @@ class _SaveViewState extends State<SaveView> {
             ),
             keyboardType: TextInputType.multiline,
             style: greyTextStyle,
-            controller: _textEditingController,
+            //controller: _textEditingController,
+            controller: new TextEditingController.fromValue(
+                new TextEditingValue(
+                    text: model.getProfile().comment,
+                    selection: new TextSelection.collapsed(
+                        offset: model.getProfile().comment != null ? model.getProfile().comment.length : 0))),
           );
         }),
       ),
