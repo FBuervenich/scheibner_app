@@ -6,12 +6,6 @@ class "scheibner_app::algorithm::simulation.dart::ScheibnerSimulation" {
   {static} +dynamic simulate()
 }
 
-class "scheibner_app::commonWidgets::backButton.dart::BackButton" {
-  +Widget build()
-}
-
-"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "scheibner_app::commonWidgets::backButton.dart::BackButton"
-
 class "scheibner_app::commonWidgets::charts::chartData.dart::ChartType" {
   +int index
   {static} +List<ChartType> values
@@ -52,10 +46,19 @@ class "scheibner_app::commonWidgets::charts::chartData.dart::LinearSales" {
 "scheibner_app::commonWidgets::charts::chartData.dart::ChartData" <|-- "scheibner_app::commonWidgets::charts::chartData.dart::LinearSales"
 
 class "scheibner_app::commonWidgets::charts::chartFactory.dart::ChartFactory" {
-  {static} +Widget createPercentDiffChart()
-  {static} +Widget newOldBarChart()
-  {static} +Widget getRow()
+  +double chartpadding
+  +double cardpadding
+  +double headingHeight
+  +BoxConstraints constraints
+  +BuildContext ctx
+  +double getPaddingDiff()
+  +double getHeight()
+  +Widget getRow()
+  +Widget getHeading()
 }
+
+"scheibner_app::commonWidgets::charts::chartFactory.dart::ChartFactory" o-- "flutter::src::rendering::box.dart::BoxConstraints"
+"scheibner_app::commonWidgets::charts::chartFactory.dart::ChartFactory" o-- "flutter::src::widgets::framework.dart::BuildContext"
 
 class "scheibner_app::commonWidgets::charts::chartInitializer.dart::ChartInitializer" {
   +Data meas
@@ -82,14 +85,29 @@ class "scheibner_app::commonWidgets::charts::chartInitializer.dart::MeasChartVal
 
 "scheibner_app::commonWidgets::charts::chartInitializer.dart::MeasChartValue" o-- "dart::ui::Color"
 
-class "scheibner_app::commonWidgets::framedButton.dart::FramedButton" {
-  +String text
-  +() → void onPressed
-  +Widget build()
+class "scheibner_app::commonWidgets::charts::simOverviewChart.dart::SimOverviewChart" {
+  +Widget createView()
+  -List _getRange()
+  -Series _getChartSeries()
+  -ChartTitle _getTitle()
+  -NumericAxisSpec _getXaxisOptions()
 }
 
-"scheibner_app::commonWidgets::framedButton.dart::FramedButton" o-- "scheibner_app::commonWidgets::framedButton.dart::() → void"
-"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "scheibner_app::commonWidgets::framedButton.dart::FramedButton"
+"scheibner_app::commonWidgets::charts::chartFactory.dart::ChartFactory" <|-- "scheibner_app::commonWidgets::charts::simOverviewChart.dart::SimOverviewChart"
+
+class "scheibner_app::commonWidgets::charts::singleMeasChangeChart.dart::SingleMeasChangeChart" {
+  +double wertAnzeigeWidth
+  +List<BarChartData> data
+  +MeasChartValue kennzahl
+  +Widget getView()
+  -Widget _getLeftSide()
+  -Widget _getNewOldChartPercentValueWidget()
+  -Widget _getNewOldChartValueWidget()
+  -Widget _getRightSide()
+}
+
+"scheibner_app::commonWidgets::charts::singleMeasChangeChart.dart::SingleMeasChangeChart" o-- "scheibner_app::commonWidgets::charts::chartInitializer.dart::MeasChartValue"
+"scheibner_app::commonWidgets::charts::chartFactory.dart::ChartFactory" <|-- "scheibner_app::commonWidgets::charts::singleMeasChangeChart.dart::SingleMeasChangeChart"
 
 class "scheibner_app::components::threePointMenu.dart::ThreePointWidget" {
   +CustomPopupMenu createState()
@@ -129,18 +147,29 @@ class "scheibner_app::data::appmodel.dart::AppModel" {
   +void simulate()
   +Profile getProfile()
   +void setProfile()
+  +void setMeasurementId()
+  +void setComment()
 }
 
 "scheibner_app::data::appmodel.dart::AppModel" o-- "scheibner_app::data::profile.dart::Profile"
 "scoped_model::scoped_model.dart::Model" <|-- "scheibner_app::data::appmodel.dart::AppModel"
 
+class "scheibner_app::data::data.dart::ValueInfo" {
+  +String name
+  +String unit
+  +double lowerBound
+  +double upperBound
+}
+
 class "scheibner_app::data::data.dart::Data" {
-  {static} +List<String> names
-  {static} +List<String> showable
-  {static} +List<String> modifiable
-  {static} +List<String> chartable
+  {static} +List<ValueInfo> allValues
+  {static} +List<ValueInfo> showable
+  {static} +List<ValueInfo> modifiable
+  {static} +List<ValueInfo> chartable
+  {static} +Map<String, ValueInfo> valueInfo
   -DateTime _date
-  -Map<String, double> _values
+  -Map<String, dynamic> _values
+  +String toJson()
   +void simulate()
   +double getValue()
   +void setValue()
@@ -150,8 +179,11 @@ class "scheibner_app::data::profile.dart::Profile" {
   +int id
   +String name
   +DateTime lastChanged
+  +int serverId
   +Data meas
   +Data sim
+  +String comment
+  +Map toMap()
 }
 
 "scheibner_app::data::profile.dart::Profile" o-- "scheibner_app::data::data.dart::Data"
@@ -166,13 +198,6 @@ class "scheibner_app::data::profileList.dart::ProfileList" {
 "scheibner_app::data::profileList.dart::ProfileList" o-- "dart::collection::HashMap<int, String>"
 "scoped_model::scoped_model.dart::Model" <|-- "scheibner_app::data::profileList.dart::ProfileList"
 
-class "scheibner_app::helpers::database_helpers.dart::Word" {
-  +int id
-  +String word
-  +int frequency
-  +Map toMap()
-}
-
 class "scheibner_app::helpers::database_helpers.dart::DatabaseHelper" {
   {static} -String _databaseName
   {static} -int _databaseVersion
@@ -181,8 +206,19 @@ class "scheibner_app::helpers::database_helpers.dart::DatabaseHelper" {
   +Future<Database> database
   -dynamic _initDatabase()
   -Future _onCreate()
-  +Future insert()
-  +Future queryWord()
+  +Future createProfile()
+  +Future insertProfile()
+  +Future deleteProfile()
+  +Future deleteAllProfiles()
+  +Future dropAllTables()
+  +Future loadProfile()
+  +Future updateProfileLastChanged()
+  +Future saveProfile()
+  +Future changeProfileName()
+  +Future changeServerId()
+  +Future changeMeasData()
+  +Future changeSimData()
+  +Future getRedProfileList()
 }
 
 "scheibner_app::helpers::database_helpers.dart::DatabaseHelper" o-- "scheibner_app::helpers::database_helpers.dart::DatabaseHelper"
@@ -191,7 +227,8 @@ class "scheibner_app::helpers::database_helpers.dart::DatabaseHelper" {
 class "scheibner_app::helpers::helperfunctions.dart::Helper" {
   {static} +double EPS
   {static} +String valToString()
-  {static} +String createDifferenceText()
+  {static} +Text createDifferenceText()
+  {static} +String getCurrentProfileName()
 }
 
 class "scheibner_app::helpers::measurementService.dart::ApiService" {
@@ -257,12 +294,6 @@ class "scheibner_app::main.dart::ScheibnerAppState" {
 "scheibner_app::main.dart::ScheibnerAppState" o-- "scheibner_app::localization::app_translations_delegate.dart::AppTranslationsDelegate"
 "flutter::src::widgets::framework.dart::State<T>" <|-- "scheibner_app::main.dart::ScheibnerAppState"
 
-class "scheibner_app::pages::chartPage.dart::ChartPage" {
-  +Widget build()
-}
-
-"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "scheibner_app::pages::chartPage.dart::ChartPage"
-
 class "scheibner_app::pages::dataInputPage.dart::DataInputPage" {
   +_DataInputState createState()
 }
@@ -273,17 +304,23 @@ class "scheibner_app::pages::dataInputPage.dart::_DataInputState" {
   +String barcode
   +Data measurementData
   +ApiService apiService
+  -TextEditingController _textFieldController
+  +bool isLoading
+  +dynamic loadingSubScription
   +void initState()
   +Widget build()
+  -Widget _createListView()
+  -Widget _makeNoProfilesWidget()
   -Widget _createMeasValueList()
+  -void _displayMeasIdDialog()
   +void processMeasurement()
   +Future scan()
   -void _showToast()
-  -void _initalizePreferencesValues()
 }
 
 "scheibner_app::pages::dataInputPage.dart::_DataInputState" o-- "scheibner_app::data::data.dart::Data"
 "scheibner_app::pages::dataInputPage.dart::_DataInputState" o-- "scheibner_app::helpers::measurementService.dart::ApiService"
+"scheibner_app::pages::dataInputPage.dart::_DataInputState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
 "flutter::src::widgets::framework.dart::State<T>" <|-- "scheibner_app::pages::dataInputPage.dart::_DataInputState"
 
 class "scheibner_app::pages::preferencesPage.dart::PreferencesPage" {
@@ -318,14 +355,22 @@ class "scheibner_app::pages::profilePage.dart::ProfilePage" {
 
 class "scheibner_app::pages::profilePage.dart::_ProfiletState" {
   -List<ReducedProfile> _profiles
+  +DatabaseHelper dbHelper
   -TextEditingController _textFieldController
   +void initState()
+  -void _reloadProfiles()
   +Widget build()
+  -Widget _makeContent()
+  -Widget _makeNoProfilesWidget()
   -Widget _makeCard()
-  -String _getDateString()
+  -String _dateToString()
+  -dynamic _openProfile()
   -dynamic _displayNewProfileNameDialog()
+  -Widget _getDeleteIconColumn()
+  -void _initalizePreferencesValues()
 }
 
+"scheibner_app::pages::profilePage.dart::_ProfiletState" o-- "scheibner_app::helpers::database_helpers.dart::DatabaseHelper"
 "scheibner_app::pages::profilePage.dart::_ProfiletState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
 "flutter::src::widgets::framework.dart::State<T>" <|-- "scheibner_app::pages::profilePage.dart::_ProfiletState"
 
@@ -347,10 +392,16 @@ class "scheibner_app::pages::resultsPage.dart::ResultsPage" {
 "flutter::src::widgets::framework.dart::StatelessWidget" <|-- "scheibner_app::pages::resultsPage.dart::ResultsPage"
 
 class "scheibner_app::pages::resultsSaveView.dart::SaveView" {
+  +State createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "scheibner_app::pages::resultsSaveView.dart::SaveView"
+
+class "scheibner_app::pages::resultsSaveView.dart::_SaveViewState" {
   +Widget build()
 }
 
-"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "scheibner_app::pages::resultsSaveView.dart::SaveView"
+"flutter::src::widgets::framework.dart::State<T>" <|-- "scheibner_app::pages::resultsSaveView.dart::_SaveViewState"
 
 class "scheibner_app::pages::resultsTableView.dart::TableView" {
   +Widget build()
