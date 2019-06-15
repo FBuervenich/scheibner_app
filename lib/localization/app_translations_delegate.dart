@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:scheibner_app/localization/app_translations.dart';
+import 'package:preferences/preference_service.dart';
 import 'package:scheibner_app/localization/application.dart';
 
 class AppTranslationsDelegate extends LocalizationsDelegate<AppTranslations> {
@@ -15,7 +16,8 @@ class AppTranslationsDelegate extends LocalizationsDelegate<AppTranslations> {
 
   @override
   Future<AppTranslations> load(Locale locale) {
-    return AppTranslations.load(newLocale ?? locale);
+    String lang = PrefService.getString("language");
+    return AppTranslations.load(Locale(lang.toLowerCase()));
   }
 
   @override

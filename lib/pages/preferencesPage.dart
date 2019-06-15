@@ -59,9 +59,7 @@ class PreferencesPageState extends State<PreferencesPage> {
             AppTranslations.of(context).text("languageEnglish"),
           ],
           onChange: (String lang) {
-            setState(() {
-              AppTranslations.load(Locale(lang.toLowerCase()));
-            });            
+            this.onLocaleChange(Locale(lang.toLowerCase()));      
           },
         ),
       ]),
