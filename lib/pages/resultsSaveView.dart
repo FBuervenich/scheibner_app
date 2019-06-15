@@ -21,29 +21,28 @@ class _SaveViewState extends State<SaveView> {
       child: new Container(
         padding: EdgeInsets.all(15),
         child: new ScopedModelDescendant<AppModel>(
-          builder: (context, child, model) {
-            _textEditingController.text = model.getProfile().comment ?? "";
-            return new TextField(
-                onChanged: (String text) {
-                  model.setComment(text);
-                  DatabaseHelper.instance.saveProfile(model.getProfile());
-                },
-                maxLines: null,
-                decoration: new InputDecoration(
-                  labelText: AppTranslations.of(context).text("addDescription"),
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: new OutlineInputBorder(
-                    borderRadius: new BorderRadius.circular(5.0),
-                    borderSide: new BorderSide(),
-                  ),
-                ),
-                keyboardType: TextInputType.multiline,
-                style: defaultTextStyle,
-                controller: _textEditingController,
-              );
-          }
-        ),
+            builder: (context, child, model) {
+          _textEditingController.text = model.getProfile().comment ?? "";
+          return new TextField(
+            onChanged: (String text) {
+              model.setComment(text);
+              DatabaseHelper.instance.saveProfile(model.getProfile());
+            },
+            maxLines: null,
+            decoration: new InputDecoration(
+              hintText: AppTranslations.of(context).text("addDescription"),
+              filled: true,
+              fillColor: Colors.white,
+              border: new OutlineInputBorder(
+                borderRadius: new BorderRadius.circular(5.0),
+                borderSide: new BorderSide(),
+              ),
+            ),
+            keyboardType: TextInputType.multiline,
+            style: greyTextStyle,
+            controller: _textEditingController,
+          );
+        }),
       ),
     );
   }
