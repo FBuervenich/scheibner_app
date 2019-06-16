@@ -40,7 +40,7 @@ class _SaveViewState extends State<SaveView> {
             style: greyTextStyle,
             controller: new TextEditingController.fromValue(
                 new TextEditingValue(
-                    text: model.getProfile().comment,
+                    text: model.getProfile().comment ?? '',
                     selection: new TextSelection.collapsed(
                         offset: model.getProfile().comment != null ? model.getProfile().comment.length : 0))),
           );

@@ -58,7 +58,7 @@
     "chatFactory_newOldBarChart_oldValue": "Wert vor der Simulation",
     "differenzInPercent": "Veränderung in Prozent",
     "chartFactory_createPercentDiffChart": "Veränderung der Simulationswerte",
-    "addDescription": "Fügen Sie eine Beschreibung hinzu",
+    "addDescription": "Beschreibung hinzufügen",
     "dateFormat": "yyyy-MM-dd - HH:mm",
     "old": "vorher",
     "new": "nachher",
