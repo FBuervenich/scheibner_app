@@ -1,34 +1,46 @@
 import 'package:flutter/material.dart';
+import 'package:scheibner_app/localization/app_translations.dart';
 
 class ThreePointWidget extends StatefulWidget {
   CustomPopupMenu createState() => CustomPopupMenu();
 }
 
-List<CustomPopupMenu> choices = <CustomPopupMenu>[
-  CustomPopupMenu(title: 'Profile page', icon: Icons.account_circle),
-  CustomPopupMenu(title: 'Settings', icon: Icons.settings),
-];
-
 class CustomPopupMenu extends State<ThreePointWidget> {
-  CustomPopupMenu({this.title, this.icon});
+  CustomPopupMenu({this.title, this.icon, this.selectedChoice});
 
   String title;
   IconData icon;
+  int selectedChoice;
 
-  CustomPopupMenu _selectedChoices = choices[0];
   void _select(CustomPopupMenu choice) {
     setState(() {
-      _selectedChoices = choice;
+      if (choice.selectedChoice == 1) {
+        Navigator.popUntil(context, ModalRoute.withName(Navigator.defaultRouteName));
+      }
+      if (choice.selectedChoice == 2) {
+        Navigator.pushNamed(context, '/preferences');
+      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    List<CustomPopupMenu> choices = <CustomPopupMenu>[
+      CustomPopupMenu(
+          title: AppTranslations.of(context).text("profileTitle"),
+          icon: Icons.account_circle,
+          selectedChoice: 1),
+      CustomPopupMenu(
+          title: AppTranslations.of(context).text("preferences"),
+          icon: Icons.settings,
+          selectedChoice: 2),
+    ];
+
     return new PopupMenuButton<CustomPopupMenu>(
       elevation: 3.2,
       initialValue: choices[1],
       onCanceled: () {
-        print('You have not chossed anything');
+        // nothing needed here
       },
       tooltip: 'This is tooltip',
       onSelected: _select,
