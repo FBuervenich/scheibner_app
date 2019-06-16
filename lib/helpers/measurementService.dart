@@ -19,7 +19,6 @@ class ApiService {
 
   Data getMeasurementFromJson(String jsonString) {
     try {
-      Map<String, dynamic> map = json.decode(jsonString);
       return this._createMeasurementFromJson(json.decode(jsonString));
     } catch (e) {
       throw new ScheibnerException("errorJsonParsing");
