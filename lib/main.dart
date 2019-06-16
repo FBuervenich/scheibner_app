@@ -20,6 +20,7 @@ final profileList = new ProfileList();
 
 void main() async {
   await PrefService.init(prefix: 'pref_');
+  PrefService.setDefaultValues({'language': 'DE', 'input_mode': 'Slider'});
 
   runApp(new ScopedModel<AppModel>(
     model: model,
@@ -59,7 +60,7 @@ class ScheibnerAppState extends State<ScheibnerApp> {
         scaffoldBackgroundColor: backgroundColor,
         primaryColor: highlightColor,
         accentColor: highlightColor,
-        buttonColor: highlightColor,   
+        buttonColor: highlightColor,
         iconTheme: IconThemeData(
           color: Colors.white,
         ),

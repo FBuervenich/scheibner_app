@@ -54,7 +54,6 @@ class _ProfiletState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    this._initalizePreferencesValues(context);
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(
@@ -323,20 +322,5 @@ class _ProfiletState extends State<ProfilePage> {
         ),
       ],
     );
-  }
-
-  
-  void _initalizePreferencesValues(BuildContext context) {
-    String inputMode = PrefService.getString("input_mode");
-    if (inputMode == null) {
-      PrefService.setString(
-          'input_mode', AppTranslations.of(context).text("inputModeSliders"));
-    }
-
-    String language = PrefService.getString("language");
-    if (language == null) {
-      PrefService.setString(
-          'language', AppTranslations.of(context).text("languageGerman"));
-    }
   }
 }
