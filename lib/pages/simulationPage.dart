@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:preferences/preference_service.dart';
 import 'package:flutter/widgets.dart';
+import 'package:scheibner_app/components/threePointMenu.dart';
 import 'package:scheibner_app/data/appmodel.dart';
 import 'package:scheibner_app/data/data.dart';
 import 'package:scheibner_app/helpers/database_helpers.dart';
@@ -41,12 +42,7 @@ class _SimulationState extends State<SimulationPage> {
         title: new Text(
             "${AppTranslations.of(context).text("simulationTitle")} [${hf.Helper.getCurrentProfileName(context)}]"),
         actions: <Widget>[
-          new IconButton(
-            icon: new Icon(Icons.settings),
-            onPressed: () {
-              Navigator.pushNamed(context, '/preferences');
-            },
-          ),
+          new ThreePointWidget(),
         ],
       ),
       body: new Column(

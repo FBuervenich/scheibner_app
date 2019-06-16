@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scheibner_app/components/threePointMenu.dart';
 import 'package:scheibner_app/styles.dart';
 import 'package:scheibner_app/localization/app_translations.dart';
 
@@ -18,12 +19,7 @@ class ResultsPage extends StatelessWidget {
             AppTranslations.of(context).text("resultsTitle"),
           ),
           actions: <Widget>[
-            new IconButton(
-              icon: new Icon(Icons.settings),
-              onPressed: () {
-                Navigator.pushNamed(context, '/preferences');
-              },
-            ),
+            new ThreePointWidget(),
           ],
           bottom: new TabBar(
             tabs: [

@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 import 'package:http/http.dart';
 import 'package:http/http.dart';
+import '../components/threePointMenu.dart';
 import 'package:unicorndial/unicorndial.dart';
 
 import 'package:scheibner_app/data/appmodel.dart';
@@ -111,12 +112,7 @@ class _DataInputState extends State<DataInputPage> {
           "${AppTranslations.of(context).text("dataInputTitle")} [${hf.Helper.getCurrentProfileName(context)}]",
         ),
         actions: <Widget>[
-          new IconButton(
-            icon: new Icon(Icons.settings),
-            onPressed: () {
-              Navigator.pushNamed(context, '/preferences');
-            },
-          ),
+          new ThreePointWidget(),
         ],
       ),
       body: Builder(
