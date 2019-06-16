@@ -19,6 +19,15 @@ final TextStyle greyTextStyle = TextStyle(
   color: backgroundColor
 );
 
+final TextStyle highlightTextStyle = TextStyle(
+  color: highlightColor
+);
+
+final TextStyle settingsStyle = TextStyle(
+  color: Colors.white,
+  fontWeight: FontWeight.bold
+);
+
 
 final Color backgroundColor = Color.fromRGBO(58, 66, 86, 1.0);
 // final Color backgroundColor = Colors.grey[200];

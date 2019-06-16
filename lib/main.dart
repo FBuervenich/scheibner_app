@@ -59,7 +59,7 @@ class ScheibnerAppState extends State<ScheibnerApp> {
         scaffoldBackgroundColor: backgroundColor,
         primaryColor: highlightColor,
         accentColor: highlightColor,
-        buttonColor: highlightColor,
+        buttonColor: highlightColor,   
         iconTheme: IconThemeData(
           color: Colors.white,
         ),
