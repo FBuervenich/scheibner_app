@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:scheibner_app/commonWidgets/charts/chartData.dart';
 import 'package:scheibner_app/commonWidgets/charts/chartInitializer.dart';
 import 'package:scheibner_app/data/appmodel.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -70,7 +69,6 @@ class ChartView extends StatelessWidget {
     // ),
     //   ],
     // )
-    ;
   }
 
   Widget buildLegend(BuildContext ctxt, int index, BoxConstraints constraints) {

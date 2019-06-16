@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:scheibner_app/components/threePointMenu.dart';
-import 'package:scheibner_app/styles.dart';
 import 'package:scheibner_app/localization/app_translations.dart';
 
 import 'resultsChartView.dart';

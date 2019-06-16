@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:path/path.dart';
 import 'package:scheibner_app/data/appmodel.dart';
 import 'package:scheibner_app/styles.dart';
 import 'package:scoped_model/scoped_model.dart';

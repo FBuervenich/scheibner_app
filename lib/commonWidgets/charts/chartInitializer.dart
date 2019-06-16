@@ -1,9 +1,6 @@
-import 'dart:collection';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:scheibner_app/commonWidgets/charts/chartData.dart';
-import 'package:scheibner_app/commonWidgets/charts/chartFactory.dart';
 import 'package:scheibner_app/commonWidgets/charts/simOverviewChart.dart';
 import 'package:scheibner_app/commonWidgets/charts/singleMeasChangeChart.dart';
 import 'package:scheibner_app/data/data.dart';

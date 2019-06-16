@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
-import 'package:preferences/preference_service.dart';
 import 'package:scheibner_app/data/appmodel.dart';
 import 'package:scheibner_app/data/profile.dart';
 import 'package:scheibner_app/helpers/database_helpers.dart';

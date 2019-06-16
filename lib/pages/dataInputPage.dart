@@ -3,9 +3,6 @@ import 'dart:async';
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:http/http.dart';
-import 'package:http/http.dart';
-import 'package:http/http.dart';
 import '../components/threePointMenu.dart';
 import 'package:unicorndial/unicorndial.dart';
 
@@ -31,7 +28,7 @@ class _DataInputState extends State<DataInputPage> {
   ApiService apiService = new ApiService();
   TextEditingController _textFieldController = TextEditingController();
   bool isLoading = false;
-  var loadingSubScription = null;
+  var loadingSubScription;
 
   @override
   initState() {

@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:http/http.dart';
 import 'package:scheibner_app/data/data.dart';
 import 'package:scheibner_app/helpers/scheibnerException.dart';
 
