@@ -38,11 +38,9 @@ class CustomPopupMenu extends State<ThreePointWidget> {
 
     return new PopupMenuButton<CustomPopupMenu>(
       elevation: 3.2,
-      initialValue: choices[1],
       onCanceled: () {
         // nothing needed here
       },
-      tooltip: 'This is tooltip',
       onSelected: _select,
       itemBuilder: (BuildContext context) {
         return choices.map((CustomPopupMenu choice) {
