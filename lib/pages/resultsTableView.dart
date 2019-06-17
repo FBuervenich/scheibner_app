@@ -13,14 +13,23 @@ class TableView extends StatelessWidget {
     return new Padding(
       padding: EdgeInsets.all(0),
       child: new ScopedModelDescendant<AppModel>(
-        builder: (context, child, model) => new ListView.builder(
-              itemCount:
-                  model.getSimulationData() != null ? Data.showable.length : 1,
-              itemBuilder: (context, position) =>
-                  _createSimValueList(context, model, position),
-              physics: BouncingScrollPhysics(),
-            ),
+        builder: (context, child, model) => _createListView(context, model),
       ),
+    );
+  }
+
+  ListView _createListView(BuildContext context, AppModel model) {
+    List<Widget> list = <Widget>[];
+    if (model.getSimulationData() != null) {
+      list = List.generate(Data.showable.length,
+          (int i) => _createSimValueList(context, model, i));
+      // add containers as dividers to group values
+      list.insert(5, new Container(height: 30));
+      list.insert(11, new Container(height: 30));
+    }
+    return new ListView(
+      children: list,
+      physics: BouncingScrollPhysics(),
     );
   }
 

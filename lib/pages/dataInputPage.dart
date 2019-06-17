@@ -229,10 +229,16 @@ class _DataInputState extends State<DataInputPage> {
     if (model.getMeasurementData() == null) {
       return _makeNoProfilesWidget(context);
     }
-    return new ListView.builder(
-      itemCount: model.getMeasurementData() != null ? Data.showable.length : 1,
-      itemBuilder: (context, position) =>
-          _createMeasValueList(context, model, position),
+    List<Widget> list = <Widget>[];
+    if (model.getMeasurementData() != null) {
+      list = List.generate(Data.showable.length,
+          (int i) => _createMeasValueList(context, model, i));
+      // add containers as dividers to group values
+      list.insert(5, new Container(height: 30));
+      list.insert(11, new Container(height: 30));
+    }
+    return new ListView(
+      children: list,
       physics: BouncingScrollPhysics(),
     );
   }
