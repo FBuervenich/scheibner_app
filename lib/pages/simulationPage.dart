@@ -55,11 +55,10 @@ class _SimulationState extends State<SimulationPage> {
                   ),
             ),
           ),
-          new Padding(
-            padding: EdgeInsets.all(10),
-            child: new RaisedButton.icon(
-              label: new Text(AppTranslations.of(context).text("simulate")),
-              icon: Icon(Icons.equalizer),
+        ],
+      ),
+      floatingActionButton: Builder(
+        builder: (context) => FloatingActionButton(
               onPressed: () {
                 AppModel model = ScopedModel.of<AppModel>(context);
                 model.simulate();
@@ -67,9 +66,10 @@ class _SimulationState extends State<SimulationPage> {
                     model.getProfile().id, model.getSimulationData());
                 Navigator.pushNamed(context, '/results');
               },
+              child: Icon(
+                Icons.equalizer,
+              ),
             ),
-          ),
-        ],
       ),
     );
   }
@@ -82,7 +82,7 @@ class _SimulationState extends State<SimulationPage> {
         ),
       ];
     }
-    return Data.modifiable.map(
+    List<Widget> ret = Data.modifiable.map(
       (ValueInfo valInfo) {
         String name = valInfo.name;
         String unit = valInfo.unit;
@@ -140,9 +140,18 @@ class _SimulationState extends State<SimulationPage> {
               ],
             ),
           ),
-        );
+        ) as Widget;
       },
     ).toList();
+
+    // append an empty element so if the floating action button overlaps content, the user can scroll it
+    ret.add(new Container(
+      child: new Padding(
+        padding: EdgeInsets.all(35.0),
+      ),
+    ));
+    
+    return ret;
   }
 
   List<Widget> _createTextBoxList(BuildContext context, AppModel model) {
