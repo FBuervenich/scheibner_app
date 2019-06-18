@@ -1,0 +1,228 @@
+\pagebreak[4]
+
+\appendix
+
+\addcontentsline{toc}{chapter}{\lstlistlistingname}
+\lstlistoflistings
+
+\addcontentsline{toc}{chapter}{Abbildungsverzeichnis}
+\listoffigures
+
+\chapter*{Quellcode}
+\addcontentsline{toc}{chapter}{Quellcode}
+
+	%Neuigkeiten
+		\lstset{caption={HTML-Quellcode der Neuigkeitenliste}, 
+			label={list:news-master}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/news-master.txt}
+		
+	%Veranstaltungen
+		\lstset{caption={HTML-Quellcode der Veranstaltungsliste}, 
+			label={list:events-master}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/events-master.txt}
+		
+		\lstset{caption={Methode \texttt{getDivider}}, 
+			label={list:events-getDivider}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/events-getDivider.txt}
+
+	%Karnevalsgruppen
+		\lstset{caption={HTML-Quellcode der Karnevalsgruppenliste}, 
+			label={list:articles-master}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/articles-master.txt}
+		
+	%Datenbank und API
+		\lstset{caption={Auszug der \textit{Migration} für die Tabelle \texttt{mandants}}, 
+			label={list:db-api-migr}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/db-api-migr.txt}
+		
+		\lstset{caption={Benutzung des \textit{MandantScope}s}, 
+			label={list:db-api-use-scope}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/db-api-use-scope.txt}
+		
+		\lstset{caption={\textit{MandantScope}}, 
+			label={list:db-api-scope}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/db-api-scope.txt}
+		
+		\lstset{caption={\textit{Trait}, um den aktuellen Mandanten herauszufinden}, 
+		label={list:db-api-trait}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/db-api-trait.txt}	
+		
+		\pagebreak[4]
+	
+	%Verzeichnisstruktur
+		\lstset{caption={\textit{json}-Datei mit Informationen zum Tutorial}, 
+			label={list:tutorial}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/tutorial.txt}	
+		
+	%Buildprozess
+		\lstset{caption={Herausfinden der \texttt{mandant\textunderscore{}id} in der Applikation}, label={list:build-app-mandant-id}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/build-app-mandant-id.txt}	
+		
+		\pagebreak[4]
+		
+		\lstset{caption={\textit{build-debug.sh}}, label={list:build-debug}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/build-debug.sh}
+		
+		\lstset{caption={\textit{prepare.sh}}, label={list:build-prep}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/build-prepare.sh}
+		
+		\pagebreak[4]
+		
+		\lstset{caption={\textit{createAssetsLink.js}},label={list:build-create-link}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/build-create-link.js}
+		
+		\lstset{caption={\textit{writeIonicMandantHelper.sh}},label={list:build-ionic-helper}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/build-ionic-helper.sh}
+		
+		\lstset{caption={\textit{writeNodeMandantHelper.sh}},label={list:build-node-helper}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/build-node-helper.sh}
+		
+		\newpage
+		
+		\lstset{caption={\textit{parseVersion.js}},label={list:build-parseVersion}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/build-parseVersion.js}
+		
+		
+		\lstset{caption={\textit{updateFiles.js}}, label={list:build-update-files}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/build-update-files.js}
+		
+	%Übersetzungsdateien
+		\lstset{caption={Deutsche Übersetzungsdatei}, 
+			label={list:transl-de}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/translate-de.json}
+		
+		\lstset{caption={Englische Übersetzungsdatei}, 
+			label={list:transl-en}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/translate-en.json}
+		
+		\lstset{caption={Vorherige Initialisierung des \textit{TranslateService}-Plugins}, 
+			label={list:transl-vorher}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/translate-module-vorher.txt}
+		
+		\lstset{caption={Benutzung des \textit{TranslateService}-Plugins in HTML-Dateien}, 
+			label={list:transl-html}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/translate-html.txt}
+		
+		\lstset{caption={Benutzung des \textit{TranslateService}-Plugins in ts-Dateien}, 
+			label={list:transl-ts}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/translate-ts.txt}
+		
+		\lstset{caption={Jetzige Initialisierung des \textit{TranslateService}-Plugins}, 
+			label={list:transl-module-jetzt}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/translate-module-jetzt.txt}
+		
+		\lstset{caption={Die Klasse \texttt{MultiTranslateHttpLoader}}, 
+			label={list:transl-multi-loader}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/translate-jetzt.txt}
+
+	
+	%Konfigurierbare Parameter pro Mandant
+		\lstset{caption={Migration zum Erzeugen der \textit{configs}-Tabelle}, 
+			label={list:configs-migr}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/configs-migr.txt}
+		
+		\newpage
+		
+		\lstset{caption={Inhalt der Datei \texttt{config/config-defaults.php}}, 
+			label={list:configs-defaults}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/configs-defaults.txt}
+		
+		\lstset{caption={Ausschnitt des aufgerufenen Codes, wenn ein Mandant erzeugt wird}, label={list:configs-mandant-create}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/configs-mandant-create.txt}
+		
+		\lstset{caption={Ausgeführter Code beim Aufrufen von \texttt{GET configs}}, label={list:configs-get}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/configs-get.txt}
+		
+		\lstset{caption={\texttt{Config-Model}}, label={list:configs-model}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/configs-model.txt}
+		
+		\lstset{caption={Kurzfassung des \texttt{Config-Providers}}, label={list:configs-prov}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/configs-provider.txt}
+		
+	%Admininterface
+		
+		\lstset{caption={Definition von \textit{Gates}}, label={list:admininterface-gates-define}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/admininterface-gates-define.txt}
+		
+		\lstset{caption={Verwendung von \textit{Gates} in der API}, label={list:admininterface-gates-api}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/admininterface-gates-api.txt}
+	
+	
+		\lstset{caption={\textit{Session-Variable} \texttt{selected\textunderscore{}mandant}}, label={list:admininterface-current-mandant}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/admininterface-current-mandant.txt}
+	
+		\lstset{caption={Einbinden der Applikation}, label={list:admininterface-iframe-einbinden}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/admininterface-iframe-einbinden.txt}
+		
+		\lstset{caption={Helper für das Einbinden der Applikation}, label={list:admininterface-iframe-helpers}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/admininterface-iframe-helpers.txt}
+		
+		\lstset{caption={Ladeindikator}, label={list:admininterface-loading}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/admininterface-loading.txt}
+	
+	%Beacons importieren
+		\lstset{caption={Beispiel für eine Importdatei für \textit{Beacons}}, 
+			label={list:import-beacons-sample}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/beacon-import-sample.txt}
+		
+		\lstset{caption={Methode \texttt{importBeacon} zum Importieren einer Datei von \textit{Beacons}}, 
+			label={list:import-beacons}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/beacon-import.txt}
+	
+	%Artikelgruppen
+		\lstset{caption={Liste der Artikelgruppen (HTML-Datei)}, 
+			label={list:articlegroups-overview}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/articlegroups-overview.txt}
+		\lstset{caption={Liste der Artikelgruppen (TS-Datei)}, 
+			label={list:articlegroups-ts}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/articlegroups-ts.txt}
+		\lstset{caption={Methode \texttt{getActiveArticleGroups}}, 
+			label={list:articlegroups-prov}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/articlegroups-prov.txt}
+
+	%Navigation zwischen Artikeln
+		\lstset{caption={Quellcode zur Navigation innerhalb von Artikeln}, 
+			label={list:articles-nav}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/articles-navigation.txt}	
+
+	%Veranstaltung in Kalender übertragen
+		\lstset{caption={Methode \texttt{addToLocalCalendar} zum Übertagen einer Veranstaltung in den Kalender},
+			label={list:add-event}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/calendar-add.txt}
+		
+		\newpage
+		
+	%Cachen aller Bilder
+		\lstset{caption={Klasse \texttt{ImageCacheAnalyser}},
+			label={list:cache-analyzer}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/cache-analyzer.txt}
+		
+		\lstset{caption={Anwendung des \texttt{ImageCacheAnalyser}s in der \texttt{LoadingPage}},
+			label={list:cache-loadingpage}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/cache-loadingpage.txt}
+		
+		\lstset{caption={Anwendung der Komponente \texttt{cache-img}},
+			label={list:cache-component-html}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/cache-component-html.txt}
+		
+		
+		\lstset{caption={Komponente \texttt{cache-img}},
+			label={list:cache-component}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/cache-component.txt}
+		
+		\lstset{caption={Direktive \texttt{lazy-img}},
+			label={list:cache-direktive}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/cache-direktive.txt}
+		
+	%facebook-login
+		\lstset{caption={Öffnen des Anmeldedialogs von Facebook},
+			label={list:facebook-login-client}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/facebook-login-client.txt}
+		
+		\lstset{caption={Aufrufen der API},
+			label={list:facebook-login-call-api}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/facebook-login-call-api.txt}
+		
+		\lstset{caption={Verifikation der Facebook-Anmeldedaten},
+			label={list:facebook-login-api}}
+		\lstinputlisting[frame=tbrl]{../include/sourcecode/facebook-login-api.txt}

@@ -1,0 +1,51 @@
+\RequirePackage{ifluatex} 
+\documentclass[a4paper, 
+				12pt, 
+				ngerman,
+				oneside,
+				titlepage,
+				BCOR=5mm,
+				DIV=12]{scrbook}    
+                        
+\usepackage[svgnames, override]{xcolor}	%um Option Clash für xcolor zu 
+%verhindern
+
+\input{../include/config} 
+\input{../include/remove_dots}
+\input{../include/nice_quotation}
+\newcommand*{\SkipTocEntry}{\addtocontents{toc}{\gobblefour}}
+
+
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem{satz}{Satz}[chapter]
+\newtheorem{bsp}{Beispiel}[chapter]
+
+
+\begin{document}
+	
+	\pagestyle{plain}
+	\parindent0pt
+	\DefineShortVerb{\|}
+	
+	\counterwithout{lstlisting}{chapter}
+	
+	\pagestyle{empty}
+	\includepdf{./title.pdf}
+	
+	%toc
+	\pagestyle{empty}
+	\tableofcontents
+	\thispagestyle{empty}
+	\clearpage	
+	\pagestyle{plain}
+	\pagenumbering{arabic}
+	\setcounter{page}{1}
+	
+	\input{../include/chapters/chap01_anforderungen}
+	\input{../include/chapters/chap02_funktionalitaet}
+	\input{../include/chapters/chap03_navigation}
+	\input{../include/chapters/chap04_settings}
+	\input{../include/chapters/chap05_flinterviews}
+	
+
+\end{document}

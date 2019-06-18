@@ -1,0 +1,46 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\babel@toc {german}{}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {1}Anforderungen}{1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.1}Optionale Anforderungen}{1}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {2}Funktionalit\IeC {\"a}t}{2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.1}Profilverwaltung}{2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.2}Simulationsdaten laden}{2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.2.1}Laden vom Server}{2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.2.2}Laden aus QR-Code}{2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.3}Daten bearbeiten}{2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.4}Simulation}{2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.4.1}Diagramme}{2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.4.2}Tabelle}{2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.5}Kommentar}{2}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {3}Navigation}{3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.1}Ablauf einer Simulation}{3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.2}Wechseln des Profils}{3}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {4}Einstellungen}{4}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.1}Sprache}{4}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.2}Eingabemethode}{4}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {5}Benutzertests- und Interviews}{5}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5.1}Benutzertest- und Interview 1}{5}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5.2}Benutzertest- und Interview 2}{5}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5.3}Benutzertest- und Interview 3}{5}

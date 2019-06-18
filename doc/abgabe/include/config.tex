@@ -1,0 +1,181 @@
+%%% Dokumentenkopf
+%%% ==============
+%% Konfiguration des Dokumentes
+%% - Laden von Paketen, die die Formatierung beeinflussen/das Erstellen des
+%%   Dokumentes vereinfachen
+
+\ifluatex%
+    % für den Einsatz mit luaTeX:
+    % -------- Eingabecodierung
+    %          es gibt keine spezielle Eingabecodierung, da luaTex mit UTF-8
+    %          Zeichen arbeitet
+    % -------- Festlegung der Fontcodierung
+    \usepackage{fontspec}       % stellt über interne Makros alle
+                                % nützlichen Fonts bereit
+    \defaultfontfeatures{Ligatures=TeX} % unterstützt spezielle
+                                % \TeX-Eigenschaften
+\else
+
+% -------- Festlegung der Fontcodierung
+    \usepackage[T1]{fontenc}    % es gibt für spezielle Anwendungen
+                                % spezielle Fonts, die anders codiert sind
+                                % (7 bit, ...) T1: 256 Zeichen im Font
+\fi%
+
+\usepackage[german]{babel}              % lädt explizit Sprachpakete mit den
+                                % Trennmustern der jeweiligen Sprache,
+                                % dient der Unterstützung einfacherer
+                                % Eingabe
+                               
+
+\usepackage{enumerate}			%zur einfachen Neudefinition von Aufzählungen
+\usepackage{marvosym}			%enthält viele Sonderzeichen (\PointingHand zB)
+\usepackage{booktabs}			%für Linien um Tabelle (\toprule, \bottomrule, \midrule)
+\usepackage{array}				%für Neudefinition von Spalten
+\usepackage{tabularx}			%für Tabellen mit vorgegebener Breite
+%\usepackage{siunitx}			%für Tabellen mit numerischen Daten und Einheiten
+\usepackage{longtable}			%für "lange Tabellen"
+
+\usepackage{verbatim} 			%für verbatiminput
+\usepackage{moreverb}			%für verbatimwrite
+\usepackage{fancyvrb}			%für \DefineShortVerb
+\usepackage{listings}			%für lstinputlisting u. a.
+%\usepackage{listingx} 			%für lstx etc...
+\usepackage[pict2e]{struktex}			%für Struktogramme
+\usepackage{graphicx}			%für \includegraphics
+%\usepackage{pgf-uml}			%für UML-Diagramme
+\usepackage{pgfplots}			%für axis-Umgebung
+	\pgfplotsset{trig format plots=rad} %Winkelfunktionen im Bogenmaß
+\usepackage{amssymb}
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{ifthen}
+\usepackage{multicol} 			% statt der Option twocolumn
+\usepackage{telprint}
+%\usepackage{bookmark}			%wg Parent2-Fehler
+
+\usepackage{svg}
+\usepackage{xparse}
+\usepackage{wrapfig}
+
+% für maketile
+\title{Ableitungen}
+\author{Felix Bengsch}
+\date{\today}
+
+% Zähler für Listen
+\newcounter{myListCounter}
+
+% Festlegen der Zählung von Abschnitten
+\setcounter{secnumdepth}{5}
+
+% Festlegen der Zählung im Inhaltsverzeichnis
+\setcounter{tocdepth}{5}
+
+% Für Baumdiagramme
+\tikzset{directory/.style={rectangle,rounded corners, draw, font=\ttfamily,fill=blue!20}}
+\tikzset{file/.style={rectangle, draw, font=\ttfamily, fill=green!20}}
+
+%Fallunterscheidung
+\newif\ifisreport
+\isreportfalse
+
+%für Auszählungszeichen in der Präsentation
+\makeatletter
+\@ifclassloaded{beamer}{
+	\NewDocumentCommand{\ibBullet}{}{\makebox[0pt][r]{\textbullet\hspace{0.5em}}}
+}{
+	\NewDocumentCommand{\ibBullet}{}{}
+	\let\frametitle=\@gobble
+	\pagestyle{empty}
+}
+\makeatother
+
+\usepackage[german, onelanguage]{algorithm2e}
+\SetKwInput{KwData}{Variablen}
+
+
+\usepackage[utf8]{inputenc}
+\usepackage{subcaption} 
+\usepackage[backend=biber, 
+autolang=hyphen, 
+style=alphabetic,
+citestyle=alphabetic, 
+giveninits=false ]{biblatex}
+\usepackage[babel,german=quotes]{csquotes} 
+\usepackage[export]{adjustbox} 
+\usepackage{textcomp}
+\usepackage{pgfplotstable}
+
+%\usepackage[a4paper,top=1.2cm,left=2cm,right=2cm,bottom=2cm]{geometry}
+\usepackage{mathptmx} 
+\renewcommand{\familydefault}{\rmdefault}
+\usepackage[onehalfspacing]{setspace}
+
+\usepackage{chngcntr}
+\setlength{\skip\footins}{1cm}
+
+\usepackage{varioref}			%für \vref
+\usepackage{cleveref}			%für \cref, nicht mit fancyref kompatibel
+%für lstlisting mit cref
+\renewcommand\lstlistingname{Quellcode}
+\crefname{listing}{Quellcode}{listings}
+\Crefname{listing}{Quellcode}{listings}
+
+
+\usepackage{enumitem}
+\setlist[itemize]{noitemsep, topsep=0pt}
+
+% Farben definieren
+\definecolor{codeGray}{RGB}{240,240,240}
+\definecolor{codeBlack}{RGB}{0,0,0}
+\definecolor{codeRed}{RGB}{221,0,0}
+\definecolor{codeBlue}{rgb}{0,0,187}
+\definecolor{codeYellow}{RGB}{255,128,0}
+\definecolor{codeGreen}{RGB}{0,119,0}
+
+% … und zuweisen
+\lstset{%
+	inputencoding=utf8,
+	extendedchars=true,
+	literate=%
+	{ü}{{\"u}}1
+	{ä}{{\"a}}1
+	{Ü}{{\"U}}1,
+	language=PHP,%
+	%
+	% Farben, diktengleiche Schrift
+	backgroundcolor={\color{codeGray}},% 
+	basicstyle={\small\ttfamily\color{codeGreen}},% 
+	commentstyle={\color{codeYellow}},%
+	keywordstyle={\color{codeBlue}},%
+	stringstyle={\color{codeRed}},%
+	identifierstyle={\color{codeBlue}},%
+	%
+	% Zeilenumbrüche aktivieren, Leerzeichen nicht hervorheben
+	breaklines=true,%
+	showstringspaces=false,%
+	% 
+	% Listing-Caption unterhalb (bottom)
+	captionpos=b,%
+	% 
+	% Listing einrahmen
+	frame=single,%
+	rulecolor={\color{codeBlack}},%
+	% 
+	% winzige Zeilennummern links
+	numbers=left,%
+	numberstyle={\tiny\color{codeBlack}},%
+	tabsize=4
+}
+
+\usepackage{todonotes}
+\usepackage{wrapfig}
+\usepackage{pdfpages}
+\usepackage{forest}
+\usepackage{float}
+
+\usepackage{amsthm}
+\theoremstyle{remark}
+\newtheorem{poem}{Aufzählung}
+\crefname{poem}{Aufzählung}{Aufzählungen}

@@ -1,0 +1,19 @@
+\usepackage{etoolbox}
+\makeatletter
+\g@addto@macro{\appendix}{%
+	\patchcmd{\@@makechapterhead}% <cmd>
+	{\endgraf\nobreak\vskip.5\baselineskip}% <search>
+	{\hspace*{-.5em}:\space}% <replace>
+	{}{}% <success><failure>
+	\patchcmd{\@chapter}% <cmd>
+	{\addchaptertocentry{\thechapter}}% <search>
+	{\addchaptertocentry{Appendix~\thechapter:}}% <replace>
+	{}{}% <success><failure>
+	\addtocontents{toc}{%
+		\protect\patchcmd{\protect\l@chapter}% <cmd>
+		{1.5em}% <search>
+		{6.5em}% <replace>
+		{}{}}% <success><failure>
+}
+\renewcommand{\autodot}{}% Remove all end-of-counter dots
+\makeatother

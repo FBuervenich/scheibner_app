@@ -1,0 +1,91 @@
+\RequirePackage{ifluatex}
+
+\documentclass[
+	a4paper,
+	12pt,
+	ngerman
+]{scrreprt}
+
+%falls luaLaTeX
+\ifluatex
+	\usepackage{fontspec}
+	\defaultfontfeatures{Ligatures=TeX}
+\else
+	\usepackage[utf8]{inputenc}
+	\usepackage[T1]{fontenc}
+\fi
+
+%Sprache
+\usepackage[ngerman]{babel}
+
+\usepackage{graphicx}
+\usepackage[export]{adjustbox}
+
+\begin{document}
+
+	\begin{titlepage}
+		\parindent0pt
+	
+		\makebox[0pt][l]{
+			\raisebox{-\totalheight}[0pt][0pt]{
+				\includegraphics[width=11mm, right]{../include/images/Logo-FH}
+			}
+		}
+	
+		\centering
+	
+		\textbf{
+			\large {
+				Schriftliche Dokumentation der App
+			}
+		}
+	
+		\vspace{1.5cm}
+	
+		\large{
+			Fachhochschule Aachen\\
+			Fachbereich 5 -- Elektrotechnik und Informationstechnik 	
+		}
+	
+		\vspace{1cm}
+		
+		
+		\vspace{2cm}
+	
+		\rule{\textwidth}{1pt}
+	
+		\vspace{1cm}
+	
+		\textbf{
+			\Huge{
+				Dokumentation der Scheibner-App
+			}\\[3mm]					
+		}	
+		\large{
+			Mobile Informationssysteme \\			
+			- Dr. ir. Kris Cardinaels	- 		
+		}
+
+	
+		\vspace{1cm}
+	
+		\rule{\textwidth}{1pt}
+	
+		\vspace{5cm}
+	
+		03.07.2019
+	
+		\vspace{1cm}
+	
+		
+		Björn Kops\\[1mm]
+		David Neuroth\\[1mm]
+		Felix Bengsch\\[1mm]
+		Florentin Bürvenich
+		
+		
+		%keine Seitenzahl
+		\thispagestyle{empty}
+	\end{titlepage}
+
+\end{document}
