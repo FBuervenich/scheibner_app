@@ -145,13 +145,17 @@ class _SimulationState extends State<SimulationPage> {
     ).toList();
 
     // append an empty element so if the floating action button overlaps content, the user can scroll it
-    ret.add(new Container(
-      child: new Padding(
-        padding: EdgeInsets.all(35.0),
-      ),
-    ));
-    
+    ret.add(getContainerSpacer(35.0));
+
     return ret;
+  }
+
+  Container getContainerSpacer(double spacing) {
+    return new Container(
+      child: new Padding(
+        padding: EdgeInsets.all(spacing),
+      ),
+    );
   }
 
   List<Widget> _createTextBoxList(BuildContext context, AppModel model) {
