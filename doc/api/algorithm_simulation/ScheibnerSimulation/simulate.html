@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the simulate method from the ScheibnerSimulation class, for the Dart programming language.">
+  <title>simulate method - ScheibnerSimulation class - simulation library - Dart API</title>
+  <!-- required because all the links are pseudo-absolute -->
+  <base href="../..">
+
+  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500,400i,400,300|Source+Sans+Pro:400,300,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="static-assets/github.css">
+  <link rel="stylesheet" href="static-assets/styles.css">
+  <link rel="icon" href="static-assets/favicon.png">
+  
+</head>
+
+<body>
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="index.html">ScheibnerSim</a></li>
+    <li><a href="algorithm_simulation/algorithm_simulation-library.html">simulation</a></li>
+    <li><a href="algorithm_simulation/ScheibnerSimulation-class.html">ScheibnerSimulation</a></li>
+    <li class="self-crumb">simulate method</li>
+  </ol>
+  <div class="self-name">simulate</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<main>
+
+  <div id="dartdoc-sidebar-left" class="col-xs-6 col-sm-3 col-md-2 sidebar sidebar-offcanvas-left">
+    <header id="header-search-sidebar" class="hidden-l">
+      <form class="search-sidebar" role="search">
+        <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+      </form>
+    </header>
+    
+    <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+      <li><a href="index.html">ScheibnerSim</a></li>
+      <li><a href="algorithm_simulation/algorithm_simulation-library.html">simulation</a></li>
+      <li><a href="algorithm_simulation/ScheibnerSimulation-class.html">ScheibnerSimulation</a></li>
+      <li class="self-crumb">simulate method</li>
+    </ol>
+    
+    <h5>ScheibnerSimulation class</h5>
+    <ol>
+      <li class="section-title"><a href="algorithm_simulation/ScheibnerSimulation-class.html#constructors">Constructors</a></li>
+      <li><a href="algorithm_simulation/ScheibnerSimulation/ScheibnerSimulation.html">ScheibnerSimulation</a></li>
+    
+      <li class="section-title inherited">
+        <a href="algorithm_simulation/ScheibnerSimulation-class.html#instance-properties">Properties</a>
+      </li>
+      <li class="inherited"><a href="dart-core/Object/hashCode.html">hashCode</a></li>
+      <li class="inherited"><a href="dart-core/Object/runtimeType.html">runtimeType</a></li>
+    
+      <li class="section-title inherited"><a href="algorithm_simulation/ScheibnerSimulation-class.html#instance-methods">Methods</a></li>
+      <li class="inherited"><a href="dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
+      <li class="inherited"><a href="dart-core/Object/toString.html">toString</a></li>
+    
+      <li class="section-title inherited"><a href="algorithm_simulation/ScheibnerSimulation-class.html#operators">Operators</a></li>
+      <li class="inherited"><a href="dart-core/Object/operator_equals.html">operator ==</a></li>
+    
+    
+      <li class="section-title"><a href="algorithm_simulation/ScheibnerSimulation-class.html#static-methods">Static methods</a></li>
+      <li><a href="algorithm_simulation/ScheibnerSimulation/calcAdditionalData.html">calcAdditionalData</a></li>
+      <li><a href="algorithm_simulation/ScheibnerSimulation/simulate.html">simulate</a></li>
+    
+    </ol>
+  </div><!--/.sidebar-offcanvas-->
+
+  <div id="dartdoc-main-content" class="col-xs-12 col-sm-9 col-md-8 main-content">
+      <div><h1><span class="kind-method">simulate</span> method</h1></div>
+
+    <section class="multi-line-signature">
+      <span class="returntype">dynamic</span>
+            <span class="name ">simulate</span>
+(<wbr><span class="parameter" id="simulate-param-data"><span class="type-annotation"><a href="dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span> <span class="parameter-name">data</span>, {</span> <span class="parameter" id="simulate-param-radumfangVorn"><span class="type-annotation"><a href="dart-core/double-class.html">double</a></span> <span class="parameter-name">radumfangVorn</span>, </span> <span class="parameter" id="simulate-param-radumfangHinten"><span class="type-annotation"><a href="dart-core/double-class.html">double</a></span> <span class="parameter-name">radumfangHinten</span>, </span> <span class="parameter" id="simulate-param-gabellaenge"><span class="type-annotation"><a href="dart-core/double-class.html">double</a></span> <span class="parameter-name">gabellaenge</span>, </span> <span class="parameter" id="simulate-param-heckhoehe"><span class="type-annotation"><a href="dart-core/double-class.html">double</a></span> <span class="parameter-name">heckhoehe</span>, </span> <span class="parameter" id="simulate-param-schwingenlaenge"><span class="type-annotation"><a href="dart-core/double-class.html">double</a></span> <span class="parameter-name">schwingenlaenge</span></span> })
+      
+    </section>
+    
+    <section class="summary source-code" id="source">
+      <h2><span>Implementation</span></h2>
+      <pre class="language-dart"><code class="language-dart">static simulate(Map&lt;String, dynamic&gt; data,
+    {double radumfangVorn,
+    double radumfangHinten,
+    double gabellaenge,
+    double heckhoehe,
+    double schwingenlaenge}) {
+  double gRw = data[&quot;g_rw&quot;];
+  double vorderachshoehe = data[&quot;vorderachshoehe_read&quot;];
+  double offset = data[&quot;offset&quot;];
+  double hinterachshoehe = data[&quot;hinterachshoehe_read&quot;];
+  double radumfangVorn = data[&quot;radumfang_vorn&quot;];
+  double radumfangHinten = data[&quot;radumfang_hinten&quot;];
+  double gRl = data[&quot;g_rl&quot;];
+  double gabellaenge = data[&quot;gabellaenge&quot;];
+  double schwingenlaenge = data[&quot;schwingenlaenge&quot;];
+  double heckhoehe = data[&quot;heckhoehe&quot;];
+  double radstand = data[&quot;radstand&quot;];
+  double schwingenwinkelGrad = data[&quot;schwingenwinkel_grad&quot;];
+  double lkwGrad = data[&quot;lkwgrad&quot;];
+
+&#47;&#47; Simulation values
+  double radumfangvornKor = radumfangVorn;
+  double radumfangHintenKor = radumfangHinten;
+  double schwingenwinkelFbGrad = schwingenwinkelGrad;
+  double schwingenlaengeFbKor = schwingenlaenge;
+  double gabellaengeFbKor = gabellaenge;
+  double lkwFbGrad = lkwGrad;
+
+&#47;&#47; Berechnung der neuen Werte nach Änderung von  radumfangvorn_kor
+  double vorderachshoeheFbKor = radumfangvornKor &#47; 2 &#47; pi;
+  double w06 = atan((hinterachshoehe - vorderachshoehe) &#47; radstand);
+  double v09 = radstand * cos(w06);
+  double w07 = atan((vorderachshoeheFbKor - vorderachshoehe) &#47; v09);
+  double w08 = atan((hinterachshoehe - vorderachshoeheFbKor) &#47; v09);
+  double w08Grad = w08 * 180 &#47; pi;
+  double radstandFb2 = v09 * cos(w08);
+  double schwingenwinkelFbGrad2 = schwingenwinkelFbGrad * w07 * 180 &#47; pi;
+  double lkwFbGrad2 = lkwFbGrad + w07 * 180 &#47; pi;
+  double v11 = schwingenlaenge * sin(schwingenwinkelFbGrad2 * pi &#47; 180);
+  double schwingenachshoeheFb2 = hinterachshoehe + v11;
+  double v10 = gRl * cos((gRw - lkwFbGrad2) * pi &#47; 180);
+  double vorderbauhoeheFb2 = schwingenachshoeheFb2 + v10;
+  double nachlaufFb2 = tan(lkwFbGrad2 * pi &#47; 180) *
+      (vorderachshoeheFbKor - offset &#47; sin(lkwFbGrad2 * pi &#47; 180));
+
+&#47;&#47; Berechnung der neuen Werte nach Änderung von  radumfang_hinten
+  double hinterachshoeheFbKor = radumfangHintenKor &#47; 2 &#47; pi;
+  w06 = atan((hinterachshoehe - vorderachshoehe) &#47; radstand);
+  v09 = radstand * cos(w06);
+  double vh1 = (hinterachshoeheFbKor - vorderachshoeheFbKor) &#47; v09;
+  double vh2 = vh1 &#47; sqrt((-1 * vh1) * vh1 + 1);
+  double w09 = atan(vh2);
+  double w09Grad = w09 * 180 &#47; pi;
+  double radstandFb3 = v09 * cos(w09);
+  double w10 = w09 - w08;
+  double schwingenwinkelFbGrad3 = schwingenwinkelFbGrad2 - w10 * 180 &#47; pi;
+  double lkwFbGrad3 = lkwFbGrad2 - w10 * 180 &#47; pi;
+  double nachlaufFb3 = tan(lkwFbGrad3 * pi &#47; 180) *
+      (vorderachshoeheFbKor - offset &#47; sin(lkwFbGrad3 * pi &#47; 180));
+  double schwingenachshoeheFb3 = hinterachshoeheFbKor +
+      schwingenlaenge * sin(schwingenwinkelFbGrad3 * pi &#47; 180);
+  double v13 = gRl * cos((gRw - lkwFbGrad3) * pi &#47; 180);
+  double vorderbauhoeheFb3 = schwingenachshoeheFb3 + v13;
+
+&#47;&#47; Berechnung nach Änderung der Schwingenlänge
+  double schwingenlaengeFbDiff = schwingenlaengeFbKor - schwingenlaenge;
+  double v15 = v09 +
+      0.99 * schwingenlaengeFbDiff * cos(schwingenwinkelFbGrad3 * pi &#47; 180);
+  double w11 = atan((hinterachshoeheFbKor - vorderachshoeheFbKor) &#47; v15);
+  double radstand_fb4 = v15 * cos(w11);
+  double v14 = schwingenlaengeFbDiff * sin(schwingenwinkelFbGrad3 * pi &#47; 180);
+  vh1 = v14 &#47; v15;
+  vh2 = vh1 &#47; sqrt(-1 * vh1 * vh1 + 1);
+  double w12 = atan(vh2);
+  double w12Grad = w12 * 180 &#47; pi;
+  double schwingenwinkelFbGrad4 = schwingenwinkelFbGrad3 - w12 * 180 &#47; pi;
+  double lkwFbGrad4 = lkwFbGrad3 - w12 * 180 &#47; pi;
+  double schwingenachshoeheFb4 = hinterachshoeheFbKor +
+      schwingenlaengeFbKor * sin(schwingenwinkelFbGrad4 * pi &#47; 180);
+  double vorderbauhoeheFb4 =
+      schwingenachshoeheFb4 + gRl * cos((gRw - lkwFbGrad4) * pi &#47; 180);
+  double nachlaufFb4 = tan(lkwFbGrad4 * pi &#47; 180) *
+      (vorderachshoeheFbKor - offset &#47; sin(lkwFbGrad4 * pi &#47; 180));
+  double heckhoeheKor4 = heckhoehe;
+
+&#47;&#47; Berechnung nach Änderung der Heckhöhe
+  double vh3 = double.parse(schwingenlaengeFbDiff.toStringAsFixed(1));
+  double vh4 = vh3 != 0 ? heckhoeheKor4 : heckhoehe;
+  double heckhoeheDiff = heckhoehe - vh4;
+  double v18 = radstand_fb4 -
+      schwingenlaengeFbKor * cos(schwingenwinkelFbGrad4 * pi &#47; 180);
+  double v17 = sqrt(
+      pow(v18, 2) + pow(schwingenachshoeheFb4 - vorderachshoeheFbKor, 2));
+  vh1 = (schwingenachshoeheFb4 - vorderachshoeheFbKor) &#47; v17;
+  vh2 = vh1 &#47; sqrt(-1 * vh1 * vh1 + 1);
+  double w16 = atan(vh2);
+  double w16Grad = w16 * 180 &#47; pi;
+  double w13 = atan(heckhoeheDiff &#47; schwingenlaengeFbKor);
+  double w13Grad = w13 * 180 &#47; pi;
+  double w17 = pi - w16 - schwingenwinkelFbGrad4 * pi &#47; 180 - w13;
+  double w17Grad = w17 * 180 &#47; pi;
+  double v16 = sqrt(pow(v17, 2) +
+      pow(schwingenlaengeFbKor, 2) -
+      2 * v17 * schwingenlaengeFbKor * cos(w17));
+  vh1 = (hinterachshoeheFbKor - vorderachshoeheFbKor) &#47; v16;
+  vh2 = vh1 &#47; sqrt(-1 * vh1 * vh1 + 1);
+  double w19 = atan(vh2);
+  double v19 = heckhoeheDiff * cos(schwingenwinkelFbGrad4 * pi &#47; 180);
+  vh1 = v19 &#47; v16;
+  vh2 = vh1 &#47; sqrt(-1 * vh1 * vh1 + 1);
+  double w18 = atan(vh2);
+  double radstandFb5 = v16 * cos(w19);
+  double schwingenwinkelFbGrad5 =
+      schwingenwinkelFbGrad4 + w13 * 180 &#47; pi - w18 * 180 &#47; pi;
+  double lkwFbGrad5 = lkwFbGrad4 - w18 * 180 &#47; pi;
+  double nachlaufFb5 = tan(lkwFbGrad5 * pi &#47; 180) *
+      ((vorderachshoeheFbKor - offset &#47; sin(lkwFbGrad5 * pi &#47; 180)));
+  double schwingenachshoeheFb5 = hinterachshoeheFbKor +
+      schwingenlaengeFbKor * sin(schwingenwinkelFbGrad5 * pi &#47; 180);
+  double vorderbauhoeheFb5 =
+      schwingenachshoeheFb5 + gRl * cos((gRw - lkwFbGrad5) * pi &#47; 180);
+
+&#47;&#47; Berechnung nach Änderung der Gabellänge
+  double gabellaengeFbDiff = gabellaengeFbKor - gabellaenge;
+  double v22 = gabellaengeFbDiff * cos(lkwFbGrad5 * pi &#47; 180);
+  double v20 = hinterachshoeheFbKor - vorderachshoeheFbKor + v22;
+  double v21 = gabellaengeFbDiff * sin(lkwFbGrad5 * pi &#47; 180);
+  double v23 = sqrt(pow(v21 + radstandFb5, 2) + pow(v20, 2));
+  vh1 = (hinterachshoeheFbKor - vorderachshoeheFbKor) &#47; v23;
+  vh2 = vh1 &#47; sqrt(-1 * vh1 * vh1 + 1);
+  double w20 = atan(vh2);
+  double w20Grad = w20 * 180 &#47; pi;
+  double radstandFb6 = v23 * cos(w20);
+  vh1 = (v20 &#47; v23);
+  vh2 = vh1 &#47; sqrt(-1 * vh1 * vh1 + 1);
+  double w22 = atan(vh2);
+  double w22Grad = w22 * 180 &#47; pi;
+  double w21 = w19 - w20;
+  double w23 = w22 - w21 - w19;
+  double schwingenwinkelFbGrad6 = schwingenwinkelFbGrad5 + w23 * 180 &#47; pi;
+  double lkwFbGrad6 = lkwFbGrad5 + w23 * 180 &#47; pi;
+  double nachlaufFb6 = tan(lkwFbGrad6 * pi &#47; 180) *
+      ((vorderachshoeheFbKor - offset &#47; sin(lkwFbGrad6 * pi &#47; 180)));
+  double schwingenachshoeheFb6 = hinterachshoeheFbKor +
+      schwingenlaengeFbKor * sin(schwingenwinkelFbGrad6 * pi &#47; 180);
+  double vorderbauhoeheFb6 =
+      schwingenachshoeheFb6 + gRl * cos((gRw - lkwFbGrad6) * pi &#47; 180);
+  double vr6 = double.parse(gabellaenge.toStringAsFixed(1));
+  double vr5 = double.parse(gabellaengeFbKor.toStringAsFixed(1));
+
+&#47;&#47; Finale Resultaten
+  double lkwFbGradKor = lkwFbGrad6;
+  double radstandFbKor = radstandFb6;
+  double schwingenwinkelFbGradKor = schwingenwinkelFbGrad6;
+  double vorderbauhoeheFbKor = vorderbauhoeheFb6;
+  double schwingenachshoeheFbKor = schwingenachshoeheFb6;
+  double nachlaufFbKor = nachlaufFb6;
+
+  data[&quot;lkwGrad&quot;] = lkwFbGradKor;
+  data[&quot;nachlauf&quot;] = nachlaufFbKor;
+  data[&quot;radstand&quot;] = radstandFbKor;
+  data[&quot;schwingenwinkel_grad&quot;] = schwingenwinkelFbGradKor;
+  data[&quot;schwingenlaenge&quot;] = schwingenlaengeFbKor;
+  data[&quot;vorderbauhoehe&quot;] = vorderbauhoeheFbKor;
+  data[&quot;schwingenachshoehe&quot;] = schwingenachshoeheFbKor;
+  &#47;&#47; data[&quot;hinterachshoehe&quot;] = hinterachshoeheFbKor;
+  data[&quot;radumfang_vorn&quot;] = radumfangvornKor;
+  data[&quot;radumfang_hinten&quot;] = radumfangHintenKor;
+}</code></pre>
+    </section>
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-right" class="col-xs-6 col-sm-6 col-md-2 sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    ScheibnerSim 1.0.0+1
+  </span>
+
+  
+</footer>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="static-assets/typeahead.bundle.min.js"></script>
+<script src="static-assets/highlight.pack.js"></script>
+<script src="static-assets/URI.js"></script>
+<script src="static-assets/script.js"></script>
+
+
+</body>
+
+</html>
