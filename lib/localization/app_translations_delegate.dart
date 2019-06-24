@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:scheibner_app/localization/app_translations.dart';
+import 'package:ScheibnerSim/localization/app_translations.dart';
 import 'package:preferences/preference_service.dart';
-import 'package:scheibner_app/localization/application.dart';
+import 'package:ScheibnerSim/localization/application.dart';
 
 class AppTranslationsDelegate extends LocalizationsDelegate<AppTranslations> {
   final Locale newLocale;

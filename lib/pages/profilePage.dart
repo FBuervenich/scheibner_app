@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
-import 'package:scheibner_app/data/appmodel.dart';
-import 'package:scheibner_app/data/profile.dart';
-import 'package:scheibner_app/helpers/database_helpers.dart';
-import 'package:scheibner_app/localization/app_translations.dart';
-import 'package:scheibner_app/styles.dart';
+import 'package:ScheibnerSim/data/appmodel.dart';
+import 'package:ScheibnerSim/data/profile.dart';
+import 'package:ScheibnerSim/helpers/database_helpers.dart';
+import 'package:ScheibnerSim/localization/app_translations.dart';
+import 'package:ScheibnerSim/styles.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 import '../styles.dart';

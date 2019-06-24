@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:scheibner_app/localization/app_translations.dart';
+import 'package:ScheibnerSim/localization/app_translations.dart';
 
 class ThreePointWidget extends StatefulWidget {
   CustomPopupMenu createState() => CustomPopupMenu();

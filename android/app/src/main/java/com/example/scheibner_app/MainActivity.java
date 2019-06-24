@@ -1,4 +1,4 @@
-package com.example.scheibner_app;
+package com.example.ScheibnerSim;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:scheibner_app/data/data.dart';
-import 'package:scheibner_app/data/profile.dart';
-import 'package:scheibner_app/pages/profilePage.dart';
+import 'package:ScheibnerSim/data/data.dart';
+import 'package:ScheibnerSim/data/profile.dart';
+import 'package:ScheibnerSim/pages/profilePage.dart';
 import 'package:sqflite/sqflite.dart';
 
 // database table and column names

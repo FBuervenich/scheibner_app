@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:scheibner_app/data/appmodel.dart';
-import 'package:scheibner_app/pages/preferencesPage.dart';
-import 'package:scheibner_app/pages/profilePage.dart';
-import 'package:scheibner_app/pages/simulationPage.dart';
-import 'package:scheibner_app/pages/dataInputPage.dart';
-import 'package:scheibner_app/pages/resultsPage.dart';
-import 'package:scheibner_app/styles.dart';
+import 'package:ScheibnerSim/data/appmodel.dart';
+import 'package:ScheibnerSim/pages/preferencesPage.dart';
+import 'package:ScheibnerSim/pages/profilePage.dart';
+import 'package:ScheibnerSim/pages/simulationPage.dart';
+import 'package:ScheibnerSim/pages/dataInputPage.dart';
+import 'package:ScheibnerSim/pages/resultsPage.dart';
+import 'package:ScheibnerSim/styles.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:preferences/preferences.dart';
 
-import 'package:scheibner_app/localization/app_translations_delegate.dart';
-import 'package:scheibner_app/localization/application.dart';
+import 'package:ScheibnerSim/localization/app_translations_delegate.dart';
+import 'package:ScheibnerSim/localization/application.dart';
 
 import 'data/profileList.dart';
 

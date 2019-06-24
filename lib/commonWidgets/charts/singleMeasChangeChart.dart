@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:scheibner_app/commonWidgets/charts/chartData.dart';
-import 'package:scheibner_app/commonWidgets/charts/chartFactory.dart';
-import 'package:scheibner_app/commonWidgets/charts/chartInitializer.dart';
+import 'package:ScheibnerSim/commonWidgets/charts/chartData.dart';
+import 'package:ScheibnerSim/commonWidgets/charts/chartFactory.dart';
+import 'package:ScheibnerSim/commonWidgets/charts/chartInitializer.dart';
 
 import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:scheibner_app/localization/app_translations.dart';
+import 'package:ScheibnerSim/localization/app_translations.dart';
 
 class SingleMeasChangeChart extends ChartFactory {
   SingleMeasChangeChart(BoxConstraints constraints, BuildContext ctx)

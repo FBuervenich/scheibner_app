@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:preferences/preferences.dart';
-import 'package:scheibner_app/localization/app_translations.dart';
-import 'package:scheibner_app/localization/application.dart';
+import 'package:ScheibnerSim/localization/app_translations.dart';
+import 'package:ScheibnerSim/localization/application.dart';
 
 import '../styles.dart';
 

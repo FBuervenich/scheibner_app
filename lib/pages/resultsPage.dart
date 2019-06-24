@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:scheibner_app/components/threePointMenu.dart';
-import 'package:scheibner_app/localization/app_translations.dart';
+import 'package:ScheibnerSim/components/threePointMenu.dart';
+import 'package:ScheibnerSim/localization/app_translations.dart';
 
 import 'resultsChartView.dart';
 import 'resultsSaveView.dart';

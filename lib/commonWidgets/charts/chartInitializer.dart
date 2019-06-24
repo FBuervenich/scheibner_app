@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:scheibner_app/commonWidgets/charts/chartData.dart';
-import 'package:scheibner_app/commonWidgets/charts/simOverviewChart.dart';
-import 'package:scheibner_app/commonWidgets/charts/singleMeasChangeChart.dart';
-import 'package:scheibner_app/data/data.dart';
-import 'package:scheibner_app/localization/app_translations.dart';
+import 'package:ScheibnerSim/commonWidgets/charts/chartData.dart';
+import 'package:ScheibnerSim/commonWidgets/charts/simOverviewChart.dart';
+import 'package:ScheibnerSim/commonWidgets/charts/singleMeasChangeChart.dart';
+import 'package:ScheibnerSim/data/data.dart';
+import 'package:ScheibnerSim/localization/app_translations.dart';
 
 import '../../styles.dart';
 

@@ -1,4 +1,4 @@
-import 'package:scheibner_app/algorithm/simulation.dart';
+import 'package:ScheibnerSim/algorithm/simulation.dart';
 import 'dart:convert';
 
 class ValueInfo {

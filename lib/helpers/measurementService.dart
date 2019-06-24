@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:scheibner_app/data/data.dart';
-import 'package:scheibner_app/helpers/scheibnerException.dart';
+import 'package:ScheibnerSim/data/data.dart';
+import 'package:ScheibnerSim/helpers/scheibnerException.dart';
 
 class ApiService {
   Future<Data> getMeasurementFromId(int id) async {

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:preferences/preference_service.dart';
 import 'package:flutter/widgets.dart';
-import 'package:scheibner_app/components/threePointMenu.dart';
-import 'package:scheibner_app/data/appmodel.dart';
-import 'package:scheibner_app/data/data.dart';
-import 'package:scheibner_app/helpers/database_helpers.dart';
-import 'package:scheibner_app/helpers/helperfunctions.dart';
-import 'package:scheibner_app/localization/app_translations.dart';
-import 'package:scheibner_app/styles.dart';
+import 'package:ScheibnerSim/components/threePointMenu.dart';
+import 'package:ScheibnerSim/data/appmodel.dart';
+import 'package:ScheibnerSim/data/data.dart';
+import 'package:ScheibnerSim/helpers/database_helpers.dart';
+import 'package:ScheibnerSim/helpers/helperfunctions.dart';
+import 'package:ScheibnerSim/localization/app_translations.dart';
+import 'package:ScheibnerSim/styles.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'package:scheibner_app/helpers/helperfunctions.dart' as hf;
+import 'package:ScheibnerSim/helpers/helperfunctions.dart' as hf;
 
 class SimulationPage extends StatefulWidget {
   @override

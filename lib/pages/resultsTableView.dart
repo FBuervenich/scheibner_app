@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:scheibner_app/data/appmodel.dart';
-import 'package:scheibner_app/data/data.dart';
-import 'package:scheibner_app/helpers/helperfunctions.dart';
-import 'package:scheibner_app/localization/app_translations.dart';
-import 'package:scheibner_app/styles.dart';
+import 'package:ScheibnerSim/data/appmodel.dart';
+import 'package:ScheibnerSim/data/data.dart';
+import 'package:ScheibnerSim/helpers/helperfunctions.dart';
+import 'package:ScheibnerSim/localization/app_translations.dart';
+import 'package:ScheibnerSim/styles.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class TableView extends StatelessWidget {

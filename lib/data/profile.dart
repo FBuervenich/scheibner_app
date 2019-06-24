@@ -1,4 +1,4 @@
-import 'package:scheibner_app/helpers/database_helpers.dart';
+import 'package:ScheibnerSim/helpers/database_helpers.dart';
 
 import 'data.dart';
 
