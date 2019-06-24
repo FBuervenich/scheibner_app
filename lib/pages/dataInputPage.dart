@@ -17,11 +17,14 @@ import 'package:ScheibnerSim/helpers/scheibnerException.dart';
 import 'package:ScheibnerSim/helpers/helperfunctions.dart' as hf;
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
+///class DataInputPage
 class DataInputPage extends StatefulWidget {
   @override
+  ///create state for DataInputPage
   _DataInputState createState() => new _DataInputState();
 }
 
+///state for DataInputPage
 class _DataInputState extends State<DataInputPage> {
   String barcode = "";
   Data measurementData;
@@ -31,10 +34,12 @@ class _DataInputState extends State<DataInputPage> {
   var loadingSubScription;
 
   @override
+  ///init state for DataInputState
   initState() {
     super.initState();
   }
 
+  ///build for DataInputState
   @override
   Widget build(BuildContext context) {
     var childButtons = List<UnicornButton>();
@@ -195,6 +200,7 @@ class _DataInputState extends State<DataInputPage> {
     );
   }
 
+  ///creates a list view with all data
   Widget _createListView(BuildContext context, AppModel model) {
     if (isLoading) {
       return new Container(
@@ -243,6 +249,7 @@ class _DataInputState extends State<DataInputPage> {
     );
   }
 
+  ///creates a widget that indicates that there are no profiles
   Widget _makeNoProfilesWidget(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -264,6 +271,7 @@ class _DataInputState extends State<DataInputPage> {
     );
   }
 
+  ///creates a list with all values for the measurement
   Widget _createMeasValueList(
       BuildContext context, AppModel model, int position) {
     ValueInfo valInfo = Data.showable[position];
@@ -292,6 +300,7 @@ class _DataInputState extends State<DataInputPage> {
     );
   }
 
+  ///creates a dialog in which a measurement id can be entered
   void _displayMeasIdDialog(BuildContext context, AppModel model) async {
     if (model.getProfile().serverId != null) {
       _textFieldController.text = model.getProfile().serverId.toString();
@@ -371,6 +380,7 @@ class _DataInputState extends State<DataInputPage> {
     }
   }
 
+  ///processes a measurement for a given Data [measurementData]
   void processMeasurement(Data measurementData) {
     AppModel model = ScopedModel.of<AppModel>(context);
     model.setMeasurementData(measurementData);
@@ -401,6 +411,7 @@ class _DataInputState extends State<DataInputPage> {
     }
   }
 
+  ///show toast message at the bottom that shows the message [str]
   void _showToast(BuildContext context, String str) {
     final scaffold = Scaffold.of(context);
     scaffold.showSnackBar(

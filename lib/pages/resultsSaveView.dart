@@ -6,13 +6,16 @@ import 'package:ScheibnerSim/localization/app_translations.dart';
 import 'package:ScheibnerSim/styles.dart';
 import 'package:scoped_model/scoped_model.dart';
 
+///class SaveView
 class SaveView extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => new _SaveViewState();
 }
 
+///state for SaveView
 class _SaveViewState extends State<SaveView> {
   @override
+  ///build for SaveView
   Widget build(BuildContext context) {
     return new Card(
       color: cardBackgroundColor,

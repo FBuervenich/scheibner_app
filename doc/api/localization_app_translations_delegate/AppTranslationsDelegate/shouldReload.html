@@ -90,20 +90,17 @@
       </div>
       <span class="returntype"><a href="dart-core/bool-class.html">bool</a></span>
             <span class="name ">shouldReload</span>
-(<wbr><span class="parameter" id="shouldReload-param-old"><span>covariant</span> <span class="type-annotation">LocalizationsDelegate</span> <span class="parameter-name">old</span></span>)
+(<wbr><span class="parameter" id="shouldReload-param-old"><span>covariant</span> <span class="type-annotation">LocalizationsDelegate<span class="signature">&lt;<wbr><span class="type-parameter"><a href="localization_app_translations/AppTranslations-class.html">AppTranslations</a></span>&gt;</span></span> <span class="parameter-name">old</span></span>)
       
     </section>
     <section class="desc markdown">
-      <p>Returns true if the resources for this delegate should be loaded
-again by calling the <a href="localization_app_translations_delegate/AppTranslationsDelegate/load.html">load</a> method.</p>
-<p>This method is called whenever its <code>Localizations</code> widget is
-rebuilt. If it returns true then dependent widgets will be rebuilt
-after <a href="localization_app_translations_delegate/AppTranslationsDelegate/load.html">load</a> has completed.</p>
+      <p>callback whether build should be triggered again, always returns true</p>
     </section>
     
     <section class="summary source-code" id="source">
       <h2><span>Implementation</span></h2>
       <pre class="language-dart"><code class="language-dart">@override
+&#47;&#47;&#47;callback whether build should be triggered again, always returns true
 bool shouldReload(LocalizationsDelegate&lt;AppTranslations&gt; old) {
   return true;
 }</code></pre>

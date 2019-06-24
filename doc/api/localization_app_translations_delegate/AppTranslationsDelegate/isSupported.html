@@ -94,14 +94,13 @@
       
     </section>
     <section class="desc markdown">
-      <p>Whether resources for the given locale can be loaded by this delegate.</p>
-<p>Return true if the instance of <code>T</code> loaded by this delegate's <a href="localization_app_translations_delegate/AppTranslationsDelegate/load.html">load</a>
-method supports the given <code>locale</code>'s language.</p>
+      <p>checks whether a given <code>locale</code> is supported</p>
     </section>
     
     <section class="summary source-code" id="source">
       <h2><span>Implementation</span></h2>
       <pre class="language-dart"><code class="language-dart">@override
+&#47;&#47;&#47;checks whether a given [locale] is supported
 bool isSupported(Locale locale) {
   return application.supportedLanguagesCodes.contains(locale.languageCode);
 }</code></pre>

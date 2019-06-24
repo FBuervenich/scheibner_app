@@ -2,6 +2,7 @@ import 'package:ScheibnerSim/helpers/database_helpers.dart';
 
 import 'data.dart';
 
+///class Profile
 class Profile {
   int id;
   String name;
@@ -13,10 +14,12 @@ class Profile {
   Data sim;
   String comment;
 
+  ///constructor for Profile
   Profile(this.name, {this.serverId, this.meas, this.sim}) {
     lastChanged = DateTime.now();
   }
 
+  ///constructor for Profile from a map
   Profile.fromMap(Map<String, dynamic> map) {
     id = map[colProfileId];
     name = map[colProfileName];
@@ -31,6 +34,7 @@ class Profile {
     comment = map[colComment];
   }
 
+  ///returns a map, specifieing all data
   Map<String, dynamic> toMap() => {
         // colProfileId: id,
         colProfileName: name,

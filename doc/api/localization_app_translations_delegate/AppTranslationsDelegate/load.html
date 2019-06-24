@@ -88,22 +88,19 @@
           <li>@override</li>
         </ol>
       </div>
-      <span class="returntype"><a href="dart-async/Future-class.html">Future</a></span>
+      <span class="returntype"><a href="dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="localization_app_translations/AppTranslations-class.html">AppTranslations</a></span>&gt;</span></span>
             <span class="name ">load</span>
 (<wbr><span class="parameter" id="load-param-locale"><span class="type-annotation"><a href="dart-ui/Locale-class.html">Locale</a></span> <span class="parameter-name">locale</span></span>)
       
     </section>
     <section class="desc markdown">
-      <p>Start loading the resources for <code>locale</code>. The returned future completes
-when the resources have finished loading.</p>
-<p>It's assumed that the this method will return an object that contains
-a collection of related resources (typically defined with one method per
-resource). The object will be retrieved with <code>Localizations.of</code>.</p>
+      <p>loads the translations for a given <code>locale</code></p>
     </section>
     
     <section class="summary source-code" id="source">
       <h2><span>Implementation</span></h2>
       <pre class="language-dart"><code class="language-dart">@override
+&#47;&#47;&#47;loads the translations for a given [locale]
 Future&lt;AppTranslations&gt; load(Locale locale) {
   String lang = PrefService.getString(&quot;language&quot;);
   return AppTranslations.load(Locale(lang.toLowerCase()));

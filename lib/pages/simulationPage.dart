@@ -11,11 +11,13 @@ import 'package:ScheibnerSim/styles.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:ScheibnerSim/helpers/helperfunctions.dart' as hf;
 
+///class SimulationPage
 class SimulationPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => new _SimulationState();
 }
 
+///state for SimulationPage
 class _SimulationState extends State<SimulationPage> {
   final Map<String, TextEditingController> _controllers = Map.fromIterable(
     Data.modifiable,
@@ -29,6 +31,7 @@ class _SimulationState extends State<SimulationPage> {
   );
 
   @override
+  ///build for SimulationPage
   Widget build(BuildContext context) {
     String mode = PrefService.getString("input_mode");
     var inputListBuilder;
@@ -74,6 +77,7 @@ class _SimulationState extends State<SimulationPage> {
     );
   }
 
+  ///creates a list of sliders for values that can be changed for simulation
   List<Widget> _createSliderList(BuildContext context, AppModel model) {
     if (model.getMeasurementData() == null) {
       return [
@@ -150,6 +154,7 @@ class _SimulationState extends State<SimulationPage> {
     return ret;
   }
 
+  ///wrapper for addional space
   Container getContainerSpacer(double spacing) {
     return new Container(
       child: new Padding(
@@ -158,6 +163,7 @@ class _SimulationState extends State<SimulationPage> {
     );
   }
 
+  ///creates a list of textboxes for values that can be changed for simulation
   List<Widget> _createTextBoxList(BuildContext context, AppModel model) {
     if (model.getMeasurementData() == null) {
       return [
@@ -240,6 +246,7 @@ class _SimulationState extends State<SimulationPage> {
   }
 
   @override
+  ///dispose for SimulationPage
   void dispose() {
     _controllers.forEach((name, o) => o.dispose());
     super.dispose();

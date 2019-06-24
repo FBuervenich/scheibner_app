@@ -66,6 +66,9 @@
   <div id="dartdoc-main-content" class="col-xs-12 col-sm-9 col-md-8 main-content">
       <div><h1><span class="kind-class">AppTranslationsDelegate</span> class </h1></div>
 
+    <section class="desc markdown">
+      <p>class AppTranslationsDelegate</p>
+    </section>
     
 
     <section class="summary offset-anchor" id="constructors">
@@ -76,7 +79,7 @@
           <span class="name"><a href="localization_app_translations_delegate/AppTranslationsDelegate/AppTranslationsDelegate.html">AppTranslationsDelegate</a></span><span class="signature">({<span class="parameter" id="-param-newLocale"><span class="type-annotation"><a href="dart-ui/Locale-class.html">Locale</a></span> <span class="parameter-name">newLocale</span></span> })</span>
         </dt>
         <dd>
-          
+          constructor for AppTranslationsDelegate
           <div class="constructor-modifier features">const</div>
         </dd>
       </dl>
@@ -130,27 +133,25 @@
           </span>
                   </dt>
         <dd>
-          Whether resources for the given locale can be loaded by this delegate. <a href="localization_app_translations_delegate/AppTranslationsDelegate/isSupported.html">[...]</a>
+          checks whether a given <code>locale</code> is supported
                   
 </dd>
         <dt id="load" class="callable">
           <span class="name"><a href="localization_app_translations_delegate/AppTranslationsDelegate/load.html">load</a></span><span class="signature">(<wbr><span class="parameter" id="load-param-locale"><span class="type-annotation"><a href="dart-ui/Locale-class.html">Locale</a></span> <span class="parameter-name">locale</span></span>)
-            <span class="returntype parameter">&#8594; <a href="dart-async/Future-class.html">Future</a></span>
+            <span class="returntype parameter">&#8594; <a href="dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="localization_app_translations/AppTranslations-class.html">AppTranslations</a></span>&gt;</span></span>
           </span>
                   </dt>
         <dd>
-          Start loading the resources for <code>locale</code>. The returned future completes
-when the resources have finished loading. <a href="localization_app_translations_delegate/AppTranslationsDelegate/load.html">[...]</a>
+          loads the translations for a given <code>locale</code>
                   
 </dd>
         <dt id="shouldReload" class="callable">
-          <span class="name"><a href="localization_app_translations_delegate/AppTranslationsDelegate/shouldReload.html">shouldReload</a></span><span class="signature">(<wbr><span class="parameter" id="shouldReload-param-old"><span>covariant</span> <span class="type-annotation">LocalizationsDelegate</span> <span class="parameter-name">old</span></span>)
+          <span class="name"><a href="localization_app_translations_delegate/AppTranslationsDelegate/shouldReload.html">shouldReload</a></span><span class="signature">(<wbr><span class="parameter" id="shouldReload-param-old"><span>covariant</span> <span class="type-annotation">LocalizationsDelegate<span class="signature">&lt;<wbr><span class="type-parameter"><a href="localization_app_translations/AppTranslations-class.html">AppTranslations</a></span>&gt;</span></span> <span class="parameter-name">old</span></span>)
             <span class="returntype parameter">&#8594; <a href="dart-core/bool-class.html">bool</a></span>
           </span>
                   </dt>
         <dd>
-          Returns true if the resources for this delegate should be loaded
-again by calling the <a href="localization_app_translations_delegate/AppTranslationsDelegate/load.html">load</a> method. <a href="localization_app_translations_delegate/AppTranslationsDelegate/shouldReload.html">[...]</a>
+          callback whether build should be triggered again, always returns true
                   
 </dd>
         <dt id="noSuchMethod" class="callable inherited">

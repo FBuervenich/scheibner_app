@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 
 import '../../styles.dart';
 
+///class ChartFactory
 class ChartFactory {
   double chartpadding = 10;
   double cardpadding = 8;
@@ -13,14 +14,17 @@ class ChartFactory {
 
   ChartFactory(this.constraints, this.ctx);
 
+  ///returns the padding diff
   double getPaddingDiff() {
     return 2 * chartpadding + cardpadding;
   }
 
+  ///returns the height
   double getHeight() {
     return constraints.maxHeight - 2 * chartpadding;
   }
 
+  ///returns the row
   Widget getRow(
     BoxConstraints constraints,
     BuildContext ctxt, {
@@ -69,9 +73,7 @@ class ChartFactory {
     return new Row(children: cardList);
   }
 
-  /**
-   * Returns the Text-Widget including the String heading
-   */
+  ///Returns the Text-Widget including the String heading
   Widget getHeading(String heading) {
     return new Text(heading,
         style: new TextStyle(

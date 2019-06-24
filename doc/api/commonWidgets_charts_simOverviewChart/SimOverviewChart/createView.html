@@ -59,11 +59,20 @@
       <li class="section-title inherited">
         <a href="commonWidgets_charts_simOverviewChart/SimOverviewChart-class.html#instance-properties">Properties</a>
       </li>
+      <li class="inherited"><a href="commonWidgets_charts_chartFactory/ChartFactory/cardpadding.html">cardpadding</a></li>
+      <li class="inherited"><a href="commonWidgets_charts_chartFactory/ChartFactory/chartpadding.html">chartpadding</a></li>
+      <li class="inherited"><a href="commonWidgets_charts_chartFactory/ChartFactory/constraints.html">constraints</a></li>
+      <li class="inherited"><a href="commonWidgets_charts_chartFactory/ChartFactory/ctx.html">ctx</a></li>
       <li class="inherited"><a href="dart-core/Object/hashCode.html">hashCode</a></li>
+      <li class="inherited"><a href="commonWidgets_charts_chartFactory/ChartFactory/headingHeight.html">headingHeight</a></li>
       <li class="inherited"><a href="dart-core/Object/runtimeType.html">runtimeType</a></li>
     
       <li class="section-title"><a href="commonWidgets_charts_simOverviewChart/SimOverviewChart-class.html#instance-methods">Methods</a></li>
       <li><a href="commonWidgets_charts_simOverviewChart/SimOverviewChart/createView.html">createView</a></li>
+      <li class="inherited"><a href="commonWidgets_charts_chartFactory/ChartFactory/getHeading.html">getHeading</a></li>
+      <li class="inherited"><a href="commonWidgets_charts_chartFactory/ChartFactory/getHeight.html">getHeight</a></li>
+      <li class="inherited"><a href="commonWidgets_charts_chartFactory/ChartFactory/getPaddingDiff.html">getPaddingDiff</a></li>
+      <li class="inherited"><a href="commonWidgets_charts_chartFactory/ChartFactory/getRow.html">getRow</a></li>
       <li class="inherited"><a href="dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
       <li class="inherited"><a href="dart-core/Object/toString.html">toString</a></li>
     
@@ -81,48 +90,51 @@
     <section class="multi-line-signature">
       <span class="returntype">Widget</span>
             <span class="name ">createView</span>
-(<wbr><span class="parameter" id="createView-param-data"><span class="type-annotation"><a href="dart-core/List-class.html">List</a></span> <span class="parameter-name">data</span></span>)
+(<wbr><span class="parameter" id="createView-param-data"><span class="type-annotation"><a href="dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="commonWidgets_charts_chartData/BarChartData-class.html">BarChartData</a></span>&gt;</span></span> <span class="parameter-name">data</span></span>)
       
+    </section>
+    <section class="desc markdown">
+      <p>creates the view with all charts</p>
     </section>
     
     <section class="summary source-code" id="source">
       <h2><span>Implementation</span></h2>
       <pre class="language-dart"><code class="language-dart">Widget createView(List&lt;BarChartData&gt; data) {
-    List&lt;double&gt; range = _getRange(data);
+  List&lt;double&gt; range = _getRange(data);
 
-    return getRow(
-      constraints,
-      ctx,
-      additionalPadding: 20,
-      heading: getHeading(
-        AppTranslations.of(ctx).text(&quot;chartFactory_createPercentDiffChart&quot;),
-      ),
-      widgets: [
-        new charts.BarChart(
-          [
-            _getChartSeries(data),
-          ],
+  return getRow(
+    constraints,
+    ctx,
+    additionalPadding: 20,
+    heading: getHeading(
+      AppTranslations.of(ctx).text(&quot;chartFactory_createPercentDiffChart&quot;),
+    ),
+    widgets: [
+      new charts.BarChart(
+        [
+          _getChartSeries(data),
+        ],
 
-          barGroupingType: charts.BarGroupingType.grouped,
-          animate: true,
-          behaviors: [
-            &#47;&#47; _getTitle(),
-          ],
-          vertical: false,
-          barRendererDecorator: new charts.BarLabelDecorator&lt;String&gt;(
-            labelPosition: charts.BarLabelPosition.outside,
-          ),
-
-          &#47;&#47; Hide domain axis.
-          domainAxis: new charts.OrdinalAxisSpec(
-            renderSpec: new charts.NoneRenderSpec(),
-          ),
-
-          primaryMeasureAxis: _getXaxisOptions(range),
+        barGroupingType: charts.BarGroupingType.grouped,
+        animate: true,
+        behaviors: [
+          &#47;&#47; _getTitle(),
+        ],
+        vertical: false,
+        barRendererDecorator: new charts.BarLabelDecorator&lt;String&gt;(
+          labelPosition: charts.BarLabelPosition.outside,
         ),
-      ],
-    );
-  }</code></pre>
+
+        &#47;&#47; Hide domain axis.
+        domainAxis: new charts.OrdinalAxisSpec(
+          renderSpec: new charts.NoneRenderSpec(),
+        ),
+
+        primaryMeasureAxis: _getXaxisOptions(range),
+      ),
+    ],
+  );
+}</code></pre>
     </section>
 
   </div> <!-- /.main-content -->

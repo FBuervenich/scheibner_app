@@ -7,8 +7,10 @@ import 'package:ScheibnerSim/localization/app_translations.dart';
 import 'package:ScheibnerSim/styles.dart';
 import 'package:scoped_model/scoped_model.dart';
 
+///class TableView
 class TableView extends StatelessWidget {
   @override
+  ///build for TableView
   Widget build(BuildContext context) {
     return new Padding(
       padding: EdgeInsets.all(0),
@@ -18,6 +20,7 @@ class TableView extends StatelessWidget {
     );
   }
 
+  ///creates a list view with all simulation data
   ListView _createListView(BuildContext context, AppModel model) {
     List<Widget> list = <Widget>[];
     if (model.getSimulationData() != null) {
@@ -33,6 +36,7 @@ class TableView extends StatelessWidget {
     );
   }
 
+  ///creates a list view with all simulation data values
   Widget _createSimValueList(
       BuildContext context, AppModel model, int position) {
     if (model.getSimulationData() == null) {

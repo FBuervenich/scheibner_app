@@ -10,6 +10,7 @@ import '../../styles.dart';
 
 typedef Widget RowFunction(BoxConstraints, BuildContext);
 
+///class ChartInitializer
 class ChartInitializer {
   Data meas;
   Data sim;
@@ -33,6 +34,7 @@ class ChartInitializer {
   ];
   Map<String, MeasChartValue> values = new Map();
 
+  ///constructor for ChartInitializer
   ChartInitializer(this.meas, this.sim, context) {
     int i = 0;
 
@@ -49,6 +51,7 @@ class ChartInitializer {
     });
   }
 
+  ///gets ther max diffs
   List<MeasChartValue> _getMaxDiffs(double count) {
     List<MeasChartValue> ret = values.values.toList();
     //Nach groeße Sortieren
@@ -64,6 +67,7 @@ class ChartInitializer {
     return ret.sublist(0, count.toInt());
   }
 
+  ///gets all result diagrams
   List<RowFunction> getResultChartViewData() {
     List<RowFunction> ret = new List();
 
@@ -102,6 +106,7 @@ class ChartInitializer {
   }
 }
 
+///class MeasChartValue
 class MeasChartValue {
   String key;
   String localization;
@@ -110,6 +115,7 @@ class MeasChartValue {
   double measValue;
   double simValue;
 
+  ///constructor for MeasChartValue
   MeasChartValue(this.key, this.measValue, this.simValue,
       {this.color: Colors.blue, this.shortcut, @required this.localization}) {
     if (this.measValue == null) {
@@ -120,10 +126,12 @@ class MeasChartValue {
     }
   }
 
+  ///returns the diff
   double getDiff() {
     return simValue - measValue;
   }
 
+  ///returns the diff in percent
   double getPercentageDiff() {
     if (measValue == 0) {
       return 0;
@@ -131,6 +139,7 @@ class MeasChartValue {
     return _round(getDiff() / measValue * 100);
   }
 
+  ///round a given double [x] to two digits after the comma
   double _round(double x) {
     return (x * 100).round() / 100.0;
   }

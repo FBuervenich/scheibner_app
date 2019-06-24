@@ -66,6 +66,9 @@
   <div id="dartdoc-main-content" class="col-xs-12 col-sm-9 col-md-8 main-content">
       <div><h1><span class="kind-class">ApiService</span> class </h1></div>
 
+    <section class="desc markdown">
+      <p>class ApiService</p>
+    </section>
     
 
     <section class="summary offset-anchor" id="constructors">
@@ -109,20 +112,20 @@
       <dl class="callables">
         <dt id="getMeasurementFromId" class="callable">
           <span class="name"><a href="helpers_measurementService/ApiService/getMeasurementFromId.html">getMeasurementFromId</a></span><span class="signature">(<wbr><span class="parameter" id="getMeasurementFromId-param-id"><span class="type-annotation"><a href="dart-core/int-class.html">int</a></span> <span class="parameter-name">id</span></span>)
-            <span class="returntype parameter">&#8594; <a href="dart-async/Future-class.html">Future</a></span>
+            <span class="returntype parameter">&#8594; <a href="dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="data_data/Data-class.html">Data</a></span>&gt;</span></span>
           </span>
                   </dt>
         <dd>
-          
+          returns a Future that resolves to a Data object, loads a measurement for a given <code>id</code>
                   
 </dd>
         <dt id="getMeasurementFromJson" class="callable">
           <span class="name"><a href="helpers_measurementService/ApiService/getMeasurementFromJson.html">getMeasurementFromJson</a></span><span class="signature">(<wbr><span class="parameter" id="getMeasurementFromJson-param-jsonString"><span class="type-annotation"><a href="dart-core/String-class.html">String</a></span> <span class="parameter-name">jsonString</span></span>)
-            <span class="returntype parameter">&#8594; dynamic</span>
+            <span class="returntype parameter">&#8594; <a href="data_data/Data-class.html">Data</a></span>
           </span>
                   </dt>
         <dd>
-          
+          parses a given String <code>jsonString</code> for a Data Object
                   
 </dd>
         <dt id="noSuchMethod" class="callable inherited">

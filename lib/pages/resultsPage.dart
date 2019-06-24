@@ -6,8 +6,10 @@ import 'resultsChartView.dart';
 import 'resultsSaveView.dart';
 import 'resultsTableView.dart';
 
+///class ResultsPage
 class ResultsPage extends StatelessWidget {
   @override
+  ///class for ResultsPage
   Widget build(BuildContext context) {
     return new DefaultTabController(
       initialIndex: 1,

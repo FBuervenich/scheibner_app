@@ -7,12 +7,11 @@ import 'package:ScheibnerSim/commonWidgets/charts/chartFactory.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:ScheibnerSim/localization/app_translations.dart';
 
+///class SimOverviewChart
 class SimOverviewChart extends ChartFactory {
   SimOverviewChart(constraints, ctx) : super(constraints, ctx);
 
-/**
- * 
- */
+  ///creates the view with all charts
   Widget createView(List<BarChartData> data) {
     List<double> range = _getRange(data);
 
@@ -50,10 +49,8 @@ class SimOverviewChart extends ChartFactory {
     );
   }
 
-/**
- * Calculates the Range of the diagramm. The biggest absolute value 
- * will be set into the range once positive and once negative.
- */
+  /// Calculates the Range of the diagramm. The biggest absolute value 
+  ///will be set into the range once positive and once negative.
   List<double> _getRange(List<BarChartData> data) {
     List<double> range = [];
     range.addAll(data.map<double>((a) => a.sales));
@@ -64,9 +61,7 @@ class SimOverviewChart extends ChartFactory {
     return range;
   }
 
-/**
- * Returns the ChartSeries for the Diagramm
- */
+  ///Returns the ChartSeries for the Diagramm
   charts.Series<BarChartData, String> _getChartSeries(List<BarChartData> data) {
     return new charts.Series<BarChartData, String>(
       data: data,
@@ -92,9 +87,7 @@ class SimOverviewChart extends ChartFactory {
     );
   }
 
-/**
- * Returns the ChartTitle-Object
- */
+  ///Returns the ChartTitle-Object
   charts.ChartTitle _getTitle() {
     return new charts.ChartTitle(
       AppTranslations.of(ctx).text("chartFactory_createPercentDiffChart"),
@@ -107,9 +100,7 @@ class SimOverviewChart extends ChartFactory {
     );
   }
 
-/**
- * Sets the X-Axis, its Fontsize and color and its viewport
- */
+  ///Sets the X-Axis, its Fontsize and color and its viewport
   charts.NumericAxisSpec _getXaxisOptions(List<double> range) {
     final simpleCurrencyFormatter =
         new charts.BasicNumericTickFormatterSpec.fromNumberFormat(

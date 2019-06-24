@@ -18,6 +18,7 @@ import 'data/profileList.dart';
 final model = new AppModel();
 final profileList = new ProfileList();
 
+/// main method of scheibner app
 void main() async {
   await PrefService.init(prefix: 'pref_');
   PrefService.setDefaultValues({'language': 'DE', 'input_mode': 'Slider'});
@@ -28,6 +29,7 @@ void main() async {
   ));
 }
 
+/// main class of scheibner app
 class ScheibnerApp extends StatefulWidget {
   @override
   ScheibnerAppState createState() {
@@ -35,10 +37,12 @@ class ScheibnerApp extends StatefulWidget {
   }
 }
 
+/// state of main class
 class ScheibnerAppState extends State<ScheibnerApp> {
   AppTranslationsDelegate _newLocaleDelegate;
 
   @override
+  /// init state of ScheibnerAppState
   void initState() {
     super.initState();
 
@@ -52,6 +56,7 @@ class ScheibnerAppState extends State<ScheibnerApp> {
   }
 
   @override
+  ///build of ScheibnerAppState
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -93,24 +98,18 @@ class ScheibnerAppState extends State<ScheibnerApp> {
     );
   }
 
+  ///callback for dynamic locale changes
   void onLocaleChange(Locale locale) {
     setState(() {
       _newLocaleDelegate = AppTranslationsDelegate(newLocale: locale);
     });
   }
 
-  // Wrap a widget into a given Scoped Model
+  /// Wrap a widget into a given Scoped Model
   ScopedModel _scopedModelWrapper(Model model, widget) {
     return new ScopedModel(
       model: model,
       child: widget,
     );
   }
-
-  // ScopedModel _scopedModelWrappera(Model model, widget) {
-  //   return new ScopedModel<T>(
-  //     model: model,
-  //     child: widget,
-  //   );
-  // }
 }

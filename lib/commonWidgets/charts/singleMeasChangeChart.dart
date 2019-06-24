@@ -7,6 +7,7 @@ import 'package:ScheibnerSim/commonWidgets/charts/chartInitializer.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:ScheibnerSim/localization/app_translations.dart';
 
+///class SingleMeasChangeChart
 class SingleMeasChangeChart extends ChartFactory {
   SingleMeasChangeChart(BoxConstraints constraints, BuildContext ctx)
       : super(constraints, ctx);
@@ -15,11 +16,9 @@ class SingleMeasChangeChart extends ChartFactory {
   List<BarChartData> data;
   MeasChartValue kennzahl;
 
-/**
- * Returns the View of a SingleMeasChangeChart. This includes
- * a left side containing the total numbers and a right side
- * containing a BarChart diagramm
- */
+  ///Returns the View of a SingleMeasChangeChart. This includes
+  ///a left side containing the total numbers and a right side
+  ///containing a BarChart diagramm
   Widget getView(
     MeasChartValue kennzahl, {
     Color oldcolor,
@@ -57,9 +56,7 @@ class SingleMeasChangeChart extends ChartFactory {
     );
   }
 
-/**
- * Returns a column containing the Values of old and new Data
- */
+  ///Returns a column containing the Values of old and new Data
   Widget _getLeftSide() {
     return new Column(
       children: <Widget>[
@@ -81,6 +78,7 @@ class SingleMeasChangeChart extends ChartFactory {
     );
   }
 
+  ///gets the difference in percent
   Widget _getNewOldChartPercentValueWidget(
       BuildContext context, double percentage) {
     return new Expanded(
@@ -110,6 +108,7 @@ class SingleMeasChangeChart extends ChartFactory {
     );
   }
 
+  ///gets the difference absolute
   Widget _getNewOldChartValueWidget(
       BuildContext context, String value, bool isNew) {
     return new Expanded(
@@ -137,9 +136,7 @@ class SingleMeasChangeChart extends ChartFactory {
     );
   }
 
-  /**
- * Returns a Column containing the Barchart
- */
+  ///Returns a Column containing the Barchart
   Widget _getRightSide() {
     double paddingtop = 20;
     return new Column(

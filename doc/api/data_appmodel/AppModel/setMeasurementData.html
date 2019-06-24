@@ -96,16 +96,19 @@
     <section class="multi-line-signature">
       <span class="returntype">void</span>
             <span class="name ">setMeasurementData</span>
-(<wbr><span class="parameter" id="setMeasurementData-param-d"><span class="type-annotation">dynamic</span> <span class="parameter-name">d</span></span>)
+(<wbr><span class="parameter" id="setMeasurementData-param-d"><span class="type-annotation"><a href="data_data/Data-class.html">Data</a></span> <span class="parameter-name">d</span></span>)
       
+    </section>
+    <section class="desc markdown">
+      <p>sets simulation data for a given data <code>d</code></p>
     </section>
     
     <section class="summary source-code" id="source">
       <h2><span>Implementation</span></h2>
       <pre class="language-dart"><code class="language-dart">void setMeasurementData(Data d) {
-  _profile.meas = d;
-  notifyListeners();
-}</code></pre>
+    _profile.meas = d;
+    notifyListeners();
+  }</code></pre>
     </section>
 
   </div> <!-- /.main-content -->

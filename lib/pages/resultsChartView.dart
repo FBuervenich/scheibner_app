@@ -4,12 +4,14 @@ import 'package:ScheibnerSim/commonWidgets/charts/chartInitializer.dart';
 import 'package:ScheibnerSim/data/appmodel.dart';
 import 'package:scoped_model/scoped_model.dart';
 
+///class ChartView
 class ChartView extends StatelessWidget {
   List<RowFunction> listItems = new List<RowFunction>();
 
   List<String> legendItems = new List<String>();
   double legendwidth = 150;
 
+  ///build for ChartView
   @override
   Widget build(BuildContext context) {
     //close Keyboard if available
@@ -71,6 +73,7 @@ class ChartView extends StatelessWidget {
     // )
   }
 
+  ///builds a legend for a chart at a given [index]
   Widget buildLegend(BuildContext ctxt, int index, BoxConstraints constraints) {
     return new Row(
       children: <Widget>[
@@ -97,6 +100,7 @@ class ChartView extends StatelessWidget {
     //  return new Text(legendItems[index]);
   }
 
+  ///builds a chart at a given [index]
   Widget buildCharts(BuildContext ctxt, int index, BoxConstraints constraints) {
     return listItems[index](constraints, ctxt);
   }

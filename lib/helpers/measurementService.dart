@@ -5,7 +5,9 @@ import 'package:http/http.dart' as http;
 import 'package:ScheibnerSim/data/data.dart';
 import 'package:ScheibnerSim/helpers/scheibnerException.dart';
 
+///class ApiService
 class ApiService {
+  ///returns a Future that resolves to a Data object, loads a measurement for a given [id]
   Future<Data> getMeasurementFromId(int id) async {
     final response = await http.get(
         'http://krisc.luca-student.be/scheibner/messung.php?id=' +
@@ -17,6 +19,7 @@ class ApiService {
     return this._createMeasurementFromJson(jsonResponse);
   }
 
+  ///parses a given String [jsonString] for a Data Object
   Data getMeasurementFromJson(String jsonString) {
     try {
       return this._createMeasurementFromJson(json.decode(jsonString));
@@ -25,6 +28,7 @@ class ApiService {
     }
   }
 
+  ///creates a Measurement object from a map [json]
   Data _createMeasurementFromJson(Map<String, dynamic> json) {
     String error = this._checkIfObjIsValid(json);
     if (error != null) {
@@ -62,6 +66,7 @@ class ApiService {
     return data;
   }
 
+  ///checks whether a given map [json] contains all data that is needed
   String _checkIfObjIsValid(Map<String, dynamic> json) {
     var keys = [
       "radumfang_vorn",

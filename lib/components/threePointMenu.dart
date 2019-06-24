@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:ScheibnerSim/localization/app_translations.dart';
 
+///class ThreePointWidget
 class ThreePointWidget extends StatefulWidget {
+  ///create state for ThreePointWidget
   CustomPopupMenu createState() => CustomPopupMenu();
 }
 
+///class CustomPopupMenu
 class CustomPopupMenu extends State<ThreePointWidget> {
   CustomPopupMenu({this.title, this.icon, this.selectedChoice});
 
@@ -12,6 +15,7 @@ class CustomPopupMenu extends State<ThreePointWidget> {
   IconData icon;
   int selectedChoice;
 
+  ///select for CustomPopupMenu
   void _select(CustomPopupMenu choice) {
     setState(() {
       if (choice.selectedChoice == 1) {
@@ -24,6 +28,7 @@ class CustomPopupMenu extends State<ThreePointWidget> {
   }
 
   @override
+  ///override build for CustomPopupMenu
   Widget build(BuildContext context) {
     List<CustomPopupMenu> choices = <CustomPopupMenu>[
       CustomPopupMenu(
@@ -54,12 +59,14 @@ class CustomPopupMenu extends State<ThreePointWidget> {
   }
 }
 
+///class SelectedOption
 class SelectedOption extends StatelessWidget {
   CustomPopupMenu choice;
 
   SelectedOption({Key key, this.choice}) : super(key: key);
 
   @override
+  ///build for SelectedOption
   Widget build(BuildContext context) {
     return Container(
       child: Center(

@@ -1,6 +1,7 @@
 import 'package:ScheibnerSim/algorithm/simulation.dart';
 import 'dart:convert';
 
+///class ValueInfo
 class ValueInfo {
   String name;
   String unit;
@@ -15,6 +16,7 @@ class ValueInfo {
   ValueInfo(this.name);
 }
 
+///class Data
 class Data {
   static final List<ValueInfo> allValues = <ValueInfo>[
     ValueInfo.modifiable("radumfang_vorn", "mm", 1700, 2200),
@@ -58,12 +60,14 @@ class Data {
   DateTime _date;
   Map<String, dynamic> _values;
 
+  ///constructor for Data
   Data(this._date, this._values, {bool calcAdditional = true}) {
     if (calcAdditional) {
       ScheibnerSimulation.calcAdditionalData(this._values);
     }
   }
 
+  ///clones a given data object [data]
   Data.clone(Data data) {
     if (data != null) {
       _values = new Map<String, double>.from(data._values);
@@ -71,25 +75,30 @@ class Data {
     }
   }
 
+  ///creates a data object from json string [s]
   Data.fromJson(String s) {
     Map<String, dynamic> map = json.decode(s);
     _date = DateTime.tryParse(map["date"]);
     _values = map["values"];
   }
 
+  ///returns a json string representing the data object
   String toJson() => json.encode({
         "date": _date?.toIso8601String(),
         "values": _values,
       });
-
+      
+  ///simulates values
   void simulate() {
     ScheibnerSimulation.simulate(_values);
   }
 
+  ///gets values for given key [name]
   double getValue(String name) {
     return _values[name];
   }
 
+  ///sets value for key [name] to [value]
   void setValue(String name, double value) {
     _values[name] = value;
   }

@@ -1,7 +1,9 @@
 import 'dart:ui';
+///comprehensive class Application
 class Application {
   static final Application _application = Application._internal();
 
+  ///factory for singleton Application
   factory Application() {
     return _application;
   }
@@ -17,10 +19,10 @@ class Application {
     "en",
     "de",
   ];
-  //returns the list of supported Locales
+  ///returns the list of supported Locales
   Iterable<Locale> supportedLocales() =>
       supportedLanguagesCodes.map<Locale>((language) => Locale(language, ""));
-  //function to be invoked when changing the language
+  ///function to be invoked when changing the language
   LocaleChangeCallback onLocaleChanged;
 }
 Application application = Application();

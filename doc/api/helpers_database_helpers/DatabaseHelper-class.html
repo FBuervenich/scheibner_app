@@ -75,6 +75,9 @@
   <div id="dartdoc-main-content" class="col-xs-12 col-sm-9 col-md-8 main-content">
       <div><h1><span class="kind-class">DatabaseHelper</span> class </h1></div>
 
+    <section class="desc markdown">
+      <p>singleton class to manage the database</p>
+    </section>
     
 
 
@@ -113,12 +116,12 @@
       <h2>Methods</h2>
       <dl class="callables">
         <dt id="changeMeasData" class="callable">
-          <span class="name"><a href="helpers_database_helpers/DatabaseHelper/changeMeasData.html">changeMeasData</a></span><span class="signature">(<wbr><span class="parameter" id="changeMeasData-param-id"><span class="type-annotation"><a href="dart-core/int-class.html">int</a></span> <span class="parameter-name">id</span>, </span> <span class="parameter" id="changeMeasData-param-meas"><span class="type-annotation">dynamic</span> <span class="parameter-name">meas</span></span>)
+          <span class="name"><a href="helpers_database_helpers/DatabaseHelper/changeMeasData.html">changeMeasData</a></span><span class="signature">(<wbr><span class="parameter" id="changeMeasData-param-id"><span class="type-annotation"><a href="dart-core/int-class.html">int</a></span> <span class="parameter-name">id</span>, </span> <span class="parameter" id="changeMeasData-param-meas"><span class="type-annotation"><a href="data_data/Data-class.html">Data</a></span> <span class="parameter-name">meas</span></span>)
             <span class="returntype parameter">&#8594; <a href="dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="dart-core/bool-class.html">bool</a></span>&gt;</span></span>
           </span>
                   </dt>
         <dd>
-          
+          changes measurement Data for a given profile with a given <code>id</code> to Data <code>meas</code>
                   
 </dd>
         <dt id="changeProfileName" class="callable">
@@ -127,7 +130,7 @@
           </span>
                   </dt>
         <dd>
-          
+          changes profilename for a given profile with a given <code>id</code> to name <code>name</code>
                   
 </dd>
         <dt id="changeServerId" class="callable">
@@ -136,16 +139,16 @@
           </span>
                   </dt>
         <dd>
-          
+          changes servedId for a given profile with a given <code>profileId</code> to serverId <code>serverId</code>
                   
 </dd>
         <dt id="changeSimData" class="callable">
-          <span class="name"><a href="helpers_database_helpers/DatabaseHelper/changeSimData.html">changeSimData</a></span><span class="signature">(<wbr><span class="parameter" id="changeSimData-param-id"><span class="type-annotation"><a href="dart-core/int-class.html">int</a></span> <span class="parameter-name">id</span>, </span> <span class="parameter" id="changeSimData-param-sim"><span class="type-annotation">dynamic</span> <span class="parameter-name">sim</span></span>)
+          <span class="name"><a href="helpers_database_helpers/DatabaseHelper/changeSimData.html">changeSimData</a></span><span class="signature">(<wbr><span class="parameter" id="changeSimData-param-id"><span class="type-annotation"><a href="dart-core/int-class.html">int</a></span> <span class="parameter-name">id</span>, </span> <span class="parameter" id="changeSimData-param-sim"><span class="type-annotation"><a href="data_data/Data-class.html">Data</a></span> <span class="parameter-name">sim</span></span>)
             <span class="returntype parameter">&#8594; <a href="dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="dart-core/bool-class.html">bool</a></span>&gt;</span></span>
           </span>
                   </dt>
         <dd>
-          
+          changes simulatiom data for a given profile with a given <code>id</code> to Data <code>sim</code>
                   
 </dd>
         <dt id="createProfile" class="callable">
@@ -154,7 +157,7 @@
           </span>
                   </dt>
         <dd>
-          
+          creates a profile for a given <code>name</code>
                   
 </dd>
         <dt id="deleteAllProfiles" class="callable">
@@ -163,7 +166,7 @@
           </span>
                   </dt>
         <dd>
-          
+          deletes a profiles
                   
 </dd>
         <dt id="deleteProfile" class="callable">
@@ -172,7 +175,7 @@
           </span>
                   </dt>
         <dd>
-          
+          deletes the profile for a given <code>id</code>
                   
 </dd>
         <dt id="dropAllTables" class="callable">
@@ -181,43 +184,43 @@
           </span>
                   </dt>
         <dd>
-          
+          drops all tables
                   
 </dd>
         <dt id="getRedProfileList" class="callable">
           <span class="name"><a href="helpers_database_helpers/DatabaseHelper/getRedProfileList.html">getRedProfileList</a></span><span class="signature">(<wbr>)
-            <span class="returntype parameter">&#8594; <a href="dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="dart-core/List-class.html">List</a></span>&gt;</span></span>
+            <span class="returntype parameter">&#8594; <a href="dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="pages_profilePage/ReducedProfile-class.html">ReducedProfile</a></span>&gt;</span></span>&gt;</span></span>
           </span>
                   </dt>
         <dd>
-          
+          returns a reduced profile list
                   
 </dd>
         <dt id="insertProfile" class="callable">
-          <span class="name"><a href="helpers_database_helpers/DatabaseHelper/insertProfile.html">insertProfile</a></span><span class="signature">(<wbr><span class="parameter" id="insertProfile-param-p"><span class="type-annotation">dynamic</span> <span class="parameter-name">p</span></span>)
+          <span class="name"><a href="helpers_database_helpers/DatabaseHelper/insertProfile.html">insertProfile</a></span><span class="signature">(<wbr><span class="parameter" id="insertProfile-param-p"><span class="type-annotation"><a href="data_profile/Profile-class.html">Profile</a></span> <span class="parameter-name">p</span></span>)
             <span class="returntype parameter">&#8594; <a href="dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="dart-core/int-class.html">int</a></span>&gt;</span></span>
           </span>
                   </dt>
         <dd>
-          
+          inserts a given profile <code>p</code>
                   
 </dd>
         <dt id="loadProfile" class="callable">
           <span class="name"><a href="helpers_database_helpers/DatabaseHelper/loadProfile.html">loadProfile</a></span><span class="signature">(<wbr><span class="parameter" id="loadProfile-param-id"><span class="type-annotation"><a href="dart-core/int-class.html">int</a></span> <span class="parameter-name">id</span></span>)
-            <span class="returntype parameter">&#8594; <a href="dart-async/Future-class.html">Future</a></span>
+            <span class="returntype parameter">&#8594; <a href="dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="data_profile/Profile-class.html">Profile</a></span>&gt;</span></span>
           </span>
                   </dt>
         <dd>
-          
+          loads profile for given <code>id</code>
                   
 </dd>
         <dt id="saveProfile" class="callable">
-          <span class="name"><a href="helpers_database_helpers/DatabaseHelper/saveProfile.html">saveProfile</a></span><span class="signature">(<wbr><span class="parameter" id="saveProfile-param-profile"><span class="type-annotation">dynamic</span> <span class="parameter-name">profile</span></span>)
+          <span class="name"><a href="helpers_database_helpers/DatabaseHelper/saveProfile.html">saveProfile</a></span><span class="signature">(<wbr><span class="parameter" id="saveProfile-param-profile"><span class="type-annotation"><a href="data_profile/Profile-class.html">Profile</a></span> <span class="parameter-name">profile</span></span>)
             <span class="returntype parameter">&#8594; <a href="dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="dart-core/bool-class.html">bool</a></span>&gt;</span></span>
           </span>
                   </dt>
         <dd>
-          
+          saves <code>profile</code> to database
                   
 </dd>
         <dt id="updateProfileLastChanged" class="callable">
@@ -226,7 +229,7 @@
           </span>
                   </dt>
         <dd>
-          
+          updates the colLastChanged of profile for <code>id</code>
                   
 </dd>
         <dt id="noSuchMethod" class="callable inherited">

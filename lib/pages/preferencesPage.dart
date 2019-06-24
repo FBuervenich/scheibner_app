@@ -6,27 +6,32 @@ import 'package:ScheibnerSim/localization/application.dart';
 
 import '../styles.dart';
 
+///class PreferencesPage
 class PreferencesPage extends StatefulWidget {
   @override
+  ///create state for PreferencesPage
   PreferencesPageState createState() => new PreferencesPageState();
 }
-
+///state for PreferencesPage
 class PreferencesPageState extends State<PreferencesPage> {
   String currentInputAppearance = PrefService.getString("input_mode");
   String currentLanguage = PrefService.getString("language");
 
   @override
+  ///init state for PreferencesPageState
   void initState() {
     super.initState();
     application.onLocaleChanged = onLocaleChange;
   }
 
+  ///triggers apps' localeChange with a given [locale]
   void onLocaleChange(Locale locale) async {
     setState(() {
       AppTranslations.load(locale);
     });
   }
 
+  ///callback that fires when input mode is changed, [changed] contains the new value
   void changedInputAppearance(String changed) {
     PrefService.setString("input_mode", changed);
     setState(() {
@@ -34,6 +39,7 @@ class PreferencesPageState extends State<PreferencesPage> {
     });
   }
 
+  ///callback that fires when language is changed, [changed] contains the new value
   void changedLanguage(String changed) {
     PrefService.setString("language", changed);
     this.onLocaleChange(Locale(changed.toLowerCase()));
@@ -42,6 +48,7 @@ class PreferencesPageState extends State<PreferencesPage> {
     });
   }
 
+  ///get dropdownlist for input mode
   List<DropdownMenuItem<String>> getDropDownMenuItemsInputAppearance() {
     List<DropdownMenuItem<String>> items = new List();
     for (String input in [
@@ -58,6 +65,7 @@ class PreferencesPageState extends State<PreferencesPage> {
     return items;
   }
 
+  ///get dropdownlist for language
   List<DropdownMenuItem<String>> getDropDownMenuItemsLanguage() {
     List<DropdownMenuItem<String>> items = new List();
     for (String lang in [
@@ -75,6 +83,7 @@ class PreferencesPageState extends State<PreferencesPage> {
   }
 
   @override
+  ///build for PreferencesPage
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

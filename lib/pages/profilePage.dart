@@ -10,17 +10,20 @@ import 'package:scoped_model/scoped_model.dart';
 
 import '../styles.dart';
 
+///class ReducedProfile
 class ReducedProfile {
   int profileID;
   String name;
   DateTime lastChanged;
 
+  ///constructor for ReducedProfile with params [profileId], [name] and [lastChanged]
   ReducedProfile(int profileID, String name, DateTime lastChanged) {
     this.profileID = profileID;
     this.name = name;
     this.lastChanged = lastChanged;
   }
 
+  ///constructor for ReducedProfile with param [map], needs to contain keys "colProfileId", "colProfileName" and "colLastChanged"
   ReducedProfile.fromMap(Map<String, dynamic> map) {
     this.profileID = map[colProfileId];
     this.name = map[colProfileName];
@@ -28,22 +31,27 @@ class ReducedProfile {
   }
 }
 
+///class ProfilePage
 class ProfilePage extends StatefulWidget {
   @override
+  ///create state for ProfilePage
   _ProfiletState createState() => new _ProfiletState();
 }
 
+///state for ProfilePage
 class _ProfiletState extends State<ProfilePage> {
   List<ReducedProfile> _profiles;
   final dbHelper = DatabaseHelper.instance;
 
   @override
+  ///init state for ProfiletState
   initState() {
     _profiles = new List<ReducedProfile>();
     _reloadProfiles();
     super.initState();
   }
 
+  ///reloads all profiles from database
   void _reloadProfiles() async {
     var tempProjects = await dbHelper.getRedProfileList();
     setState(() {
@@ -52,6 +60,7 @@ class _ProfiletState extends State<ProfilePage> {
   }
 
   @override
+  ///build for ProfiletState
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
@@ -82,6 +91,7 @@ class _ProfiletState extends State<ProfilePage> {
     );
   }
 
+  /// creates list of profiles, if at least one exists or a message that there are no
   Widget _makeContent(BuildContext context) {
     if (_profiles.length > 0) {
       return ListView.builder(
@@ -96,6 +106,7 @@ class _ProfiletState extends State<ProfilePage> {
     }
   }
 
+  ///returns a widget that indicated that there are no profiles
   Widget _makeNoProfilesWidget(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -117,6 +128,7 @@ class _ProfiletState extends State<ProfilePage> {
     );
   }
 
+  ///creates a card for a given [index]
   Widget _makeCard(BuildContext context, int index) {
     final item = _profiles[index];
     return Dismissible(
@@ -230,6 +242,7 @@ class _ProfiletState extends State<ProfilePage> {
     );
   }
 
+  ///formats a given [date] to the locale date format
   String _dateToString(DateTime date) {
     var formatter =
         new DateFormat(AppTranslations.of(context).text("dateFormat"));
@@ -237,6 +250,7 @@ class _ProfiletState extends State<ProfilePage> {
     return formatted; // something like 2013-04-20
   }
 
+  ///opens profile for a given [id]
   _openProfile(int id) async {
     Profile p = await dbHelper.loadProfile(id);
     ScopedModel.of<AppModel>(context).setProfile(p);
@@ -245,6 +259,7 @@ class _ProfiletState extends State<ProfilePage> {
 
   TextEditingController _textFieldController = TextEditingController();
 
+  ///creates a dialog with which a new profile can be created
   _displayNewProfileNameDialog(BuildContext context) async {  
     // save the return val to check if the dialog was dismissed or not
     String retVal = await showDialog(
@@ -306,6 +321,7 @@ class _ProfiletState extends State<ProfilePage> {
     }
   }
 
+  ///creates a delete button
   Widget _getDeleteIconColumn() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,

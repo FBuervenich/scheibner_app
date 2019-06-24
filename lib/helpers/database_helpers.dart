@@ -17,7 +17,7 @@ final String colMeasDataContent = 'measurementContent';
 final String colSimDataContent = 'simulationContent';
 final String colComment = 'comment';
 
-// singleton class to manage the database
+///singleton class to manage the database
 class DatabaseHelper {
   // This is the actual database filename that is saved in the docs directory.
   static final _databaseName = "MyDatabase.db";
@@ -36,7 +36,7 @@ class DatabaseHelper {
     return _database;
   }
 
-  // open the database
+  ///opens the database
   _initDatabase() async {
     // The path_provider plugin gets the right directory for Android or iOS.
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
@@ -46,7 +46,7 @@ class DatabaseHelper {
         version: _databaseVersion, onCreate: _onCreate);
   }
 
-  // SQL string to create the database
+  ///SQL string to create the database
   Future _onCreate(Database db, int version) async {
     await db.execute('''
               CREATE TABLE $tableProfiles (
@@ -61,8 +61,7 @@ class DatabaseHelper {
               ''');
   }
 
-  // Database helper methods:
-
+  ///creates a profile for a given [name]
   Future<int> createProfile(String name) async {
     Database db = await database;
     int id = await db.insert(tableProfiles, new Profile(name).toMap(),
@@ -70,6 +69,7 @@ class DatabaseHelper {
     return id;
   }
 
+  ///inserts a given profile [p]
   Future<int> insertProfile(Profile p) async {
     Database db = await database;
     int id = await db.insert(tableProfiles, p.toMap(),
@@ -77,6 +77,7 @@ class DatabaseHelper {
     return id;
   }
 
+  ///deletes the profile for a given [id]
   Future<bool> deleteProfile(int id) async {
     Database db = await database;
     int count = await db
@@ -84,12 +85,14 @@ class DatabaseHelper {
     return count > 0;
   }
 
+  ///deletes a profiles
   Future<bool> deleteAllProfiles() async {
     Database db = await database;
     int count = await db.delete(tableProfiles);
     return count > 0;
   }
 
+  ///drops all tables
   Future dropAllTables() async {
     Database db = await database;
     await db.execute('''
@@ -97,6 +100,7 @@ class DatabaseHelper {
     ''');
   }
 
+  ///loads profile for given [id]
   Future<Profile> loadProfile(int id) async {
     Database db = await database;
     List<Map<String, dynamic>> result = await db.query(
@@ -112,6 +116,7 @@ class DatabaseHelper {
     return profile;
   }
 
+  ///updates the colLastChanged of profile for [id]
   Future<bool> updateProfileLastChanged(int id, DateTime date) async {
     Database db = await database;
     int count = await db.update(
@@ -120,6 +125,7 @@ class DatabaseHelper {
     return count > 0;
   }
 
+  ///saves [profile] to database
   Future<bool> saveProfile(Profile profile) async {
     Database db = await database;
     int count = await db.update(tableProfiles, profile.toMap(), where: "$colProfileId = ?", whereArgs: [profile.id]);
@@ -127,6 +133,7 @@ class DatabaseHelper {
     return count > 0;
   }
 
+  ///changes profilename for a given profile with a given [id] to name [name]
   Future<bool> changeProfileName(int id, String name) async {
     Database db = await database;
     int count = await db.update(tableProfiles, {colProfileName: name},
@@ -135,6 +142,7 @@ class DatabaseHelper {
     return count > 0;
   }
 
+  ///changes servedId for a given profile with a given [profileId] to serverId [serverId]
   Future<bool> changeServerId(int profileId, int serverId) async {
     Database db = await database;
     int count = await db.update(tableProfiles, {colServerId: serverId},
@@ -143,6 +151,7 @@ class DatabaseHelper {
     return count > 0;
   }
 
+  ///changes measurement Data for a given profile with a given [id] to Data [meas]
   Future<bool> changeMeasData(int id, Data meas) async {
     Database db = await database;
     String content = meas.toJson();
@@ -152,6 +161,7 @@ class DatabaseHelper {
     return count > 0;
   }
 
+  ///changes simulatiom data for a given profile with a given [id] to Data [sim]
   Future<bool> changeSimData(int id, Data sim) async {
     Database db = await database;
     String content = sim.toJson();
@@ -161,6 +171,7 @@ class DatabaseHelper {
     return count > 0;
   }
 
+  ///returns a reduced profile list
   Future<List<ReducedProfile>> getRedProfileList() async {
     Database db = await database;
     List<Map<String, dynamic>> result = await db.query(
