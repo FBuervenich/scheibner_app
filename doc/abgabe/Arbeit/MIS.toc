@@ -1,11 +1,12 @@
 \boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
-\babel@toc {german}{}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {1}Anforderungen}{1}
+\select@language {german}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {1}Anforderungen (David)}{1}
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {1.1}Optionale Anforderungen}{1}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {2}Funktionalit\IeC {\"a}t}{2}
+\contentsline {chapter}{\numberline {2}Funktionalit\IeC {\"a}t (Kps)}{2}
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {2.1}Profilverwaltung}{2}
 \defcounter {refsection}{0}\relax 
@@ -25,22 +26,34 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {2.5}Kommentar}{2}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {3}Navigation}{3}
+\contentsline {chapter}{\numberline {3}Navigation (David)}{3}
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {3.1}Ablauf einer Simulation}{3}
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {3.2}Wechseln des Profils}{3}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {4}Einstellungen}{4}
+\contentsline {chapter}{\numberline {4}Einstellungen (brv)}{4}
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {4.1}Sprache}{4}
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {4.2}Eingabemethode}{4}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {5}Benutzertests- und Interviews}{5}
+\contentsline {chapter}{\numberline {5}Benutzertests- und Interviews (Flelix)}{5}
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {5.1}Benutzertest- und Interview 1}{5}
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {5.2}Benutzertest- und Interview 2}{5}
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {5.3}Benutzertest- und Interview 3}{5}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {6}Technische Umsetzung (brv)}{6}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {6.1}Speicherung der Profildaten}{6}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {6.2}Speicherung der Einstellungen}{6}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {6.3}Verwaltung des App-States}{6}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {6.4}Daten hinzuf\IeC {\"u}gen}{6}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {6.5}Diagramme}{6}
