@@ -1,6 +1,5 @@
 \boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
-\defcounter {refsection}{0}\relax 
-\select@language {german}
+\babel@toc {german}{}
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {1}Anforderungen (David)}{1}
 \defcounter {refsection}{0}\relax 
@@ -42,18 +41,42 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {5.1}Benutzertest- und Interview 1}{5}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.2}Benutzertest- und Interview 2}{5}
+\contentsline {paragraph}{\nonumberline Wie ist der erste Eindruck?}{5}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.3}Benutzertest- und Interview 3}{5}
+\contentsline {paragraph}{\nonumberline Was ist positiv aufgefallen?}{5}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {6}Technische Umsetzung (brv)}{6}
+\contentsline {paragraph}{\nonumberline Was ist negativ aufgefallen?}{6}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {6.1}Speicherung der Profildaten}{6}
+\contentsline {paragraph}{\nonumberline Ist die App intuitiv bedienbar?}{6}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {6.2}Speicherung der Einstellungen}{6}
+\contentsline {section}{\numberline {5.2}Benutzertest- und Interview 2}{7}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {6.3}Verwaltung des App-States}{6}
+\contentsline {paragraph}{\nonumberline Wie ist der erste Eindruck?}{7}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {6.4}Daten hinzuf\IeC {\"u}gen}{6}
+\contentsline {paragraph}{\nonumberline Was ist positiv aufgefallen?}{7}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {6.5}Diagramme}{6}
+\contentsline {paragraph}{\nonumberline Was ist negativ aufgefallen?}{7}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{\nonumberline Ist die App intuitiv bedienbar?}{7}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5.3}Benutzertest- und Interview 3}{9}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{\nonumberline Wie ist der erste Eindruck?}{9}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{\nonumberline Was ist positiv aufgefallen?}{9}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{\nonumberline Was ist negativ aufgefallen?}{9}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{\nonumberline Ist die App intuitiv bedienbar?}{9}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {6}Technische Umsetzung (brv)}{11}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {6.1}Speicherung der Profildaten}{11}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {6.2}Speicherung der Einstellungen}{11}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {6.3}Verwaltung des App-States}{11}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {6.4}Daten hinzuf\IeC {\"u}gen}{11}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {6.5}Diagramme}{11}
