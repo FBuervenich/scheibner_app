@@ -54,7 +54,7 @@
     "noExistingProfiles": "Keine Profile vorhanden.",
     "chatFactory_newOldBarChart_newValue": "Wert nach der Simulation",
     "chatFactory_newOldBarChart_oldValue": "Wert vor der Simulation",
-    "differenzInPercent": "Veränderung insgesammt ",
+    "differenzInPercent": "Veränderung insgesamt ",
     "chartFactory_createPercentDiffChart": "Veränderung der Simulationswerte",
     "addDescription": "Beschreibung hinzufügen",
     "dateFormat": "dd.MM.yyyy - HH:mm",
