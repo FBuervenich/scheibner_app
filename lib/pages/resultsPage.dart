@@ -24,7 +24,7 @@ class ResultsPage extends StatelessWidget {
           ],
           bottom: new TabBar(
             tabs: [
-              new Tab(icon: Icon(Icons.data_usage)),
+              new Tab(icon: Icon(Icons.format_list_bulleted)),
               new Tab(icon: Icon(Icons.insert_chart)),
               new Tab(icon: Icon(Icons.save)),
             ],

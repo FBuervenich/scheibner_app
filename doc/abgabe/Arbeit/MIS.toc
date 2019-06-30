@@ -1,83 +1,88 @@
 \boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\babel@toc {german}{}
 \defcounter {refsection}{0}\relax 
-\select@language {german}
+\contentsline {chapter}{\numberline {1}Anforderungen (David)}{1}{chapter*.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {1}Anforderungen (David)}{1}{chapter*.1}
+\contentsline {section}{\numberline {1.1}Funktionale Anforderungen}{2}{section*.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {1.1}Optionale Anforderungen}{1}{section*.2}
+\contentsline {section}{\numberline {1.2}Optionale Anforderungen}{2}{section*.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {2}Funktionalit\IeC {\"a}t (Kps)}{2}{section*.2}
+\contentsline {section}{\numberline {1.3}M\IeC {\"o}gliche Erweiterungen}{3}{section*.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.1}Profilverwaltung}{2}{section*.3}
+\contentsline {chapter}{\numberline {2}Navigation (David)}{4}{section*.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.2}Simulationsdaten laden}{2}{section*.3}
+\contentsline {section}{\numberline {2.1}Ablauf einer Simulation}{4}{section*.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.2.1}Laden vom Server}{2}{section*.4}
+\contentsline {section}{\numberline {2.2}``...''-Button zur Navigation}{5}{section*.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.2.2}Laden aus QR-Code}{2}{section*.4}
+\contentsline {section}{\numberline {2.3}Normaler Workflow}{5}{section*.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.3}Daten bearbeiten}{2}{section*.4}
+\contentsline {chapter}{\numberline {3}Funktionalit\IeC {\"a}t (Kps)}{7}{figure.caption.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.4}Simulation}{2}{section*.4}
+\contentsline {section}{\numberline {3.1}Profilverwaltung}{7}{figure.caption.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.4.1}Diagramme}{2}{section*.5}
+\contentsline {section}{\numberline {3.2}Simulationsdaten laden}{7}{figure.caption.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.4.2}Tabelle}{2}{section*.5}
+\contentsline {subsection}{\numberline {3.2.1}Laden vom Server}{7}{figure.caption.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.5}Kommentar}{2}{section*.5}
+\contentsline {subsection}{\numberline {3.2.2}Laden aus QR-Code}{7}{figure.caption.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {3}Navigation (David)}{3}{section*.5}
+\contentsline {section}{\numberline {3.3}Daten bearbeiten}{7}{figure.caption.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.1}Ablauf einer Simulation}{3}{section*.6}
+\contentsline {section}{\numberline {3.4}Simulation}{7}{figure.caption.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.2}Wechseln des Profils}{3}{section*.6}
+\contentsline {subsection}{\numberline {3.4.1}Diagramme}{7}{figure.caption.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {4}Einstellungen (brv)}{4}{section*.6}
+\contentsline {subsection}{\numberline {3.4.2}Tabelle}{7}{figure.caption.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.1}Sprache}{5}{figure.caption.7}
+\contentsline {section}{\numberline {3.5}Kommentar}{7}{figure.caption.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.2}Eingabemethode}{5}{figure.caption.7}
+\contentsline {chapter}{\numberline {4}Einstellungen (brv)}{8}{figure.caption.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {5}Benutzertests- und Interviews (Flelix)}{7}{figure.caption.8}
+\contentsline {section}{\numberline {4.1}Sprache}{9}{figure.caption.4}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.1}Benutzertest- und Interview 1}{7}{section*.9}
+\contentsline {section}{\numberline {4.2}Eingabemethode}{9}{figure.caption.4}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{\nonumberline Wie ist der erste Eindruck?}{7}{section*.10}
+\contentsline {chapter}{\numberline {5}Benutzertests- und Interviews (Flelix)}{11}{figure.caption.5}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{\nonumberline Was ist positiv aufgefallen?}{7}{section*.11}
+\contentsline {section}{\numberline {5.1}Benutzertest- und Interview 1}{11}{figure.caption.5}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{\nonumberline Was ist negativ aufgefallen?}{8}{section*.12}
+\contentsline {paragraph}{\nonumberline Wie ist der erste Eindruck?}{11}{section*.6}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{\nonumberline Ist die App intuitiv bedienbar?}{8}{section*.13}
+\contentsline {paragraph}{\nonumberline Was ist positiv aufgefallen?}{11}{section*.7}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.2}Benutzertest- und Interview 2}{9}{figure.caption.14}
+\contentsline {paragraph}{\nonumberline Was ist negativ aufgefallen?}{12}{section*.8}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{\nonumberline Wie ist der erste Eindruck?}{9}{section*.15}
+\contentsline {paragraph}{\nonumberline Ist die App intuitiv bedienbar?}{12}{section*.9}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{\nonumberline Was ist positiv aufgefallen?}{9}{section*.16}
+\contentsline {section}{\numberline {5.2}Benutzertest- und Interview 2}{13}{figure.caption.10}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{\nonumberline Was ist negativ aufgefallen?}{9}{section*.17}
+\contentsline {paragraph}{\nonumberline Wie ist der erste Eindruck?}{13}{section*.11}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{\nonumberline Ist die App intuitiv bedienbar?}{9}{section*.18}
+\contentsline {paragraph}{\nonumberline Was ist positiv aufgefallen?}{13}{section*.12}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.3}Benutzertest- und Interview 3}{11}{figure.caption.19}
+\contentsline {paragraph}{\nonumberline Was ist negativ aufgefallen?}{13}{section*.13}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{\nonumberline Wie ist der erste Eindruck?}{11}{section*.20}
+\contentsline {paragraph}{\nonumberline Ist die App intuitiv bedienbar?}{13}{section*.14}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{\nonumberline Was ist positiv aufgefallen?}{11}{section*.21}
+\contentsline {section}{\numberline {5.3}Benutzertest- und Interview 3}{15}{figure.caption.15}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{\nonumberline Was ist negativ aufgefallen?}{11}{section*.22}
+\contentsline {paragraph}{\nonumberline Wie ist der erste Eindruck?}{15}{section*.16}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{\nonumberline Ist die App intuitiv bedienbar?}{11}{section*.23}
+\contentsline {paragraph}{\nonumberline Was ist positiv aufgefallen?}{15}{section*.17}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {6}Technische Umsetzung (brv)}{13}{figure.caption.24}
+\contentsline {paragraph}{\nonumberline Was ist negativ aufgefallen?}{15}{section*.18}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {6.1}Speicherung der Profildaten}{13}{section*.25}
+\contentsline {paragraph}{\nonumberline Ist die App intuitiv bedienbar?}{15}{section*.19}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {6.2}Speicherung der Einstellungen}{15}{figure.caption.27}
+\contentsline {chapter}{\numberline {6}Technische Umsetzung (brv)}{17}{figure.caption.20}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {6.3}Verwaltung des App-States}{15}{figure.caption.27}
+\contentsline {section}{\numberline {6.1}Speicherung der Profildaten}{17}{figure.caption.20}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {6.4}Daten hinzuf\IeC {\"u}gen}{15}{figure.caption.27}
+\contentsline {section}{\numberline {6.2}Speicherung der Einstellungen}{19}{figure.caption.22}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {6.5}Diagramme}{16}{figure.caption.27}
+\contentsline {section}{\numberline {6.3}Verwaltung des App-States}{19}{figure.caption.22}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {6.4}Daten hinzuf\IeC {\"u}gen}{19}{figure.caption.22}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {6.5}Diagramme}{20}{figure.caption.22}% 

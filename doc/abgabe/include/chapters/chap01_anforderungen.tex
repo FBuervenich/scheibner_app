@@ -1,9 +1,40 @@
 \chapter{Anforderungen (David)}
 \label{chap:anf}
+	
+	Die Firma Scheibner m-tec GmbH vertreibt das Rahmenmesssystem mega-m.a.x. zur Diagnose von Motorrädern. Dieses System wird beispielsweise nach Unfällen eingesetzt, um die Maßhaltigkeit eines Fahrzeugs zu überprüfen. Dazu werden bestimmte Messungen am betreffenden Motorrad durchgeführt. Anschließend werden die Ergebnisse mit den entsprechenden Herstellervorgaben abgeglichen.
+	
+	Als Ergänzung zum mega-m.a.x.-System bietet Scheibner m-tec GmbH das Chassis-Maximizing-System (CMS) an. Dieses ermittelt in Kombination mit mega-m.a.x. zusätzliche Daten zum Motorrad. Darüber hinaus ist in CMS ein Simulationsprogramm enthalten, mithilfe dessen die Auswirkungen verschiedener Änderungen am Motorrad im Vorhinein berechnet werden können. Auf diese Weise können Kunden ohne großen Aufwand unterschiedliche Parametrierungen simulieren und die optimalen Einstellungen für ihre Fahrzeuge und ihre individuellen Anforderungen ermitteln.
+	
+	Bisher ist CMS für Laptops und Desktop-Computer verfügbar und wird in erster Linie von Werkstätten und Vermessungsservices genutzt. Diese stellen die Mess- und Simulationsergebnisse den Eigentümern der Fahrzeuge zur Verfügung. Ohne Hilfe mit dem jeweiligen Betrieb kann der Eigentümer eines Motorrades daher bisher keine eigenen Simulationen durchführen.
+	
+	Um auch den Fahrzeugeigentümern die Möglichkeit zu bieten, verschiedene Änderungen am Motorrad zu simulieren und so ein besseres Verständnis für den Optimierungsvorgang zu erlangen, soll eine App für mobile Endgeräte entwickelt werden. Diese soll die mit mega-m.a.x. gemessenen Daten abrufen und anzeigen können. Anschließend sollen, wie in der Simulationssoftware des CMS, Änderungen an einigen Einstellungen simuliert werden können. Durchgeführte Simulationen sollen dabei für eine weitere Bearbeitung gespeichert werden können.\\
 
+
+	\todo{...}
 	- Mehrere Profile
 	- Eine Simulation pro Profil (wurde auch nur eine umgesetzt)
-	- 
 
+	\section{Funktionale Anforderungen}
+	\label{sec:funktionale-anf}
+	
+	Die Hauptfunktion der zu entwickelnden App besteht darin, die Simulationssoftware des CMS für Änderungen an einem Motorrad auch auf mobilen Endgeräten zur Verfügung zu stellen. Daher müssen in erster Linie die für die Simulation notwendigen Berechnungen implementiert werden. Da die App die benötigten Messdaten nicht direkt vom mega-m.a.x.-System erhalten kann, müssen diese stattdessen von einem Server der Scheibner m-tec GmbH heruntergeladen werden. Zur Identifikation des korrekten Datensatzes muss eine Messungs-ID eingegeben werden. Um die Simulation durchführen zu können, muss die App eine Eingabemaske enthalten, über die die fünf parametrierbaren Werte eingestellt werden können. Im Anschluss an eine Simulation müssen die Ergebnisse in einer Tabelle angezeigt und den gemessenen Werten gegenübergestellt werden. Die berechneten Werte müssen gespeichert und zu einem späteren Zeitpunkt wieder abgerufen werden können. Dabei muss die App die Möglichkeit bieten, eine Simulation mit erklärenden Notizen zu versehen.
+	
+	Da die App insbesondere auch für Eigentümer ohne viel Hintergrundwissen oder Erfahrung mit CMS gedacht ist, muss die Oberfläche der App intuitiv bedienbar und so weit wie möglich selbsterklärend sein. Da die meiste Zeit mit dem Parametrieren von Einstellungen und der anschließenden Betrachtung der Simulationsergebnisse verbracht werden wird, muss dieser Teil der App besonders leicht und schnell bedienbar sein.
+	
+	Zusätzlich zu diesen Anforderungen müssen für die App ein Icon und ein Launch Screen erstellt werden.
+	
 	\section{Optionale Anforderungen}
 	\label{sec:optionale-anf}
+	
+	Neben den oben beschriebenen funktionalen Anforderungen sind einige Ergänzungen erstrebenswert, die die App leichter bedienbar oder optisch ansprechender machen, um so insgesamt das Nutzungserlebnis zu verbessern. Für eine fehlerfreie Funktion der App sind diese Erweiterungen nicht notwendig.
+	
+	Neben dem Download der Messdaten vom Scheibner-Server stellt das Auslesen aus einem Barcode oder einem QR-Code eine weitere Möglichkeit dar. Ein solcher Code könnte von anderen Anwendungen erzeugt und dann genutzt werden, um mit der App schnell und einfach Messdaten einzulesen.
+	Die Veränderung der Simulationsparameter erfolgt standardmäßig wie im CMS über die direkte Eingabe der gewünschten Werte mittels eingeblendeter numerischer Tastatur. Alternativ stellt eine graphische Eingabevariante, beispielsweise in Form von Slidern, eine angenehmere und benutzerfreundlichere Form der Werteeingabe dar.
+	Die Simulationsergebnisse sollen zunächst in einer einfachen Tabelle dargestellt werden. Ergänzend können Grafiken generiert werden, die die wichtigsten Veränderungen deutlicher und übersichtlicher anzeigen.
+
+	\section{Mögliche Erweiterungen}
+	\label{sec:moegliche-erw}
+	
+	Einige Anforderungen müssen zunächst nicht erfüllt werden, sind aber eventuell für eine zukünftige Weiterentwicklung der App vorgesehen. Einige dieser Features können auch deshalb noch nicht implementiert werden, weil die nötige Serverinfrastruktur noch nicht eingerichtet ist.
+	Dazu gehört zum Beispiel der direkte Zugriff auf die Datenbank von Scheibner, die zu vielen Fahrzeugmodellen die entsprechenden Herstellervorgaben liefert. Um nur authentifizierten Benutzern den Zugriff zu erlauben, wäre dann auch eine Überprüfung der Zugriffsberechtigungen notwendig.
+	Außerdem könnte in Zukunft ein Server eingerichtet werden, auf den die Simulationsergebnisse aus der App hochgeladen werden können.
