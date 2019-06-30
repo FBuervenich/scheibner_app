@@ -55,7 +55,7 @@
     "chartFactory_createPercentDiffChart": "Change of simulation values",
     "chatFactory_newOldBarChart_newValue": "Value after simulation",
     "chatFactory_newOldBarChart_oldValue": "Value before simulation",
-    "differenzInPercent": "Differenz in percent",
+    "differenzInPercent": "Total difference",
     "addDescription": "Add a description",
     "dateFormat": "MM-dd-yyyy - HH:mm",
     "old": "before",

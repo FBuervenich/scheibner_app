@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:ScheibnerSim/data/appmodel.dart';
 import 'package:ScheibnerSim/pages/preferencesPage.dart';
@@ -42,10 +43,10 @@ class ScheibnerAppState extends State<ScheibnerApp> {
   AppTranslationsDelegate _newLocaleDelegate;
 
   @override
+
   /// init state of ScheibnerAppState
   void initState() {
     super.initState();
-
     String localeFromPrefs = PrefService.getString("language");
 
     _newLocaleDelegate = AppTranslationsDelegate(
@@ -56,8 +57,12 @@ class ScheibnerAppState extends State<ScheibnerApp> {
   }
 
   @override
+
   ///build of ScheibnerAppState
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+        
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: new ThemeData(
