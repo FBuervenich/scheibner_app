@@ -62,5 +62,8 @@
     "dateFormat": "MM-dd-yyyy - HH:mm",
     "old": "before",
     "new": "after",
-    "cancelServerRequest": "Cancel server request"
+    "cancelServerRequest": "Cancel server request",
+    "changeProfileNameHeader": "Change profile",
+    "changeProfileName": "Enter new profile name",
+    "changeName": "Change name"
 }
