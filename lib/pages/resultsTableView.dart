@@ -25,22 +25,39 @@ class TableView extends StatelessWidget {
   ListView _createListView(BuildContext context, AppModel model) {
     List<Widget> list = <Widget>[];
     if (model.getSimulationData() != null) {
-      list = List.generate(Data.showable.length,
-          (int i) => _createSimValueList(context, model, (i + 5) % Data.showable.length));
+      list = List.generate(
+          Data.showable.length,
+          (int i) => _createSimValueList(
+              context, model, (i + 5) % Data.showable.length));
       // add containers as dividers to group values
       list.insert(5, new Container(height: 30));
       list.insert(10, new Container(height: 30));
       list.insert(
         11,
-        new Card(
-          color: cardBackgroundColor,
-          child: new Container(
-            height: 40,
-            child: new Center(
-              child: new Text(
-                AppTranslations.of(context).text("adjustedValues"),
-                style: titleTextStyle,
-              ),
+        // new Card(
+        //   color: cardBackgroundColor,
+        //   child:
+        new Container(
+          height: 40,
+          child: new Padding(
+            padding: EdgeInsets.only(left: 5, top: 10),
+            child: new Text(
+              AppTranslations.of(context).text("adjustedValues"),
+              style: titleTextStyle,
+            ),
+          ),
+        ),
+        // ),
+      );
+      list.insert(
+        0,
+        new Container(
+          height: 40,
+          child: new Padding(
+            padding: EdgeInsets.only(left: 5, top: 10),
+            child: new Text(
+              AppTranslations.of(context).text("simuValues"),
+              style: titleTextStyle,
             ),
           ),
         ),

@@ -58,6 +58,9 @@
 	
 	\section{Diagramme}
 	\label{sec:charts}
+	Um die Diagramme in der App anzeigen zu können wurde die Bibliothek \textit{charts\_flutter} (\url{https://github.com/google/charts/tree/master/charts_flutter}) benutzt. Diese ermöglicht es Diagramme darzustellen. Bei der Umsetzung der App wurden einige dieser Diagramme ausgewählt und in den einzelnen Diagrammdarstellung genutzt. Dabei wurden Achsen und Beschriftungen, wie in der Bibliothek beschrieben, individualisiert. Diese Diagrammdarstellungen können als Bausteine für die Diagrammseite gesehen werden, da jede Darstellung über eine Methode eine \textit{Row} zugibt, die den jeweiligen Baustein für die Diagrammseite darstellt. Dabei erben alle diese Diagrammdarstellungen von der Klasse \textit{ChartFactory}. Die \textit{ChartFactory} stellt Methoden bereit, um einheitliche Abstände und Überschriften zu gewährleisten.
 	
-	- Library
-	- KPS: Erklären, was da wichtig ist
+	Es wurden zwei Diagrammdarstellungen programmiert. Das \textit{simOverviewChart} und das \textit{singleMeasChangeChart}. Das \textit{simOverviewChart} gibt eine Übersicht über die prozentuellen Veränderungen der Kennzahlen an. Dabei werden die Kennzahlen mit der betragsmäßig größten prozentuellen Veränderung genommen und angezeigt.
+	Das \textit{singleMeasChangeChart} hingegen zeigt nur die Veränderung einer Kennzahl an. Dabei werden die absoluten Werte vor und nach der Simulation, sowohl als Zahl als auch als Säulendiagramm dargestellt.
+	
+	Um alle Diagrammdarstellungen zu ordnen, existiert die Klasse \textit{ChartInitializer}. Diese nutzt die einzelnen Diagrammdarstellungen, um daraus die Diagrammseite bauen zu können. Damit alle Diagramme auch auf Smartphones verschiedener Displaygrößen laufen kann, wird ein \textit{LayoutBuilder} verwendet. 

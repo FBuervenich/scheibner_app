@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 
 /// default font style
 final TextStyle defaultTextStyle = TextStyle(
-  fontSize: 20,
+  fontSize: 18,
   color: Colors.white,
 );
 
 final TextStyle titleTextStyle = TextStyle(
-  fontSize: 22,
-  color: highlightColor,
+  fontSize: 20,
+  color: Colors.white,
+  fontWeight: FontWeight.bold
 );
 
 /// green font style

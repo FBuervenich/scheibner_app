@@ -64,5 +64,6 @@
     "changeProfileNameHeader": "Profil ändern",
     "changeProfileName": "Neuen Profilnamen eingeben",
     "changeName": "Namen ändern",
-    "adjustedValues": "Eingestellte Werte"
+    "adjustedValues": "Eingestellte Werte:",
+    "simuValues": "Simulierte Werte:"
 }
