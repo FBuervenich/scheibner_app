@@ -46,20 +46,22 @@ class ChartInitializer {
         sim.getValue(key),
         color: defaultColors[i],
         localization: AppTranslations.of(context).text(key),
+        unit: valInfo.unit
+
       );
       i++;
     });
   }
 
-  ///gets ther max diffs
+  ///gets the max diffs
   List<MeasChartValue> _getMaxDiffs(double count) {
     List<MeasChartValue> ret = values.values.toList();
     //Nach groeße Sortieren
     ret.sort((m1, m2) {
-      if (m1.getPercentageDiff().abs() < m2.getPercentageDiff().abs()) {
+      if (m1.getDiff().abs() < m2.getDiff().abs()) {
         return 1;
       }
-      if (m1.getPercentageDiff().abs() > m2.getPercentageDiff().abs()) {
+      if (m1.getDiff().abs() > m2.getDiff().abs()) {
         return -1;
       }
       return 0;
@@ -94,9 +96,9 @@ class ChartInitializer {
       ret.add(
         (constraints, ctx) => SingleMeasChangeChart(constraints, ctx).getView(
               maxDiff[i],
-              oldcolor: backgroundColor,
+              oldcolor: Colors.grey,
               // defaultColors[i], kennzahl.color
-              newcolor: highlightColor,
+              newcolor: maxDiff[i].getDiff()>0? Colors.lightGreen: highlightColor,
             ),
       );
     }
@@ -111,13 +113,14 @@ class MeasChartValue {
   String key;
   String localization;
   String shortcut;
+  String unit;
   Color color;
   double measValue;
   double simValue;
 
   ///constructor for MeasChartValue
   MeasChartValue(this.key, this.measValue, this.simValue,
-      {this.color: Colors.blue, this.shortcut, @required this.localization}) {
+      {this.color: Colors.blue, this.shortcut, @required this.localization, @required this.unit}) {
     if (this.measValue == null) {
       this.measValue = 0;
     }

@@ -44,6 +44,7 @@ class _ProfiletState extends State<ProfilePage> {
   final dbHelper = DatabaseHelper.instance;
 
   @override
+
   ///init state for ProfiletState
   initState() {
     _profiles = new List<ReducedProfile>();
@@ -60,6 +61,7 @@ class _ProfiletState extends State<ProfilePage> {
   }
 
   @override
+
   ///build for ProfiletState
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -182,6 +184,9 @@ class _ProfiletState extends State<ProfilePage> {
         ),
       ),
       child: new GestureDetector(
+        onLongPress: () {
+          this._displayChangeProfileNameDialog(context, index);
+        },
         // stack to put an inkwell above
         child: new Stack(
           children: <Widget>[
@@ -258,9 +263,59 @@ class _ProfiletState extends State<ProfilePage> {
   }
 
   TextEditingController _textFieldController = TextEditingController();
+  TextEditingController _textFieldProfileChangeController = TextEditingController();
+
+  ///creates a dialog with which the name of a existing profile can be changed
+  _displayChangeProfileNameDialog(BuildContext context, int index) async {
+    final item = _profiles[index];
+    _textFieldProfileChangeController.text = item.name;
+    String retVal = await showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(AppTranslations.of(context).text("changeProfileNameHeader")),
+            content: TextField(
+              controller: _textFieldProfileChangeController,
+              autofocus: true,
+              decoration: InputDecoration(
+                  labelText:
+                      AppTranslations.of(context).text("changeProfileName"),
+                  hintText: AppTranslations.of(context).text("profileName")),
+            ),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text(AppTranslations.of(context).text("cancel")),
+                onPressed: () {
+                  _textFieldProfileChangeController.text = "";
+                  Navigator.of(context).pop("cancel");
+                },
+              ),
+              new RaisedButton(
+                child:
+                    new Text(AppTranslations.of(context).text("changeName")),
+                onPressed: () {
+                  var projectName = _textFieldProfileChangeController.text;
+
+                  if (projectName.length > 0) {
+                    Navigator.of(context).pop("success");
+                  } else {
+                    return;
+                  }
+                },
+                color: Theme.of(context).accentColor,
+                textColor: Colors.white,
+              )
+            ],
+          );
+        });
+    if (retVal == "success") {
+      await dbHelper.changeProfileName(item.profileID, _textFieldProfileChangeController.text);
+      _reloadProfiles();
+    }
+  }
 
   ///creates a dialog with which a new profile can be created
-  _displayNewProfileNameDialog(BuildContext context) async {  
+  _displayNewProfileNameDialog(BuildContext context) async {
     // save the return val to check if the dialog was dismissed or not
     String retVal = await showDialog(
         context: context,

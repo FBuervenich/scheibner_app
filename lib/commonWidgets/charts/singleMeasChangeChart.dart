@@ -41,7 +41,7 @@ class SingleMeasChangeChart extends ChartFactory {
     return getRow(
       constraints,
       ctx,
-      heading: getHeading(kennzahl.localization),
+      heading: getHeading(kennzahl.localization +" ["+kennzahl.unit+"]"),
       widgets: [
         new Row(
           // mainAxisAlignment: MainAxisAlignment.center,
@@ -67,12 +67,14 @@ class SingleMeasChangeChart extends ChartFactory {
         ),
         _getNewOldChartValueWidget(
           ctx,
-          data[1].sales.toStringAsFixed(2),
+          data[1].sales.toStringAsFixed(2) == "-0.00"
+              ? "0.00"
+              : data[1].sales.toStringAsFixed(2),
           true,
         ),
         _getNewOldChartPercentValueWidget(
           ctx,
-          kennzahl.getPercentageDiff(),
+          kennzahl.getDiff(),
         )
       ],
     );
@@ -90,7 +92,7 @@ class SingleMeasChangeChart extends ChartFactory {
             Align(
               alignment: Alignment.center,
               child: new Text(
-                percentage.toStringAsFixed(2) + "%",
+                percentage.toStringAsFixed(2),
                 textAlign: TextAlign.center,
                 style: new TextStyle(
                   fontSize: 16,
