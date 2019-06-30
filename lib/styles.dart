@@ -6,6 +6,11 @@ final TextStyle defaultTextStyle = TextStyle(
   color: Colors.white,
 );
 
+final TextStyle titleTextStyle = TextStyle(
+  fontSize: 22,
+  color: highlightColor,
+);
+
 /// green font style
 final TextStyle greenTextStyle = TextStyle(
   fontSize: 20,

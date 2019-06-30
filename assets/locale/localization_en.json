@@ -63,5 +63,6 @@
     "cancelServerRequest": "Cancel server request",
     "changeProfileNameHeader": "Change profile",
     "changeProfileName": "Enter new profile name",
-    "changeName": "Change name"
+    "changeName": "Change name",
+    "adjustedValues": "Adjusted values"
 }

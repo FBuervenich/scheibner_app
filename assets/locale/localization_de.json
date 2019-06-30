@@ -63,5 +63,6 @@
     "cancelServerRequest": "Serverabfrage abbrechen",
     "changeProfileNameHeader": "Profil ändern",
     "changeProfileName": "Neuen Profilnamen eingeben",
-    "changeName": "Namen ändern"
+    "changeName": "Namen ändern",
+    "adjustedValues": "Eingestellte Werte"
 }

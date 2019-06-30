@@ -10,6 +10,7 @@ import 'package:scoped_model/scoped_model.dart';
 ///class TableView
 class TableView extends StatelessWidget {
   @override
+
   ///build for TableView
   Widget build(BuildContext context) {
     return new Padding(
@@ -25,10 +26,25 @@ class TableView extends StatelessWidget {
     List<Widget> list = <Widget>[];
     if (model.getSimulationData() != null) {
       list = List.generate(Data.showable.length,
-          (int i) => _createSimValueList(context, model, i));
+          (int i) => _createSimValueList(context, model, (i + 5) % Data.showable.length));
       // add containers as dividers to group values
       list.insert(5, new Container(height: 30));
-      list.insert(11, new Container(height: 30));
+      list.insert(10, new Container(height: 30));
+      list.insert(
+        11,
+        new Card(
+          color: cardBackgroundColor,
+          child: new Container(
+            height: 40,
+            child: new Center(
+              child: new Text(
+                AppTranslations.of(context).text("adjustedValues"),
+                style: titleTextStyle,
+              ),
+            ),
+          ),
+        ),
+      );
     }
     return new ListView(
       children: list,
