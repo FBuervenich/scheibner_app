@@ -4,7 +4,7 @@
 	\section{Speicherung der Profildaten}
 	\label{sec:speicherungProfildaten}
 	
-	Profildaten, die der Nutzer in der App eingibt, werden persistent gespeichert. Die Daten werden mit dem Flutter Plugin SQLFlite (\hyperlink{https://pub.dev/packages/sqflite}{https://pub.dev/packages/sqflite}) gespeichert. Das Plugin speichert Daten in einer SQLite Datenbank.
+	Profildaten, die der Nutzer in der App eingibt, werden persistent gespeichert. Die Daten werden mit dem Flutter Plugin SQLFlite (\url{https://pub.dev/packages/sqflite}) gespeichert. Das Plugin speichert Daten in einer SQLite Datenbank.
 	\\
 	Profildaten werden bei jeder Änderung automatisch gespeichert. Hierzu gehört nicht nur das Laden neuer Daten, sondern auch das Verändern von Eingabevariablen und dem Kommentarfeld.
 	\\
@@ -37,38 +37,27 @@
 	\section{Speicherung der Einstellungen}
 	\label{sec:speicherungEinstellungen}
 	
-	Die Daten zur Einstellung der App bestehen aus Präferenzen zur Sprache und zur Eingabemethode. Diese werden mithilfe des \textit{Shared preferences} Plugins (\hyperlink{https://pub.dev/packages/sqflite}{https://pub.dev/packages/sqflite}) persistent gespeichert. Da diese Daten nur sehr wenig Speicherplatz benötigen und eine Speicherung mithilfe von Shared preferences sehr einfach ist, wurde hierfür diese Technik gewählt.
-	                                                                                                                                                              \hyperlink{https://pub.dev/packages/sqflite}{https://pub.dev/packages/sqflite}
+	Die Daten zur Einstellung der App bestehen aus Präferenzen zur Sprache und zur Eingabemethode. Diese werden mithilfe des \textit{Shared preferences} Plugins (\url{https://flutter.dev/docs/cookbook/persistence/key-value}) persistent gespeichert. Da diese Daten nur sehr wenig Speicherplatz benötigen und eine Speicherung mithilfe von Shared preferences sehr einfach ist, wurde hierfür diese Technik gewählt.
+	
 	\section{Verwaltung des App-States}
 	\label{sec:verwaltungAppState}
 	
-	- ScopedModel
+	Um den aktuellen Zustand der App über mehrere Ansichten verteilt nutzen zu können, wurde das \textit{scoped\_model} (\url{https://github.com/brianegan/scoped_model}) genutzt. Dieses ermöglicht es, ein aktuelles Modell des Zustandes an seine Kinderelemente weiterzugeben. Außerdem kann mit der statischen Methode \textbf{ScopedModel.of} das aktuelle Modell gefunden werden.
+	\\
+	Der Zustand, der in der App verwaltet werden muss, ist das aktuell ausgewählte Profil. In der Profilverwaltung werden lediglich Daten in der SQLite Datenbank verändert, dies verändert also noch nicht den Zustand der App. Sobald ein Nutzer ein Profil als aktuelles Profil auswählt, werden die Daten des entsprechenden Profils aus der Datenbank geholt und in den App-State geladen. Dadurch ist dann das aktuelle Profil auf jeder weiteren Ansicht verfügbar und kann genutzt werden. Weitere Daten sind für den Zustand der App im App-State nicht nötig.
 	
 	\section{Daten hinzufügen}
-	\label{}
+	\label{sec:addData}
 	
-	- QR: Library
-	- Vom Server: HTTP-Request (Domain, an die der Request geht)
-	- 
+	Um einem Profil neue Messdaten hinzuzufügen, können zwei Methoden genutzt werden:
 	
+	\begin{enumerate}
+		\item \textbf{Scannen eines QR-Codes:} Der Nutzer scannt einen QR-Code ein, in dem jegliche Messdaten in Form eines JSON-Objektes encodiert sind. Zum Scannen und verarbeiten des QR-Codes wurde die Bibliothek \textit{barcode\_scan} (\url{https://pub.dev/packages/barcode_scan}) verwendet.
+		\item \textbf{Laden der Daten vom Server:} Die Daten der Messung können des weiteren von einem Server geladen werden. Hierzu wird ein HTTP-Get-Request an den entsprechenden Server geschickt, der ebenfalls ein JSON-Objekt mit den Messdaten zurückgibt.
+	\end{enumerate}	
 	
 	\section{Diagramme}
-	\label{}
+	\label{sec:charts}
 	
 	- Library
 	- KPS: Erklären, was da wichtig ist
-	
-	\section{}
-	\label{}
-	
-	\section{}
-	\label{}
-	
-	\section{}
-	\label{}
-	
-	\section{}
-	\label{}
-	
-	\section{}
-	\label{}

@@ -80,4 +80,4 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {6.4}Daten hinzuf\IeC {\"u}gen}{15}{figure.caption.27}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {6.5}Diagramme}{15}{figure.caption.27}
+\contentsline {section}{\numberline {6.5}Diagramme}{16}{figure.caption.27}
