@@ -3,15 +3,28 @@
 
 Die Hauptfunktionalität der Scheibner-App besteht darin, anhand vorhandener Messdaten die Auswirkungen von weiteren Änderungen am Fahrzeug zu simulieren. Um diese Funktionalität einfach und übersichtlich zur Verfügung zu stellen, besteht die App im wesentlichen aus vier Seiten. Die erste davon ist die Profilseite. Hier können Profile angelegt und gelöscht werden. Durch Auswahl eines existierenden Profils gelant der Nutzer auf die zweite Seite. Dort werden, falls verfügbar die aktuellen Messdaten des Fahrzeugs angezeigt. Auf dieser Seite können auch neue Messdaten geladen werden, vom Scheibner-Server oder per QR-Code.
 Über einen weiteren Button wird die Simulationsseite geöffnet. Dort können für fünf der Messwerte Änderungen simuliert werden. Wenn die gewünschten Werte eingestellt wurden, kann die Simulation über einen Button ausgeführt werden. Daraufhin wird die letzte Seite geöffnet, die die Ergebnisse der Simulation zeigt. Diese Seite besteht aus drei separaten Tabseiten. Auf der ersten werden die simulierten Werte tabellarisch angezeigt und den gemessenen Werten gegenübergestellt. Auf der zweiten Tabseite werden die Simulationsergebnisse graphisch dargestellt, und auf der letzten Seite können ergänzende Notizen zur Simulation gespeichert werden.
-Um ein leichtes und schnelles Navigieren zu ermöglichen, gibt es auf jeder Seite (außer der Profilseite) einen "Zurück"-Button, um zur vorherigen Seite zurückzukehren. Auf der Ergebnisseite wurden mehrere Tabseiten verwendet, um schnell zwischen der tabellarischen und der graphischen Ergebnisdarstellung hin und her wechseln zu können.
+Um ein leichtes und schnelles Navigieren zu ermöglichen, gibt es auf jeder Seite (außer der Profilseite) einen ``Zurück''-Button, um zur vorherigen Seite zurückzukehren. Auf der Ergebnisseite wurden mehrere Tabseiten verwendet, um schnell zwischen der tabellarischen und der graphischen Ergebnisdarstellung hin und her wechseln zu können.
 
 	\section{Ablauf einer Simulation}
 	\label{sec:sim-ablauf}
     Die meiste Zeit werden Anwender voraussichtlich damit verbringen, Werte zur Simulation einzugeben und sich das entsprechende Simulationsergebnis anzuschauen. Daher wurde darauf Wert gelegt, dass diese Arbeitsschritte möglichst einfach erledigt werden können.
     Daher können die Simulationsseite und die Ergebnisseite von der jeweils anderen aus direkt über einen Button erreicht werden.
 	
-	\section{"..."-Button zur Navigation}
+	\section{``...''-Button zur Navigation}
 	\label{sec:change-prof}
-    Um auch einige weniger häufig besuchte Seiten schnell erreichen zu können, wurde in der AppBar ein "..."-Button eingefügt, ein Popup mit weiteren Buttons öffnet. Über die Buttons in diesem Popup können verschiedene Seiten direkt geöffnet.
+    Um auch einige weniger häufig besuchte Seiten schnell erreichen zu können, wurde in der AppBar ein ``...''-Button eingefügt, der ein PopUp mit weiteren Buttons öffnet. Über die Buttons in diesem PopUp können die Profilseite und die Einstellungsseite direkt geöffnet werden.
+    
     Ein Profil repräsentiert in dieser App ein Fahrzeug. Daher ist nicht zu erwarten, dass während einer Benutzung häufig zwischen verschiedenen Profilen gewechselt wird.
-    Die Einstellungsseite ermöglicht das Wechseln der Sprache oder der Eingabemethode auf der Simulationsseite. Wie bei der Profilseite ist auch hier nicht zu erwarten, dass häufig zwischen dieser und anderen Seiten hin und her gewechselt wird. Um beide Seiten dennoch leicht verfügbar zu machen und ihren Bezug zur gesamten App zu verdeutlichen, können diese Seiten über das Popup des "..."-Button auf jeder Seite geöffnet werden.
+    Die Einstellungsseite ermöglicht das Wechseln der Sprache oder der Eingabemethode auf der Simulationsseite. Wie bei der Profilseite ist auch hier nicht zu erwarten, dass häufig zwischen dieser und anderen Seiten hin und her gewechselt wird. Über den ``...''-Button können diese beiden Seiten von jeder anderen Seite aus dennoch leicht und schnell erreicht werden, ohne in der AppBar zuviel Platz einzunehmen.
+    
+    \section{Normaler Workflow}
+    \label{sec:workflow}
+    
+    Der typische Workflow eines Anwenders dieser App besteht aus dem Auswählen eines Profils, gegebenenfalls dem Laden neuer Daten und dem --- unter Umständen wiederholten --- Simulieren von Änderungen am Fahrzeug. Der genaue Ablauf wurde in einem Aktivitätsdiagramm dargestellt (\cref{img:workflow}).
+    
+    	\begin{figure}[H]
+    	\centering
+   		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{../include/images/workflow/workflow}
+    	\label{img:workflow}
+    	\caption{Typischer Workflow eines Anwenders}
+    \end{figure}
