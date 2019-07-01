@@ -1,0 +1,43 @@
+\BOOKMARK [0][-]{chapter*.1}{Anforderungen \(David\)}{}% 1
+\BOOKMARK [1][-]{section*.2}{Funktionale Anforderungen}{chapter*.1}% 2
+\BOOKMARK [1][-]{section*.2}{Optionale Anforderungen}{chapter*.1}% 3
+\BOOKMARK [1][-]{section*.2}{M\366gliche Erweiterungen}{chapter*.1}% 4
+\BOOKMARK [0][-]{section*.2}{Navigation \(David\)}{}% 5
+\BOOKMARK [1][-]{section*.3}{Ablauf einer Simulation}{section*.2}% 6
+\BOOKMARK [1][-]{section*.3}{``...''-Button zur Navigation}{section*.2}% 7
+\BOOKMARK [1][-]{section*.3}{Normaler Workflow}{section*.2}% 8
+\BOOKMARK [0][-]{figure.caption.4}{Funktionalit\344t \(Kps\)}{}% 9
+\BOOKMARK [1][-]{section*.5}{Profilverwaltung}{figure.caption.4}% 10
+\BOOKMARK [1][-]{figure.caption.6}{Simulationsdaten laden}{figure.caption.4}% 11
+\BOOKMARK [2][-]{figure.caption.7}{Laden vom Server}{figure.caption.6}% 12
+\BOOKMARK [2][-]{figure.caption.8}{Laden aus QR-Code}{figure.caption.6}% 13
+\BOOKMARK [1][-]{figure.caption.8}{Daten bearbeiten}{figure.caption.4}% 14
+\BOOKMARK [1][-]{figure.caption.9}{Simulation}{figure.caption.4}% 15
+\BOOKMARK [2][-]{section*.10}{Diagramme}{figure.caption.9}% 16
+\BOOKMARK [2][-]{figure.caption.11}{Tabelle}{figure.caption.9}% 17
+\BOOKMARK [2][-]{figure.caption.12}{Kommentar}{figure.caption.9}% 18
+\BOOKMARK [0][-]{figure.caption.13}{Einstellungen}{}% 19
+\BOOKMARK [1][-]{figure.caption.14}{Sprache}{figure.caption.13}% 20
+\BOOKMARK [1][-]{figure.caption.14}{Eingabemethode}{figure.caption.13}% 21
+\BOOKMARK [0][-]{figure.caption.15}{Benutzertests- und Interviews \(Flelix\)}{}% 22
+\BOOKMARK [1][-]{section*.16}{Benutzertest- und Interview 1}{figure.caption.15}% 23
+\BOOKMARK [2][-]{section*.16}{Wie ist der erste Eindruck?}{figure.caption.15}% 24
+\BOOKMARK [3][-]{section*.17}{Was ist positiv aufgefallen?}{section*.16}% 25
+\BOOKMARK [4][-]{section*.17}{Was ist negativ aufgefallen?}{section*.16}% 26
+\BOOKMARK [4][-]{section*.17}{Ist die App intuitiv bedienbar?}{section*.16}% 27
+\BOOKMARK [1][-]{figure.caption.18}{Benutzertest- und Interview 2}{figure.caption.15}% 28
+\BOOKMARK [2][-]{section*.19}{Wie ist der erste Eindruck?}{figure.caption.18}% 29
+\BOOKMARK [3][-]{section*.19}{Was ist positiv aufgefallen?}{figure.caption.18}% 30
+\BOOKMARK [4][-]{section*.20}{Was ist negativ aufgefallen?}{section*.19}% 31
+\BOOKMARK [4][-]{section*.20}{Ist die App intuitiv bedienbar?}{section*.19}% 32
+\BOOKMARK [1][-]{figure.caption.21}{Benutzertest- und Interview 3}{figure.caption.15}% 33
+\BOOKMARK [2][-]{section*.22}{Wie ist der erste Eindruck?}{figure.caption.21}% 34
+\BOOKMARK [3][-]{section*.22}{Was ist positiv aufgefallen?}{figure.caption.21}% 35
+\BOOKMARK [4][-]{section*.23}{Was ist negativ aufgefallen?}{section*.22}% 36
+\BOOKMARK [4][-]{section*.23}{Ist die App intuitiv bedienbar?}{section*.22}% 37
+\BOOKMARK [0][-]{figure.caption.24}{Technische Umsetzung}{}% 38
+\BOOKMARK [1][-]{section*.25}{Speicherung der Profildaten}{figure.caption.24}% 39
+\BOOKMARK [1][-]{figure.caption.27}{Speicherung der Einstellungen}{figure.caption.24}% 40
+\BOOKMARK [1][-]{figure.caption.27}{Verwaltung des App-States}{figure.caption.24}% 41
+\BOOKMARK [1][-]{figure.caption.27}{Daten hinzuf\374gen}{figure.caption.24}% 42
+\BOOKMARK [1][-]{figure.caption.27}{Diagramme}{figure.caption.24}% 43

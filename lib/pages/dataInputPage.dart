@@ -20,6 +20,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 ///class DataInputPage
 class DataInputPage extends StatefulWidget {
   @override
+
   ///create state for DataInputPage
   _DataInputState createState() => new _DataInputState();
 }
@@ -34,6 +35,7 @@ class _DataInputState extends State<DataInputPage> {
   var loadingSubScription;
 
   @override
+
   ///init state for DataInputState
   initState() {
     super.initState();
@@ -111,7 +113,7 @@ class _DataInputState extends State<DataInputPage> {
           childButtons: childButtons),
       appBar: new AppBar(
         title: new Text(
-          "${AppTranslations.of(context).text("dataInputTitle")} [${hf.Helper.getCurrentProfileName(context)}]",
+          hf.Helper.getCurrentProfileName(context)
         ),
         actions: <Widget>[
           new ThreePointWidget(),
@@ -282,18 +284,18 @@ class _DataInputState extends State<DataInputPage> {
       color: cardBackgroundColor,
       child: new Container(
         padding: EdgeInsets.symmetric(horizontal: 15),
-        height: 100,
-        child: new Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+        height: 60,
+        child: new Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            new Text(
-              AppTranslations.of(context).text(name),
-              style: defaultTextStyle,
-            ),
-            new Text(
-              (measValue?.toStringAsFixed(1) ?? "") + " " + valInfo.unit,
-              style: defaultTextStyle,
-            ),
+              new Text(
+                AppTranslations.of(context).text(name),
+                style: defaultTextStyle,
+              ),
+              Text(
+                (measValue?.toStringAsFixed(1) ?? "") + " " + valInfo.unit,
+                style: defaultTextStyle,
+              ),
           ],
         ),
       ),

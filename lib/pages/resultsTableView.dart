@@ -34,27 +34,23 @@ class TableView extends StatelessWidget {
       list.insert(10, new Container(height: 30));
       list.insert(
         11,
-        // new Card(
-        //   color: cardBackgroundColor,
-        //   child:
         new Container(
           height: 40,
           child: new Padding(
-            padding: EdgeInsets.only(left: 5, top: 10),
+            padding: EdgeInsets.only(left: 15, top: 10),
             child: new Text(
               AppTranslations.of(context).text("adjustedValues"),
               style: titleTextStyle,
             ),
           ),
         ),
-        // ),
       );
       list.insert(
         0,
         new Container(
           height: 40,
           child: new Padding(
-            padding: EdgeInsets.only(left: 5, top: 10),
+            padding: EdgeInsets.only(left: 15, top: 10),
             child: new Text(
               AppTranslations.of(context).text("simuValues"),
               style: titleTextStyle,

@@ -15,40 +15,58 @@ class SaveView extends StatefulWidget {
 ///state for SaveView
 class _SaveViewState extends State<SaveView> {
   @override
+
   ///build for SaveView
   Widget build(BuildContext context) {
-    return new Card(
-      color: cardBackgroundColor,
-      child: new Container(
-        padding: EdgeInsets.all(15),
-        child: new ScopedModelDescendant<AppModel>(
-            builder: (context, child, model) {
-          return new TextField(
-            onChanged: (String text) {
-              model.setComment(text);
-              DatabaseHelper.instance.saveProfile(model.getProfile());
-            },
-            minLines: 4,
-            maxLines: null,
-            decoration: new InputDecoration(
-              hintText: AppTranslations.of(context).text("addDescription"),
-              filled: true,
-              fillColor: Colors.white,
-              border: new OutlineInputBorder(
-                borderRadius: new BorderRadius.circular(5.0),
-                borderSide: new BorderSide(),
-              ),
+    return new Column(
+      children: <Widget>[
+        new Container(
+          height: 40,
+          child: new Container(
+            alignment: Alignment.centerLeft,
+            padding: EdgeInsets.only(left: 15, top: 10),
+            child: new Text(
+              AppTranslations.of(context).text("notesTitle"),
+              style: titleTextStyle,
             ),
-            keyboardType: TextInputType.multiline,
-            style: greyTextStyle,
-            controller: new TextEditingController.fromValue(
-                new TextEditingValue(
-                    text: model.getProfile().comment ?? '',
-                    selection: new TextSelection.collapsed(
-                        offset: model.getProfile().comment != null ? model.getProfile().comment.length : 0))),
-          );
-        }),
-      ),
+          ),
+        ),
+        Card(
+          color: cardBackgroundColor,
+          child: new Container(
+            padding: EdgeInsets.all(15),
+            child: new ScopedModelDescendant<AppModel>(
+                builder: (context, child, model) {
+              return new TextField(
+                onChanged: (String text) {
+                  model.setComment(text);
+                  DatabaseHelper.instance.saveProfile(model.getProfile());
+                },
+                minLines: 4,
+                maxLines: null,
+                decoration: new InputDecoration(
+                  hintText: AppTranslations.of(context).text("addDescription"),
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: new OutlineInputBorder(
+                    borderRadius: new BorderRadius.circular(5.0),
+                    borderSide: new BorderSide(),
+                  ),
+                ),
+                keyboardType: TextInputType.multiline,
+                style: greyTextStyle,
+                controller: new TextEditingController.fromValue(
+                    new TextEditingValue(
+                        text: model.getProfile().comment ?? '',
+                        selection: new TextSelection.collapsed(
+                            offset: model.getProfile().comment != null
+                                ? model.getProfile().comment.length
+                                : 0))),
+              );
+            }),
+          ),
+        ),
+      ],
     );
   }
 }
