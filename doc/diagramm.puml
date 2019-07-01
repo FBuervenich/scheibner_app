@@ -75,6 +75,7 @@ class "ScheibnerSim::commonWidgets::charts::chartInitializer.dart::MeasChartValu
   +String key
   +String localization
   +String shortcut
+  +String unit
   +Color color
   +double measValue
   +double simValue
@@ -118,13 +119,12 @@ class "ScheibnerSim::components::threePointMenu.dart::ThreePointWidget" {
 class "ScheibnerSim::components::threePointMenu.dart::CustomPopupMenu" {
   +String title
   +IconData icon
-  -CustomPopupMenu _selectedChoices
+  +int selectedChoice
   -void _select()
   +Widget build()
 }
 
 "ScheibnerSim::components::threePointMenu.dart::CustomPopupMenu" o-- "flutter::src::widgets::icon_data.dart::IconData"
-"ScheibnerSim::components::threePointMenu.dart::CustomPopupMenu" o-- "ScheibnerSim::components::threePointMenu.dart::CustomPopupMenu"
 "flutter::src::widgets::framework.dart::State<T>" <|-- "ScheibnerSim::components::threePointMenu.dart::CustomPopupMenu"
 
 class "ScheibnerSim::components::threePointMenu.dart::SelectedOption" {
@@ -330,12 +330,14 @@ class "ScheibnerSim::pages::preferencesPage.dart::PreferencesPage" {
 "flutter::src::widgets::framework.dart::StatefulWidget" <|-- "ScheibnerSim::pages::preferencesPage.dart::PreferencesPage"
 
 class "ScheibnerSim::pages::preferencesPage.dart::PreferencesPageState" {
-  {static} +List<String> languagesList
-  {static} +List<String> languageCodesList
-  +Map languagesMap
-  +String label
+  +String currentInputAppearance
+  +String currentLanguage
   +void initState()
   +void onLocaleChange()
+  +void changedInputAppearance()
+  +void changedLanguage()
+  +List getDropDownMenuItemsInputAppearance()
+  +List getDropDownMenuItemsLanguage()
   +Widget build()
 }
 
@@ -357,6 +359,7 @@ class "ScheibnerSim::pages::profilePage.dart::_ProfiletState" {
   -List<ReducedProfile> _profiles
   +DatabaseHelper dbHelper
   -TextEditingController _textFieldController
+  -TextEditingController _textFieldProfileChangeController
   +void initState()
   -void _reloadProfiles()
   +Widget build()
@@ -365,9 +368,9 @@ class "ScheibnerSim::pages::profilePage.dart::_ProfiletState" {
   -Widget _makeCard()
   -String _dateToString()
   -dynamic _openProfile()
+  -dynamic _displayChangeProfileNameDialog()
   -dynamic _displayNewProfileNameDialog()
   -Widget _getDeleteIconColumn()
-  -void _initalizePreferencesValues()
 }
 
 "ScheibnerSim::pages::profilePage.dart::_ProfiletState" o-- "ScheibnerSim::helpers::database_helpers.dart::DatabaseHelper"
@@ -379,7 +382,6 @@ class "ScheibnerSim::pages::resultsChartView.dart::ChartView" {
   +List<String> legendItems
   +double legendwidth
   +Widget build()
-  +Widget buildLegend()
   +Widget buildCharts()
 }
 
@@ -405,6 +407,7 @@ class "ScheibnerSim::pages::resultsSaveView.dart::_SaveViewState" {
 
 class "ScheibnerSim::pages::resultsTableView.dart::TableView" {
   +Widget build()
+  -ListView _createListView()
   -Widget _createSimValueList()
 }
 
@@ -421,6 +424,7 @@ class "ScheibnerSim::pages::simulationPage.dart::_SimulationState" {
   -Map<String, double> _sliderValues
   +Widget build()
   -List _createSliderList()
+  +Container getContainerSpacer()
   -List _createTextBoxList()
   +void dispose()
 }
