@@ -27,13 +27,13 @@ class ChartView extends StatelessWidget {
         return new LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
             listItems = init.getResultChartViewData();
-            legendItems = ["Lenkkopfwinkel =", "gabellänge l"];
             // ListViewBuilder
             return 
                 new Container(
                   width: constraints.maxWidth,
                   height: constraints.maxHeight,
                   child: new ListView.builder(
+                    physics: new BouncingScrollPhysics(),
                     itemCount: listItems.length,
                     itemBuilder: (BuildContext ctxt, int index) {
                       return buildCharts(ctxt, index, constraints);
