@@ -1,12 +1,13 @@
 # CMS-Simulation
 ## Scheibner m‐tec GmbH
-## Scheibner m‐tec GmbH
 
 ## Introduction
 This project is part of the evaluation of the course ‘Mobile Information Systems’, in the summer semester
 2019, started at April 8th 2019. The result of this project counts for 50% of the total result of the
 evaluation.
 The project is carried out in groups of maximum 3 students.
+
+See the documentation [here](https://github.com/FBuervenich/scheibner_app/blob/master/FinaleAbgabe/Doku.pdf)
 
 ## Context
 Das Scheibner mega‐m.a.x‐System dient vorzugsweise zur Diagnose der Motorradrahmen nach Unfällen
